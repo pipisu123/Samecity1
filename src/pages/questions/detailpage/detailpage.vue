@@ -69,6 +69,22 @@
 				</view>
 			</view>
 		</view>
+		<view class="daoh">
+        <u-search :show-action="false" action-text="" :animation="false"></u-search>
+		<view class=""style="display: flex;justify-content: space-between;">
+			<view class="" style="display: flex;">
+				<view class="" style="display: flex;align-items: center;">
+					<u-icon name="zhuanfa"  size="50"></u-icon>
+				</view>
+				<view class="" style="display: flex;align-items: center;margin-left: 50rpx;">
+					<u-icon name="chat"  size="50"></u-icon>
+				</view>
+			</view>
+			<view class="" style="display: flex;align-items: center;margin-left: 50rpx;">
+				<u-icon name="star"  size="50"></u-icon>
+			</view>
+		</view>
+	</view>
 	</view>
 </template>
 
@@ -76,6 +92,7 @@
 export default {
 	data() {
 		return {
+			keyword: '',
 			commentList: []
 		};
 	},
@@ -168,6 +185,18 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+	.daoh{
+		width: 100%;
+		background-color: #FFFFFF;
+		padding: 40rpx 20rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		position:fixed;
+		left: 0rpx;
+		// right: 20rpx;
+		bottom: 0rpx;
+	}
 .comment {
 	display: flex;
 	padding: 30rpx;
