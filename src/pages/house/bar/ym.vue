@@ -51,7 +51,6 @@
 				<view class="money">
 					<text>{{item.money}}元/月</text>
 				</view>
-				
 			</view>
 			<view>	
 			</view>

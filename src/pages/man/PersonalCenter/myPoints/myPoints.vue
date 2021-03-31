@@ -130,7 +130,7 @@
 										title:'付款成功'
 									})
 									uni.navigateTo({
-										url:'/pages/man/PersonalCenter/myPoints/integralOrder/integralOrder'
+										url:'/pages/man/PersonalCenter/me'
 									})
 							    },
 							    fail: function (err) {

@@ -28,7 +28,7 @@
 				<u-input :border="border" placeholder="请输入面积" v-model="model.phone" type="text"></u-input>
 			</u-form-item>
 			<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition" label="产权年限" prop="chan">
-				<u-input :border="border" placeholder="请输入产权年限" v-model="model.chan" type="text"></u-input>
+				<u-input :border="border" placeholder="请输入产权年限" v-model="model.chan" type="select" :select-open="selectShow8" @click="selectShow8 = true"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="选择装修" prop="wagesType" label-width="150" color="#a0cfff">
 				<u-input :border="border" type="select" :select-open="selectShow1" v-model="model.wagesType" placeholder="请选择装修" @click="selectShow1 = true"></u-input>
@@ -83,6 +83,7 @@
 		<u-action-sheet :list="actionSheetList" v-model="actionSheetShow" @click="actionSheetCallback"></u-action-sheet>
 		<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectConfirm"></u-select>
 		<u-select mode="single-column" :list="selectList1" v-model="selectShow1" @confirm="selectConfirm1"></u-select>
+		<u-select mode="single-column" :list="selectList8" v-model="selectShow8" @confirm="selectConfirm8"></u-select>
 		<u-select mode="single-column" :list="selectList5" v-model="selectShow5" @confirm="selectConfirm5"></u-select>
 		<u-select mode="single-column" :list="selectList7" v-model="selectShow7" @confirm="selectConfirm7"></u-select>
 		<u-select mode="single-column" :list="selectList4" v-model="selectShow4" @confirm="selectConfirm4"></u-select>
@@ -100,7 +101,7 @@
 import uploadvideo from '../../components/easy-upload.vue'
 import uSearch from '../../components/userzero-search.vue'
 	
-import { addLease } from '../../../util/house.js'
+import { addSecondHand } from '../../../util/house.js'
 import { findAllCommunityByCity } from '../../../util/house/arealist.js'
 
 export default {
@@ -133,7 +134,6 @@ export default {
 				phone:'',
 				wechat:'',
 				wagesType: '',
-				
 				zuf:'',
 				worktime: '',
 				goodsType: '',
@@ -166,6 +166,7 @@ export default {
 				loceng:'',
 				locengId:'',
 				chan:'',
+				chanId:'',
 				intro: '',
 				seehouseId:'',
 				region: '',
@@ -174,7 +175,7 @@ export default {
 				lasttime: '',
 				count: '',
 				coun: '',
-			
+			    propertyRightId:'',
 				deposit:'',
 				payment:'',
 				industry:'',
@@ -464,6 +465,25 @@ export default {
 					label: '其他房产'
 				},
 			],
+			selectList8: [
+				{
+					value: '0',
+					label: '2年内'
+				},
+				{
+					value: '1',
+					label: '2-5年'
+				},
+				{
+					value: '2',
+					label: '5-10年'
+				},
+				{
+					value: '3',
+					label: '10年以上'
+				},
+				
+			],
 			actionSheetList: [
 			{
 				id:'1',
@@ -521,6 +541,7 @@ export default {
 			selectShow5:false,
 			selectShow6:false,
 			selectShow7:false,
+			selectShow8:false,
 			selectShow3:true,
 			show: false,
 			zoom: false,
@@ -631,7 +652,7 @@ export default {
 			   console.log(this.model.deposit)
 			this.$refs.uForm.validate(valid => {
 					if (valid) {
-						// 1.上传视频成功后再调用上传图片，循环调用用接口
+						// 1.上传图片，循环调用用接口
 							for(let i=0;i<=this.model.photo.length;i++){
 								uni.uploadFile({
 								  url: 'http://192.168.101.74:8080/sys/uploadImgFile',
@@ -656,7 +677,7 @@ export default {
 							}
 						// 2.先调用上传视频接口
 						uni.uploadFile({
-						  url: '/house/second-hand/addSecondHand',
+						  url: 'http://192.168.101.74:8080/sys/uploadVideoFile',
 						  method: 'POST',           // 可用可不用
 						  filePath: this.model.video,
 						  header:{
@@ -670,9 +691,9 @@ export default {
 						  let data = JSON.parse(res.data)
 						  this.src = data.data
 						  // 3.最后调用上传所有房源基本信息接口
-						  addLease({
+						  addSecondHand({
 						  	"canLookTime": this.model.seehouseId,//看房时间
-						  	 "leaseType":this.model.zufId,//租房类型
+						  	 // "leaseType":this.model.zufId,//租房类型
 						  	"checkInCondition":'',//入住条件
 						  	"checkInTime":'2021-03-06',//看房时间
 						  	"communityId":this.model.communityId,//小区
@@ -690,10 +711,15 @@ export default {
 						  	"money":this.model.count,//价钱
 						  	"square":this.model.phone,//面积
 						  	"title": this.model.name,//标题
-							
 						  	"hallNum":this.model.hallNum,//厅
 						  	"roomNum":this.model.roomNum,//房
-						  	"bathroomNum":this.model.bathroomNum,//卫		
+						  	"bathroomNum":this.model.bathroomNum,//卫	
+							"service":'', //服务
+							"sellingPoint":'',//卖点
+							"propertyRightId":this.model.propertyRightId, //产权性质id
+							"propertyAge":this.model.chanId,//产权年限
+							"onlyOne":this.model.zufId,//唯一住房0否 1是
+							"mentality":'',//心态
 						  	 "videoFile":this.src,//视频
 						  	"imgFiles": this.images//图片
 						  }).then(res=>{
@@ -794,7 +820,7 @@ export default {
 			
 			console.log(e)
 		},
-		// 选择租房类型回调
+		// 选择是否唯一回调
 		selectConfirm5(e) {
 			this.model.zuf = '';
 			this.model.zufId = e[0].value
@@ -823,44 +849,29 @@ export default {
 				this.model.seehouseId = e[index].value
 			})
 		},
-		// 选择付款方式回调
+		// 选择产权性质回调
 		selectConfirm7(e){
 			this.model.coun = '';
+			console.log(e)
 			e.map((val, index) => {
 				this.model.coun += this.model.coun == '' ? val.label : '-' + val.label;
 				
 			})
 			console.log(e[0].value)
-			if(e[0].value === '0'){
-				this.model.deposit = 1;
-				this.model.payment = 1;
-			}else if(e[0].value === '1'){
-				this.model.deposit = 1;
-				this.model.payment = 2;
-			}else if(e[0].value === '2'){
-				this.model.deposit = 2;
-				this.model.payment = 1;
-			}else if(e[0].value === '3'){
-				this.model.deposit = 2;
-				this.model.payment = 2;
-			}else if(e[0].value === '4'){
-				this.model.deposit = 1;
-				this.model.payment = 3;
-			}else if(e[0].value === '5'){
-				this.model.deposit = 3;
-				this.model.payment = 1;
-			}else if(e[0].value === '6'){
-				this.model.deposit = 2;
-				this.model.payment = 3;
-			}else if(e[0].value === '7'){
-				this.model.payment = 6;
-			}else if(e[0].value === '8'){
-				this.model.payment = 12;
-			}else if(e[0].value === '9'){
-				this.model.deposit = 1;
-				this.model.payment = 12;
-			}
-			console.log(this.model.deposit)
+			this.model.propertyRightId = e[0].value
+			
+		},
+		// 选择产权性质回调
+		selectConfirm8(e){
+			this.model.chan = '';
+			console.log(e)
+			e.map((val, index) => {
+				this.model.chan += this.model.chan == '' ? val.label : '-' + val.label;
+				
+			})
+			console.log(e[0].value)
+			this.model.chanId = e[0].value
+			
 		},
 		borderChange(index) {
 			this.border = !index;

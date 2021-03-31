@@ -102,7 +102,7 @@
 		<u-select mode="mutil-column" :list="selectList2" v-model="selectShow2" @confirm="selectConfirm2"></u-select>
 		<u-toast ref="uToast" />
 		<!-- <u-button @click="submit" type="primary" v-if="showview">立即发布</u-button> -->
-		<u-button @click="submit" type="primary">立即发布</u-button>
+		<u-button @click="submit" type="primary" throttle-time=3000>立即发布</u-button>
 	</view>
 	
 </view>
@@ -759,11 +759,13 @@ export default {
 			console.log(files[0].url);
 			console.log(this.model.photo)
 		},
-		// 创建企业招聘信息
+		// 发布租房房源信息
 	       submit() {
-			   console.log(this.model.deposit)
 			this.$refs.uForm.validate(valid => {
 					if (valid) {
+						uni.showLoading({
+							title:'发布中...'
+						})
 						// 1.上传视频成功后再调用上传图片，循环调用用接口
 							for(let i=0;i<=this.model.photo.length;i++){
 								uni.uploadFile({
@@ -830,7 +832,10 @@ export default {
 						  	"imgFiles": this.images//图片
 						  }).then(res=>{
 						  	console.log(res)
-						  	
+							uni.hideLoading()
+							uni.reLaunch({
+								url:'/pages/house/house'
+							})
 						  }).catch(err=>{
 						  	console.log(err)
 						  })	    

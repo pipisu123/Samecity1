@@ -1,45 +1,22 @@
 <template>
 	<view class="news">
-		<view class="new-items" @click="goDetail">
-			<image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1358193358,3195625911&fm=26&gp=0.jpg" mode=""></image>
+		<view class="new-items" @click="goDetail" v-for="(item,index) in houselist" :key="index">
+			<image :src="item.img" mode=""></image>
 			<view class="right">
 				<view class="title">
-					<text>出售|</text>
-					<text class="worktype">双山二路花园小区 4室2厅2卫</text>
+					<text class="worktype">{{item.title}}</text>
+					<!-- <text class="worktype">双山二路花园小区 4室2厅2卫</text> -->
 				</view>
 				<view class="industry">
-					<text>4室.360㎡|东| 双山二路花园小区</text>
+					<text>{{item.roomNum}}室.{{item.square}}㎡|{{item.orientation}}| {{item.community}}</text>
 				</view>
 				
 				<view class="wags">
-					个人|南北通透|电梯房
+					{{item.identityType}}|{{item.elevator}}
 					</view>
-					<view class="wrap">
-						<u-row gutter="16">
-							<u-col span="4">
-								<view class="demo-layout bg-purple">
-									<text>押一付一</text>
-								</view>
-							</u-col>
-							<u-col span="4">
-								<view class="demo-layout bg-purple-light">
-									<text>精装修</text>
-								</view>
-							</u-col>
-							<u-col span="4">
-								<view class="demo-layout bg-purple-dark">
-									<text>随时看房</text>
-								</view>
-							</u-col>
-						</u-row>
-						</u-row>
-					</view>
-				<view>208万</view>
-				
+				<view class="money">{{item.money}}万</view>
 			</view>
 			<view>
-				
-				
 			</view>
 		</view>
 	</view>
@@ -47,12 +24,12 @@
 
 <script>
 	export default {
-		// props: {
-		// 	list: {
-		// 		type: Array,
-		// 		default: null
-		// 	}
-		// },
+		props: {
+			houselist: {
+				type: Array,
+				default: null
+			}
+		},
 		data() {
 			return {
 				src: null,
@@ -123,7 +100,7 @@
 			}
 
 			.right {
-				width: 400rpx;
+				width: 100%;
 				margin-left: 15rpx;
 				margin-right: 40rpx;
 
@@ -135,14 +112,24 @@
 					font-weight: bold;
 					font-size: 28rpx;
 					display: flex;
-
+					flex-wrap: wrap;
 					.worktype {
-						margin-left: 30rpx;
-						color: #999999;
-						font-size: 20rpx;
-						padding: 3px;
+						font-size: 28rpx;
+						overflow:hidden;
+						display: -webkit-box;
+						/*设置为弹性盒子*/
+						-webkit-line-clamp: 2;
+						/*最多显示x行*/
+						text-overflow: ellipsis;
+						/*超出显示为省略号*/
+						-webkit-box-orient: vertical;
 					}
 
+				}
+				.money{
+					color: #ff0000;
+					font-weight: bold;
+					font-size: 25rpx;
 				}
 			}
 

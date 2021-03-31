@@ -74,11 +74,6 @@
 
 <script>
 	import page from '../resold/page.vue';
-	
-
-
-
-
 	export default {
 		data() {
 			return {
@@ -252,7 +247,7 @@
 		},
 		onLoad() {
 			this.$myRequest({
-				url: '/solr-query/house/leaseQuery',//url就是放接口的地址的   
+				url: '/solr-query/house/secondHandQuery',//url就是放接口的地址的   
 				method: "GET",//method是放GET或者POST的   不写的话默认POST  看接口文档 根据接口文档写
 				data:{
 					city:'茂名',
