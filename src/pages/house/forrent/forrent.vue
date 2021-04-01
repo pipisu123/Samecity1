@@ -811,16 +811,16 @@ export default {
 						  	"checkInCondition":'',//入住条件
 						  	"checkInTime":'2021-03-06',//看房时间
 						  	"communityId":this.model.communityId,//小区
-						  	"decorationId":this.model.decorationId,//装修id
+						  	"decoration":this.model.decorationId,//装修id
 						  	"deposit":this.model.deposit,//押金
 						  	"payment":this.model.payment,//付款数
 						  	"elevator": this.model.cou,//电梯
-						  	"floorId":this.model.locengId,//楼层
+						  	"floor":this.model.locengId,//楼层
 						  	"floorNum":this.model.lasttime,//总楼层
 						  	"generalize":this.model.intro,//房屋概况
-						  	"houseTypeId":this.model.houseTypeId,//房屋类型
+						  	"houseType":this.model.houseTypeId,//房屋类型
 						  	"identityType":1,//发布类型
-						  	"orientationId":this.model.orientationId,
+						  	"orientation":this.model.orientationId,
 						  	"money":this.model.count,//价钱
 						  	"square":this.model.phone,//面积
 						  	"title": this.model.name,//标题

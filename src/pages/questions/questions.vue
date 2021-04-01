@@ -1,98 +1,132 @@
 <template>
 	<view>
-		<view class="" style="width: 690rpx;margin: 20rpx 30rpx;">
-			<u-search placeholder="日照香炉生紫烟" animation v-model="keyword"></u-search>
-		</view>
-		<u-tabs :list="list" :is-scroll="false" bar-width="60" font-size="26" active-color="#00a95c" :current="current" @change="change"></u-tabs>
-		<view class="" style="width: 690rpx;margin: 20rpx 30rpx;">
-			<view class="" style="width: 690rpx;padding: 20rpx 20rpx;box-sizing: border-box;" @click="godetail">
-				<view class=""  style="display: flex;align-items: center;">
-					<image src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs10.sinaimg.cn%2Fmiddle%2F4a8ee5a3t8da2e58b9f09%26690&refer=http%3A%2F%2Fs10.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1619421539&t=3257f544d9187916d47eddc4bd69cf27" style="width: 80rpx;height: 80rpx;border-radius: 50rpx;" mode=""></image>
-				<view class="" style="font-size: 28rpx;margin-left: 20rpx;">
-					猫屎天使or猫屎魔鬼
-				</view>
-				</view>
-				<view class=""  style="font-size: 30rpx;margin: 20rpx 0;">
-					猫屎天使or猫屎魔鬼
-				</view>
-				<view class="" style="display: flex;flex-wrap: wrap;">
-					<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3346927711,3356608027&fm=11&gp=0.jpg" style="width: 190rpx;height: 190rpx;margin-left: 10rpx;margin-bottom: 10rpx;" mode=""></image>
-					<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3346927711,3356608027&fm=11&gp=0.jpg" style="width: 190rpx;height: 190rpx;margin-left: 10rpx;margin-bottom: 10rpx;" mode=""></image>
-					<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3346927711,3356608027&fm=11&gp=0.jpg" style="width: 190rpx;height: 190rpx;margin-left: 10rpx;margin-bottom: 10rpx;" mode=""></image>
-				</view>
-				<view class="" style="padding: 10rpx 10rpx;border-radius: 30rpx;background-color: #f7f7f7;width: 100rpx;text-align: center;font-size: 26rpx;margin-top: 10rpx;">
-					猫屎吧
-				</view>
-				<view class=""style="display: flex;justify-content: space-between;margin-top: 30rpx;">
-					<view class="" style="display: flex;">
-						<view class="" style="display: flex;align-items: center;">
-							<u-icon name="zhuanfa"  size="30"></u-icon>
-							<view style="font-size: 26rpx;margin-left: 20rpx;">100</view>
-						</view>
-						<view class="" style="display: flex;align-items: center;margin-left: 50rpx;">
-							<u-icon name="chat"  size="30"></u-icon>
-							<view style="font-size: 26rpx;margin-left: 20rpx;">2016</view>
-						</view>
-					</view>
-					<view class="" style="display: flex;align-items: center;margin-left: 50rpx;">
-						<u-icon name="thumb-up"  size="30"></u-icon>
-						<view style="font-size: 26rpx;margin-left: 20rpx;">2016</view>
-					</view>
+		<!-- 返回到首页 -->
+		<template v-if="show">
+			<view class="">
+				
+			</view>
+		</template>
+
+		<!-- 问题广场 -->
+		<template v-else-if="show1">
+			<view>
+				<view class="">
+					<queSquare></queSquare>
 				</view>
 			</view>
-			<bottombar></bottombar>
-		</view>
-	
+		</template>
+		<!-- 问题发布 -->
+		<template v-else-if="show2">
+			<view>
+				<qusetionPub></qusetionPub>
+			</view>
+		</template>
+		<!-- 通知信息 -->
+		<template v-else-if="show3">
+			<view class="ss">
+				第四页
+			</view>
+		</template>
+		<!-- 问题个人中心 -->
+		<template v-else-if="show4">
+			<view class="me">
+				第五页
+			</view>
+		</template>
+
+		<!-- 底部导航栏 -->
+		<Bottombar @Clickitem="Clickitem"></Bottombar>
 	</view>
+
 </template>
 
 <script>
-	import bottombar from '../questions/bottombar.vue'
+	import Bottombar from '../questions/bottombar.vue'
+	import queSquare from './questionSquare/questionSquare.vue'
+	import qusetionPub from './questionPub/qustionPub.vue'
 	export default {
 		data() {
 			return {
-				keyword: '遥看瀑布挂前川',
-				list: [{
-					name: '推荐'
-				},
-				{
-					name: '游戏'
-				},
-				{
-					name: '动漫',
-					// count: 5
-				},
-				{
-					name: '体育'
-				},
-				{
-					name: '情感'
-				},
-				{
-					name: '文学'
-				},
-				],
-				current: 0
+				show: false,
+				show1: true,
+				show2: false,
+				show3: false,
+				show4: false,
 			}
 		},
-		components:{
-			bottombar
+		components: {
+		   Bottombar,
+		   queSquare,
+		   qusetionPub
+		},
+		onLoad() {
+			
+		},
+		created() {
+
+		},
+		
+		watch: {
+			// 这里的演示为证明通过v-model绑定值，它是双向绑定的，意味着您无需监听change事件
+			// 也能知道value值当前的内容
+			value(val) {
+				// console.log(val);
+			}
 		},
 		methods: {
-			godetail(){
-				uni.navigateTo({
-					url:'/pages/questions/detailpage/detailpage'
-				})
+			
+			Clickitem(index) {
+				console.log(index)
+				switch (index) {
+					case 0:
+						this.show = true;
+						this.show1 = false;
+						this.show2 = false;
+						this.show3 = false;
+						this.show4 = false;
+						this.callback();
+						break;
+					case 1:
+						this.show = false;
+						this.show1 = true;
+						this.show2 = false;
+						this.show3 = false;
+						this.show4 = false;
+						break;
+					case 2:
+						this.show = false;
+						this.show1 = false;
+						this.show2 = true;
+						this.show3 = false;
+						this.show4 = false;
+						break;
+					case 3:
+						this.show = false;
+						this.show1 = false;
+						this.show2 = false;
+						this.show3 = true;
+						this.show4 = false;
+						break;
+					case 4:
+						this.show = false;
+						this.show1 = false;
+						this.show2 = false;
+						this.show3 = false;
+						this.show4 = true;
+						break;
+				}
 			},
-			change(index) {
-				this.current = index;
-					
-				
+			// 返回到首页
+			callback(){
+				uni.reLaunch({
+					url:'/pages/index/index'
+				})
 			}
+
 		}
 	}
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+	
 </style>
