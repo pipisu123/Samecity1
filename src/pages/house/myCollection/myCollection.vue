@@ -14,7 +14,10 @@
 						<text class="worktype">茂名保利东湾</text>
 					</view>
 					<view class="industry">
-						<text>面积：66-227㎡|茂南区|茂南</text>
+						<text>66-227㎡</text>
+					</view>
+					<view>
+						<text>|茂南区|茂南</text>
 					</view>
 					<view class="" style="">8500元/㎡</view>
 
