@@ -9,7 +9,7 @@
 				<view class=""  style="display: flex;align-items: center;">
 					<image src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs10.sinaimg.cn%2Fmiddle%2F4a8ee5a3t8da2e58b9f09%26690&refer=http%3A%2F%2Fs10.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1619421539&t=3257f544d9187916d47eddc4bd69cf27" style="width: 80rpx;height: 80rpx;border-radius: 50rpx;" mode=""></image>
 				<view class="" style="font-size: 28rpx;margin-left: 20rpx;">
-					猫屎天使or猫屎魔鬼
+					猫屎天使or猫屎魔
 				</view>
 				</view>
 				<view class=""  style="font-size: 30rpx;margin: 20rpx 0;">
