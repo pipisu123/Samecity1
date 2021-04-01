@@ -712,6 +712,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/house/myCollection/myCollection",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

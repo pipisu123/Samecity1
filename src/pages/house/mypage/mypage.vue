@@ -99,7 +99,7 @@
 						</view>
 						<text class="txt">我的点评</text>
 					</view>
-					<view class="item">
+					<view class="item" @click="myCollection">
 						<view class="border">
 							<image class="img" src="../../../static/5.png" style="width: 60rpx; height: 60rpx;"></image>
 						</view>
@@ -240,6 +240,11 @@
 					url:'/pages/house/myrelease/myrelease'//这个是跳转的路径
 				})
 			},
+			myCollection(){
+				uni.navigateTo({//这个是跳转的方法
+					url:'/pages/house/myCollection/myCollection'//这个是跳转的路径
+				})
+			},
 			// 经纪人发布
 			// Brokerrelease(){
 			// 	uni.navigateTo({
@@ -268,7 +273,7 @@
 			// 我的收藏
 			myCollection(){
 				uni.navigateTo({
-					url:'/pages/man/PersonalCenter/myCollection/myCollection'
+					url:'/pages/house/myCollection/myCollection'
 				})
 			},
 			// 完善资料
