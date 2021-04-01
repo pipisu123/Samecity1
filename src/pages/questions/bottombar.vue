@@ -38,7 +38,7 @@
 					{
 						iconPath: "chat",
 						selectedIconPath: "chat-fill",
-						text: '消息',
+						text: '通知',
 						count: 9,
 						customIcon: false,
 						index:3
@@ -52,7 +52,7 @@
 						index:4
 					},
 				],
-				current: ''
+				current: 1
 			}
 		},
 		methods:{

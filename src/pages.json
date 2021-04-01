@@ -698,7 +698,7 @@
             "path" : "pages/questions/questions",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "问答",
                 "enablePullDownRefresh": false
             }
             
