@@ -32,8 +32,8 @@
 			return {
 				border: true,
 				labelPosition: 'top',
-				images:[], //后端返回的图片路径
-				src:'', //后端返回的视频路径
+				images: [], //后端返回的图片路径
+				src: '', //后端返回的视频路径
 				form: {
 					title: '',
 					intro: '',
@@ -72,67 +72,79 @@
 				}
 				console.log(this.form.photo);
 			},
-			getPath(e){
+			getPath(e) {
 				this.form.video = e
 			},
 			public() {
 				this.$refs.uForm.validate(valid => {
 					if (valid) {
-						// 1.调用上传图片，循环调用用接口
-						for (let i = 0; i <= this.form.photo.length; i++) {
+						// 1.先调用上传视频接口
+						if (this.form.photo.length === 0 && this.form.video === '') {
+							addQuestion({
+							"content": this.form.intro,
+							"reward": 0,
+							"title": this.form.title,
+							}).then(res => {
+								console.log(res)
+							}).catch(err => {
+								console.log(err)
+							})
+						} else {
 							uni.uploadFile({
-								url: 'http://192.168.101.74:8080/sys/uploadImgFile',
+								url: 'http://192.168.101.74:8080/sys/uploadVideoFile',
 								method: 'POST', // 可用可不用
-								filePath: this.form.photo[i],
+								filePath: this.form.video,
 								header: {
 									"Content-Type": "multipart/form-data",
 									"authorization": uni.getStorageSync('token'),
 								},
 								name: 'file', // 服务器定义key字段名称
 								success: (res) => {
-									console.log(res)
-									var ob = JSON.parse(res.data);
-									console.log(ob)
-									this.images.push(ob.data)
-									console.log(this.images)
+									console.log('视频上传成功');
+									// console.log(res);
+									let data = JSON.parse(res.data)
+									this.src = data.data
+
 								},
-								// fail: function() {
-								// 	console.log('接口调用失败')
-								// }
 							})
-						}
-						// 2.先调用上传视频接口
-						uni.uploadFile({
-							url: 'http://192.168.101.74:8080/sys/uploadVideoFile',
-							method: 'POST', // 可用可不用
-							filePath: this.form.video,
-							header: {
-								"Content-Type": "multipart/form-data",
-								"authorization": uni.getStorageSync('token'),
-							},
-							name: 'file', // 服务器定义key字段名称
-							success: (res) => {
-								console.log('视频上传成功');
-								console.log(res);
-								let data = JSON.parse(res.data)
-								this.src = data.data
-								// 3.最后调用上传所有信息接口
-								addQuestion({
-									"content": this.form.intro,
-									"pictures": this.images,
-									"reward": 0,
-									"title": this.form.title,
-									"video": this.src,
-								}).then(res=>{
-									console.log(res)
-								}).catch(err=>{
-									console.log(err)
+
+							// 2.调用上传图片，循环调用用接口
+							for (let i = 0; i <= this.form.photo.length; i++) {
+								uni.uploadFile({
+									url: 'http://192.168.101.74:8080/sys/uploadImgFile',
+									method: 'POST', // 可用可不用
+									filePath: this.form.photo[i],
+									header: {
+										"Content-Type": "multipart/form-data",
+										"authorization": uni.getStorageSync('token'),
+									},
+									name: 'file', // 服务器定义key字段名称
+									success: (res) => {
+										console.log(res)
+										var ob = JSON.parse(res.data);
+										console.log(ob)
+										this.images.push(ob.data)
+										console.log(this.images)
+										console.log(this.src)
+										if (i === this.form.photo.length - 1) {
+											console.log("======================")
+											addQuestion({
+												"content": this.form.intro,
+												"pictures": this.images,
+												"reward": 0,
+												"title": this.form.title,
+												"video": this.src,
+											}).then(res => {
+												console.log(res)
+											}).catch(err => {
+												console.log(err)
+											})
+										}
+									},
 								})
-							},
-							// fail: function() {
-								
-							// }
-						})
+							}
+							// 
+						}
 					}
 				})
 			}
