@@ -721,6 +721,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/questions/questionSquare/allComment/allComment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "评论",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

@@ -6,7 +6,7 @@
 		<u-tabs :list="list" :is-scroll="false" bar-width="60" font-size="26" active-color="#00a95c" :current="current" @change="change"></u-tabs>
 		<view class="content" style="width: 690rpx;margin: 20rpx 30rpx;" v-for="(item,index) in questionList" :key="index">
 			<view class="" style="width: 690rpx;padding: 20rpx 20rpx;box-sizing: border-box;">
-				<view @click="godetail">
+				<view @click="godetail(item.questionId)">
 					<view class=""  style="display: flex;align-items: center;">
 						<image :src="item.imgPath" style="width: 80rpx;height: 80rpx;border-radius: 50rpx;" mode=""></image>
 					<view class="" style="font-size: 28rpx;margin-left: 20rpx;">
@@ -103,9 +103,9 @@
 					current: imgArr[0]
 				});
 			},
-			godetail(){
+			godetail(questionId){
 				uni.navigateTo({
-					url:'/pages/questions/detailpage/detailpage'
+					url:'/pages/questions/detailpage/detailpage?questionId='+questionId
 				})
 			},
 			change(index) {

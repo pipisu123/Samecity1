@@ -30,7 +30,7 @@
 		<!-- 问题个人中心 -->
 		<template v-else-if="show4">
 			<view class="me">
-				第五页
+				<personCenter></personCenter>
 			</view>
 		</template>
 
@@ -44,6 +44,7 @@
 	import Bottombar from '../questions/bottombar.vue'
 	import queSquare from './questionSquare/questionSquare.vue'
 	import qusetionPub from './questionPub/qustionPub.vue'
+	import personCenter from './personCenter/personCenter.vue'
 	export default {
 		data() {
 			return {
@@ -57,7 +58,8 @@
 		components: {
 		   Bottombar,
 		   queSquare,
-		   qusetionPub
+		   qusetionPub,
+		   personCenter
 		},
 		onLoad() {
 			

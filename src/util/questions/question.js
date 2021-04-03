@@ -17,3 +17,11 @@ export function findQuestionAll(data){
 		data:data	
 	})
 }
+//根据问题id查找问题详细数据
+export function findQuestionById(data){
+	return myRequest ({
+		url:'question/question/findQuestionById',
+		method:'POST',
+		data:data	
+	})
+}

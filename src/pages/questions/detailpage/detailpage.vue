@@ -1,25 +1,21 @@
 <template>
 	<view style="padding: 30rpx 30rpx ;box-sizing: border-box;">
 		<view class="" style="display: flex;align-items: center;">
-			<image src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs10.sinaimg.cn%2Fmiddle%2F4a8ee5a3t8da2e58b9f09%26690&refer=http%3A%2F%2Fs10.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1619421539&t=3257f544d9187916d47eddc4bd69cf27"
+			<image :src="data.imgPath"
 			 style="width: 80rpx;height: 80rpx;border-radius: 50rpx;" mode=""></image>
 			<view class="" style="font-size: 28rpx;margin-left: 20rpx;">
-				猫屎天使or猫屎魔鬼
+				{{data.userName}}
 			</view>
 		</view>
 		<view class="" style="font-size: 30rpx;margin: 20rpx 0;">
-			猫屎天使or猫屎魔鬼
+			{{data.content}}
 		</view>
-		<view class="" style=" display: flex; flex-direction:column">
-			<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3346927711,3356608027&fm=11&gp=0.jpg" style="width: 100%;margin-left: 10rpx;margin-bottom: 10rpx;"
-			 mode="widthFix"></image>
-			<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3346927711,3356608027&fm=11&gp=0.jpg" style="width: 100%;margin-left: 10rpx;margin-bottom: 10rpx;"
-			 mode="widthFix"></image>
-			<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3346927711,3356608027&fm=11&gp=0.jpg" style="width: 100%;margin-left: 10rpx;margin-bottom: 10rpx;"
+		<view class="" style=" display: flex; flex-direction:column" v-for="(item,index) in data.pictures" :key="index">
+			<image :src="item" style="width: 100%;margin-left: 10rpx;margin-bottom: 10rpx;"
 			 mode="widthFix"></image>
 		</view>
 		<view class="" style="padding: 10rpx 10rpx;border-radius: 30rpx;background-color: #f7f7f7;width: 100rpx;text-align: center;font-size: 26rpx;margin-top: 10rpx;">
-			猫屎吧
+			问答
 		</view>
 		<view>
 			<view class="" style="display: flex;justify-content: space-between;">
@@ -44,7 +40,7 @@
 				<view class="left"><image :src="res.url" mode="aspectFill"></image></view>
 				<view class="right">
 					<view class="top">
-						<view class="name">{{ res.name }}</view>
+						<view class="name" @click="getName(res.name)">{{ res.name }}</view>
 						<view class="like" :class="{ highlight: res.isLike }">
 							<view class="num">{{ res.likeNum }}</view>
 							<u-icon v-if="!res.isLike" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index)"></u-icon>
@@ -70,7 +66,7 @@
 			</view>
 		</view>
 		<view class="daoh">
-        <u-search :show-action="false" action-text="" :animation="false"></u-search>
+        <u-search :show-action="false" action-text="" :animation="false" search-icon='' :placeholder="value" @click ="click" disabled=true></u-search>
 		<view class=""style="display: flex;justify-content: space-between;">
 			<view class="" style="display: flex;">
 				<view class="" style="display: flex;align-items: center;">
@@ -93,13 +89,38 @@ export default {
 	data() {
 		return {
 			keyword: '',
-			commentList: []
+			commentList: [],
+			data:null,
+			value: '我也说几句...'
 		};
 	},
-	onLoad() {
+	onLoad(options) {
 		this.getComment();
+		console.log(options.questionId)
+		this.getCommentList(options.questionId)
 	},
 	methods: {
+		click(){
+			uni.navigateTo({
+				url:'/pages/questions/questionSquare/allComment/allComment'
+			})
+		},
+		// 获取评论列表
+		getCommentList(questionId){
+			console.log(questionId)
+			this.$myRequest({
+				url: 'question/question/findQuestionById?questionId='+questionId,   
+				method: "POST",
+				data:{
+					
+				}
+			}).then(res => {//这里是请求成功之后饭后的数据
+				console.log(res)
+				this.data = res.data.data
+			}).catch(err => {//这里是失败   一般用不着
+				console.log(err)
+			})
+		},
 		// 跳转到全部回复
 		toAllReply() {
 			uni.navigateTo({

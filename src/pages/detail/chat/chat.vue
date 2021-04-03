@@ -273,7 +273,7 @@
 				    success: function (res) {
 				        console.log(res.tempFilePaths[0]);
 						uni.uploadFile({
-							url: 'http://192.168.101.50:8080/sys/uploadImgFile', 
+							url: 'http://192.168.101.74:8080/sys/uploadImgFile', 
 							header: {
 								"authorization":uni.getStorageSync('token'),
 								'Accept': 'application/json',
