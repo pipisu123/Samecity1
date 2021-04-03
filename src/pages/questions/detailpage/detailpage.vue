@@ -12,7 +12,10 @@
 		</view>
 		<view class="" style=" display: flex; flex-direction:column" v-for="(item,index) in data.pictures" :key="index">
 			<image :src="item" style="width: 100%;margin-left: 10rpx;margin-bottom: 10rpx;"
-			 mode="widthFix"></image>
+			 mode="widthFix" v-show="data.pictures[0]!=''"></image>
+		</view>
+		<view class="show-video" v-show="data.video!=''">
+			<video :src="data.video" style="width: 100%;height: 200px;"></video>
 		</view>
 		<view class="" style="padding: 10rpx 10rpx;border-radius: 30rpx;background-color: #f7f7f7;width: 100rpx;text-align: center;font-size: 26rpx;margin-top: 10rpx;">
 			问答
@@ -36,7 +39,7 @@
 			</view>
 		</view>
 		<view>
-			<view class="comment" v-for="(res, index) in commentList" :key="res.id">
+			<view class="comment" v-for="(res, index) in commentList" :key="res.id" @click="goAnswer">
 				<view class="left"><image :src="res.url" mode="aspectFill"></image></view>
 				<view class="right">
 					<view class="top">
@@ -100,6 +103,13 @@ export default {
 		this.getCommentList(options.questionId)
 	},
 	methods: {
+		// 回复评论
+		goAnswer(){
+			uni.navigateTo({
+				url:'/pages/questions/questionSquare/allAnswer/allAnswer'
+			})
+		},
+		// 去评论
 		click(){
 			uni.navigateTo({
 				url:'/pages/questions/questionSquare/allComment/allComment'

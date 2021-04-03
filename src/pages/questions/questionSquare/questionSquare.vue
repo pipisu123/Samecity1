@@ -23,6 +23,9 @@
 					 @tap="_previewImage(item1)"
 					 :key="index" v-show="item.pictures[0]!=''"></image>
 				</view>
+				<view class="show-video" v-show="item.video!=''">
+					<video :src="item.video" style="width: 100%;height: 200px;"></video>
+				</view>
 				<view class="" style="padding: 10rpx 10rpx;border-radius: 30rpx;background-color: #f7f7f7;width: 100rpx;text-align: center;font-size: 26rpx;margin-top: 10rpx;">
 					问答
 				</view>
