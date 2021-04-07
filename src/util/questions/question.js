@@ -25,3 +25,12 @@ export function findQuestionById(data){
 		data:data	
 	})
 }
+
+//根据问题userid查找问题详细数据
+export function findQuestionByUserId(data){
+	return myRequest ({
+		url:'question/question/findQuestionByUserId',
+		method:'POST',
+		data:data	
+	})
+}

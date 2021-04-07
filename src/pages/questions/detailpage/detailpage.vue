@@ -69,7 +69,7 @@
 			</view>
 		</view>
 		<view class="daoh">
-        <u-search :show-action="false" action-text="" :animation="false" search-icon='' :placeholder="value" @click ="click" disabled=true></u-search>
+        <u-search :show-action="false" action-text="" :animation="false" search-icon='' :placeholder="value" @click ="click(data.questionId)" disabled=true></u-search>
 		<view class=""style="display: flex;justify-content: space-between;">
 			<view class="" style="display: flex;">
 				<view class="" style="display: flex;align-items: center;">
@@ -110,9 +110,10 @@ export default {
 			})
 		},
 		// 去评论
-		click(){
+		click(questionId){
+			console.log(questionId)
 			uni.navigateTo({
-				url:'/pages/questions/questionSquare/allComment/allComment'
+				url:'/pages/questions/questionSquare/allComment/allComment?questionId='+questionId
 			})
 		},
 		// 获取评论列表

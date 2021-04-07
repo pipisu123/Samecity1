@@ -8,7 +8,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="cell" v-for="(item,index) in list" :key="index">
+		<view class="cell" v-for="(item,index) in list" :key="index" @click="goNavbar(index)">
 			<view class="cell-left">
 				<image class="cell_icon" :src="item.icon"></image>
 				<text class="cell-text">{{item.text}}</text>
@@ -44,7 +44,17 @@
 			}
 		},
 		methods: {
-			
+			goNavbar(index){
+				if(index===1){
+					uni.navigateTo({
+						url:'/pages/questions/personCenter/myQuestion/myQuestion'
+					})
+				}else if(index===0){
+					uni.navigateTo({
+						url:'/pages/questions/personCenter/myCollection/myCollection'
+					})
+				}
+			}
 		}
 	}
 </script>

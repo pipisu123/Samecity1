@@ -53,6 +53,9 @@
 		onLoad() {
          this.getAdvertisement()
 		},
+		// created() {
+		// this.getAdvertisement()
+		// },
 		components:{
          swipper,
 		 list,

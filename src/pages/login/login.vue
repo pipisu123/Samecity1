@@ -63,7 +63,7 @@
 														}).then(res=>{
 															if(res.data.code === 0){
 																_this.$store.commit('setToken',res.data.data.accessToken)
-																_this.$store.commit('setavatar',info.userInfo.avatarUrl)
+																_this.$store.commit('setavatar',res.data.data.imgPath)
 																_this.$store.commit('setwechatname',info.userInfo.nickName)
 																_this.$store.commit('setUserId',res.data.data.id)
 																_this.$store.commit('setUsername',res.data.data.username)

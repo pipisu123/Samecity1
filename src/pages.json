@@ -716,7 +716,7 @@
             "path" : "pages/house/myCollection/myCollection",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "我的收藏",
                 "enablePullDownRefresh": false
             }
             
@@ -726,6 +726,33 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "评论",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/questions/questionSquare/allAnswer/allAnswer",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "回复",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/questions/personCenter/myQuestion/myQuestion",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/questions/personCenter/myCollection/myCollection",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
