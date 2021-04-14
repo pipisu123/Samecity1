@@ -233,7 +233,6 @@
 		onLoad() {
 			let self = this //这里面出现了指针问题  
 			uni.chooseLocation({
-
 				success: function(res) {
 					var reg = /.+?(省|市|自治区|自治州|县|区)/g;
 					var re = /.+?(?=省|市|自治区|自治州|县|区)/;
@@ -241,7 +240,6 @@
 					let a = (res.address.match(reg))
 					console.log(a)
 					self.city = (a[1].match(re))[0];
-
 				}
 			});
 			this.getHouseList()
@@ -291,13 +289,22 @@
 			// 根据区域条件搜索房源
 			change(e, index) {
 				// this.$refs.uDropdown.highlight(label);
+				uni.showLoading({
+					title:'加载中...'
+				})
 				secondHandQuery({
 					"area": this.options1[index].label,
 					"city": this.city,
 					"limit": 10,
 					"page": 1,
 				}).then(res => {
-					console.log(res)
+					console.log(res) 
+					if(res.data.code === 0){
+						uni.hideLoading()
+						this.houselist= res.data.data
+					}else{
+						console.log("搜索失败")
+					}
 				}).catch(err => {
 					console.log(err)
 				})
@@ -306,6 +313,9 @@
 			// 根据价格查询房源
 			change1(e, index) {
 				// this.$refs.uDropdown.highlight(label);
+				uni.showLoading({
+					title:'加载中...'
+				})
 				secondHandQuery({
 					"money": this.options2[index].value,
 					"city": this.city,
@@ -313,6 +323,12 @@
 					"page": 1,
 				}).then(res => {
 					console.log(res)
+					if(res.data.code === 0){
+						uni.hideLoading()
+						this.houselist= res.data.data
+					}else{
+						console.log("搜索失败")
+					}
 				}).catch(err => {
 					console.log(err)
 				})
@@ -322,13 +338,21 @@
 			// 根据多少室查询房源
 			change2(e, index) {
 				// this.$refs.uDropdown.highlight(label);
+				uni.showLoading({
+					title:'加载中...'
+				})
 				secondHandQuery({
 					"roomNum": this.options3[index].value,
 					"city": this.city,
 					"limit": 10,
 					"page": 1,
 				}).then(res => {
-					console.log(res)
+					if(res.data.code === 0){
+						uni.hideLoading()
+						this.houselist= res.data.data
+					}else{
+						console.log("搜索失败")
+					}
 				}).catch(err => {
 					console.log(err)
 				})

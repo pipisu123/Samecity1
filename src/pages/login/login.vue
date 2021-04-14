@@ -68,6 +68,7 @@
 																_this.$store.commit('setUserId',res.data.data.id)
 																_this.$store.commit('setUsername',res.data.data.username)
 																_this.$store.commit('setRefreshtoken',res.data.data.refreshToken)
+																// uni.setStorageSync('')
 															    uni.hideLoading()
 																uni.switchTab({
 																	url:'../me/me'

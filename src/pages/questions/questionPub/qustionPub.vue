@@ -7,8 +7,8 @@
 			<u-form-item label="问题内容" prop="intro" :label-position="labelPosition">
 				<u-input v-model="form.intro" height=200 :border="border" placeholder="请输入问题内容..." type="textarea" />
 			</u-form-item>
-			<u-form-item :label-position="labelPosition" label="图片或者视频" prop="ImgsorVideo" label-width="150">
-				<u-input :border="border" type="select" :select-open="selectShow1" v-model="form.ImgsorVideo" placeholder="请选择上传图片或者视频"
+			<u-form-item :label-position="labelPosition" label="图片或者视频或者文字" prop="ImgsorVideo" label-width="150">
+				<u-input :border="border" type="select" :select-open="selectShow1" v-model="form.ImgsorVideo" placeholder="请选择上传图片或者视频或者文字"
 				 @click="selectShow1 = true"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="上传图片" prop="photo" label-width="150" v-show="showUploadimg">
@@ -22,6 +22,7 @@
 		<view class="topulic">
 			<u-button type="primary" @click="public" v-show="showUploadimg">发布</u-button>
 			<u-button type="primary" @click="public1" v-show="showUploadvideo">发布</u-button>
+			<u-button type="primary" @click="public2" v-show="showtext">发布</u-button>
 		</view>
 	</view>
 
@@ -40,6 +41,7 @@
 				labelPosition: 'top',
 				showUploadimg: true,
 				showUploadvideo: false,
+				showtext: false,
 				images: [], //后端返回的图片路径
 				src: '', //后端返回的视频路径
 				form: {
@@ -57,6 +59,10 @@
 					{
 						value: 2,
 						label: '视频'
+					},
+					{
+						value: 3,
+						label: '文字'
 					},
 				],
 				rules: {
@@ -88,9 +94,15 @@
 					if (val.label === '视频') {
 						this.showUploadvideo = true
 						this.showUploadimg = false
-					} else {
+						this.showtext = false
+					} else if (val.label === '图片') {
 						this.showUploadimg = true
 						this.showUploadvideo = false
+						this.showtext = false
+					} else {
+						this.showUploadimg = false
+						this.showUploadvideo = false
+						this.showtext = true
 					}
 				})
 			},
@@ -107,6 +119,25 @@
 			getPath(e) {
 				this.form.video = e
 			},
+			// 发布文字问题
+			public2() {
+				console.log("文字")
+				this.$refs.uForm.validate(valid => {
+					if (valid) {
+						addQuestion({
+							"content": this.form.intro,
+							"reward": 0,
+							"title": this.form.title,
+							"video": '',
+						}).then(res => {
+							console.log(res)
+						}).catch(err => {
+							console.log(err)
+						})
+					}
+				})
+
+			},
 			// 发布图片问题
 			public() {
 				this.$refs.uForm.validate(valid => {
@@ -114,7 +145,7 @@
 						// 1.调用上传图片，循环调用用接口
 						for (let i = 0; i <= this.form.photo.length; i++) {
 							uni.uploadFile({
-								url: 'http://192.168.101.74:8080/sys/uploadImgFile',
+								url: 'http://192.168.3.9:8080/sys/uploadImgFile',
 								method: 'POST', // 可用可不用
 								filePath: this.form.photo[i],
 								header: {
@@ -154,7 +185,7 @@
 				this.$refs.uForm.validate(valid => {
 					if (valid) {
 						uni.uploadFile({
-							url: 'http://192.168.101.74:8080/sys/uploadVideoFile',
+							url: 'http://192.168.3.9:8080/sys/uploadVideoFile',
 							method: 'POST', // 可用可不用
 							filePath: this.form.video,
 							header: {

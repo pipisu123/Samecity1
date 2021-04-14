@@ -1,25 +1,51 @@
 <template>
 	<view class="container">
-		<u-sticky>
-			<!-- 只能有一个根元素 -->
-			<view class="sticky">
-				宝剑锋从磨砺出,梅花香自苦寒来
-			</view>
-		</u-sticky>
+		
 	</view>
 </template>
 
+<script>
+	import QQMapWX from '../../lib/qqmap-wx-jssdk.min.js'
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		onShow() {
+			let qqmapsdk = new QQMapWX({
+			  key: 'GN7BZ-5CG6X-BC64A-TLNSK-4QAZ7-2MBZ7'
+			});
+			uni.authorize({
+				scope: 'scope.userLocation',
+				success(){},
+				fail(res){
+					console.log(res);
+				}
+			})
+			//获取经纬度坐标
+			uni.getLocation({
+				type:'gcj02',
+				success(res){
+					console.log('res.latitude',res.latitude,'res.longitude',res.longitude);
+					qqmapsdk.reverseGeocoder({
+						location:{
+							latitude: res.latitude,
+							longitude: res.longitude
+						},
+						success(res){
+							console.log("res",res);
+						}
+					})
+				}
+			})
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
 <style lang="scss" scoped>
-	.container {
-		height: 200vh;
-		margin-top: 50rpx;
-	}
 	
-	.sticky {
-		width: 750rpx;
-		height: 120rpx;
-		background-color: #2979ff;
-		color: #fff;
-		padding: 24rpx;
-	}
 </style>

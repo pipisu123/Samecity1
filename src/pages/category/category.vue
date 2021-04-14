@@ -34,8 +34,10 @@ export default {
   }
 },
 onLoad() {
-	var time = new Date();
-	console.log(time)
+	var myDate = new Date();
+	var mytime=myDate.toLocaleString(); ; 
+	       //获取日期与时间
+	console.log(mytime)
 },
 methods:{
 	

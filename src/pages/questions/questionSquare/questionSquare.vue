@@ -38,7 +38,7 @@
 					</view>
 					<view class="" style="display: flex;align-items: center;margin-left: 50rpx;">
 						<u-icon name="chat"  size="30"></u-icon>
-						<view style="font-size: 26rpx;margin-left: 20rpx;">2016</view>
+						<view style="font-size: 26rpx;margin-left: 20rpx;">{{item.commentCount}}</view>
 					</view>
 				</view>
 				<view class="" style="display: flex;align-items: center;margin-left: 50rpx;">

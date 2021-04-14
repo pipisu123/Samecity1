@@ -1,6 +1,6 @@
 <template>
 	<view class="news">
-		<view class="new-items" @click="goDetail" v-for="(item,index) in houselist" :key="index">
+		<view class="new-items" @click="goDetail(item.id)" v-for="(item,index) in houselist" :key="index">
 			<image :src="item.img" mode=""></image>
 			<view class="right">
 				<view class="title">
@@ -45,9 +45,9 @@
 			this.src = this.$store.state.avatar
 		},
 		methods: {
-			goDetail(){
+			goDetail(id){
 				uni.navigateTo({
-					url:'/pages/house/secondhandhousingpage/secondhandhousingpage'
+					url:'/pages/house/secondhandhousingpage/secondhandhousingpage?id='+id
 				})
 		}
 	}

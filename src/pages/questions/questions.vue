@@ -23,8 +23,8 @@
 		</template>
 		<!-- 通知信息 -->
 		<template v-else-if="show3">
-			<view class="ss">
-				第四页
+			<view class="notice">
+				<notice></notice>
 			</view>
 		</template>
 		<!-- 问题个人中心 -->
@@ -45,6 +45,7 @@
 	import queSquare from './questionSquare/questionSquare.vue'
 	import qusetionPub from './questionPub/qustionPub.vue'
 	import personCenter from './personCenter/personCenter.vue'
+	import notice from './notices/notice.vue'
 	export default {
 		data() {
 			return {
@@ -59,7 +60,8 @@
 		   Bottombar,
 		   queSquare,
 		   qusetionPub,
-		   personCenter
+		   personCenter,
+		   notice
 		},
 		onLoad() {
 			

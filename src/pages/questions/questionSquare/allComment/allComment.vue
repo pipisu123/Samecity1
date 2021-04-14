@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<view v-if="commentList.length!=0">
-			<view class="comment" v-for="(res, index) in commentList" :key="index" >
+		<view>
+			<view class="comment" v-for="(res, index) in commentList" :key="index">
 				<view class="left">
 					<image :src="res.imgPath" mode="aspectFill"></image>
 				</view>
 				<view class="right">
 					<view class="top">
-						<view class="name" @click="getName(res.userName)">{{ res.userName }}</view>
+						<view class="name" @click="getName(res.userName,res.commentMainId,res.userId,index)">{{ res.userName }}</view>
 						<view class="like" :class="{ highlight: res.isLike }">
 							<view class="num">{{ res.peaseCount }}</view>
 							<u-icon v-if="!res.isLike" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index)"></u-icon>
@@ -15,27 +15,43 @@
 						</view>
 					</view>
 					<view class="content">{{ res.commentContent }}</view>
-					<view class="reply-box">
-						<view class="item" v-for="(item, index) in res.replyList" :key="item.index">
-							<view class="username">{{ item.name }}</view>
-							<view class="text">{{ item.contentStr }}</view>
+					<view class="reply-box" @tap="toAllReply(res.commentContent,res.imgPath,res.userName,res.commentMainId,res.questionId,res.userId)">
+						<view class="item" v-for="(item, index1) in res.commentMainShowVO" :key="index1">
+							<view class="info">
+								<view>
+									<image :src="item.imgPath" mode="aspectFill" style="width: 45rpx;height: 45rpx;border-radius: 50%;"></image>
+								</view>
+								<view class="username">{{ item.userName }}</view>
+							</view>
+							<view class="text">{{item.commentContent}}</view>
 						</view>
-						<view class="all-reply" @tap="toAllReply" v-if="res.replyList != undefined">
-							共{{ res.allReply }}条回复
+						<view class="all-reply" v-if="res.commentMainShowVO.length != 0&res.commentReplyCount!=undefined">
+							共{{ res.commentReplyCount }}条回复
 							<u-icon class="more" name="arrow-right" :size="26"></u-icon>
 						</view>
 					</view>
 					<view class="bottom">
 						{{ res.createTime }}
-						<view class="reply" @click="getName(res.userName)">回复</view>
+						<view class="reply" @click="getName(res.userName,res.commentMainId,res.userId,index)">回复</view>
 					</view>
-				</view>
+				</view>	
 			</view>
 		</view>
-		<view v-else>
-			<u-empty text="暂无评论" mode="list" margin-top=600></u-empty>
+		<!-- 评论 -->
+		<view class="box-2" v-if="showReply">
+			<view class="flex_col">
+				<view class="send-image">
+					<u-icon name="photo" size="48"></u-icon>
+				</view>
+				<view class="flex_grow">
+					<input type="text" class="content" v-model="content" placeholder="说说你的看法..." placeholder-style="color:#DDD;"
+					 :cursor-spacing="6">
+				</view>
+				<button class="send" @tap="send">发送</button>
+			</view>
 		</view>
-		<view class="box-2">
+		<!-- 回复 -->
+		<view class="box-2" v-else>
 			<view class="flex_col">
 				<view class="send-image">
 					<u-icon name="photo" size="48"></u-icon>
@@ -44,7 +60,7 @@
 					<input type="text" class="content" v-model="content" :placeholder="placeholder" placeholder-style="color:#DDD;"
 					 :cursor-spacing="6">
 				</view>
-				<button class="send" @tap="send">发送</button>
+				<button class="send" @tap="sendReply">发送</button>
 			</view>
 		</view>
 	</view>
@@ -57,34 +73,82 @@
 	import {
 		addCommentMain
 	} from '@/util/questions/comment.js'
+	import {
+		addCommentReply
+	} from '@/util/questions/reply.js'
 	export default {
 		data() {
 			return {
 				keyword: '',
 				commentList: [],
-				data: null,
+				replyList: [],
+				data: {},
 				value: '我也说几句...',
-				userid: '',
+				userid: '', //当前人的userId
+				publicUserId:'', //发布问题人的ID
 				username: '',
 				avatar: '',
 				content: '',
+				replyIndex: '',
 				questionId: '',
-				placeholder:'说说你的看法...'
+				replyUserId: '',
+				commentMainId: '',
+				placeholder: '',
+				showReply: true
 			};
 		},
 		onLoad(options) {
 			// this.getComment();
 			this.getallComment(options.questionId);
 			this.questionId = options.questionId;
+			this.publicUserId = options.userId;
 			this.userid = this.$store.state.userid;
 			this.username = this.$store.state.username;
 			this.avatar = this.$store.state.avatar;
 			console.log(this.avatar)
 		},
 		methods: {
+			toAllReply(commentContent, imgPath, userName, commentMainId, questionId, userId) {
+				uni.navigateTo({
+					url: '/pages/questions/questionSquare/allAnswer/allAnswer?commentContent=' + commentContent + '&imgPath=' +
+						imgPath + '&userName=' + userName + '&commentMainId=' + commentMainId + '&questionId=' + questionId +
+						'&questionId=' + questionId + '&userId=' + userId
+				})
+			},
 			// 回复别人
-			getName(userName){
-				this.placeholder = '回复：'+userName
+			sendReply() {
+				console.log("这是回复")
+				console.log(this.replyIndex)
+				addCommentReply({
+					"commentContent": this.content,
+					"commentMainId": this.commentMainId,
+					"questionId": this.questionId,
+					"replyUserId": this.replyUserId,
+				}).then(res => {
+					console.log(res)
+					if (res.data.code === 0) {
+						let replydata = {
+							imgPath: this.avatar,
+							userName: this.username,
+							commentContent: this.content,
+						}
+						this.commentList[this.replyIndex].commentMainShowVO.push(replydata)
+					} else {
+						uni.showToast({
+							title: '发送失败'
+						})
+					}
+				}).catch(err => {
+					console.log(err)
+				})
+			},
+			getName(userName, commentMainId, userId, index) {
+				console.log(index)
+				this.replyIndex = index;
+				this.commentMainId = commentMainId;
+				this.replyUserId = userId;
+				this.showReply = false;
+				this.placeholder = '回复：' + userName;
 			},
 			// 获取所有评论列表
 			getallComment(questionId) {
@@ -92,7 +156,7 @@
 					"questionId": questionId
 				}).then(res => {
 					console.log(res)
-					this.commentList = res.data.data
+					this.commentList = res.data.data;
 				}).catch(err => {
 					console.log(err)
 				})
@@ -106,10 +170,12 @@
 					this.commentList[index].likeNum--;
 				}
 			},
+			// 发表评论
 			send() {
 				addCommentMain({
 					"commentContent": this.content,
 					"questionId": this.questionId,
+					"userId": this.publicUserId,
 				}).then(res => {
 					console.log(res)
 				}).catch(err => {
@@ -124,34 +190,16 @@
 				}
 				this.commentList.push(data)
 			},
-			// 评论列表
-			// getComment() {
-			// 	this.commentList = [{
-			// 		id: 1,
-			// 		name: '叶轻眉',
-			// 		date: '12-25 18:58',
-			// 		contentText: '我不信伊朗会没有后续反应，美国肯定会为今天的事情付出代价的',
-			// 		url: 'https://cdn.uviewui.com/uview/template/SmilingDog.jpg',
-			// 		allReply: 12,
-			// 		likeNum: 33,
-			// 		isLike: false,
-			// 		replyList: [{
-			// 				name: 'uview',
-			// 				contentStr: 'uview是基于uniapp的一个UI框架，代码优美简洁，宇宙超级无敌彩虹旋转好用，用它！'
-			// 			},
-			// 			{
-			// 				name: '粘粘',
-			// 				contentStr: '今天吃什么，明天吃什么，晚上吃什么，我只是一只小猫咪为什么要烦恼这么多'
-			// 			}
-			// 		]
-			// 	}];
-			// }
 		}
 	};
 </script>
 
 <style lang="scss">
 	@import "../../../../lib/global.scss";
+
+	page {
+		background-color: #FFFFFF;
+	}
 
 	.box-2 {
 		position: fixed;
@@ -260,9 +308,18 @@
 					padding: 20rpx;
 					border-bottom: solid 2rpx $u-border-color;
 
-					.username {
-						font-size: 24rpx;
-						color: #999999;
+					.info {
+						display: flex;
+
+						.username {
+							font-size: 18rpx;
+							padding: 10rpx;
+							color: #999999;
+						}
+					}
+
+					.text {
+						font-size: 22rpx;
 					}
 				}
 

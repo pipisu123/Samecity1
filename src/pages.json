@@ -752,7 +752,16 @@
             "path" : "pages/questions/personCenter/myCollection/myCollection",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "我的问题收藏",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/questions/notices/replyMe/replyMe",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "回复我的",
                 "enablePullDownRefresh": false
             }
             
