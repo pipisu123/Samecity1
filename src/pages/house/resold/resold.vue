@@ -13,7 +13,6 @@
 			</view>
 		</view>
 		<view class="container">
-				<u-sticky>
 					<!-- 只能有一个根元素 -->
 					<view class="wage">
 						<u-dropdown @open="open" ref="uDropdown" border-bottom=true>
@@ -52,7 +51,6 @@
 							</u-form-item>
 						</u-popup>
 					</view>
-				</u-sticky>
 			</view>
 		<!-- 传给子组件 -->
 		<page :houselist="houselist"></page>

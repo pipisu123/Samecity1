@@ -766,6 +766,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/house/mypage/mySecHouseList/mySecHouseList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

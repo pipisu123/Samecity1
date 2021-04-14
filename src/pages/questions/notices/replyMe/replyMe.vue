@@ -1,6 +1,6 @@
 <template>
 	<view class="notice">
-		<view class="notice-itme" v-for="(item,index) in noticeList" :key="index">
+		<view class="notice-itme" v-for="(item,index) in noticeList" :key="index" @click="questionDetail(item.questionId)">
 			<view class="head">
 				<text>关于您的问题：</text>
 			</view>
@@ -27,6 +27,13 @@
 			this.getNotices()
 		},
 		methods: {
+		
+			questionDetail(questionId){
+				console.log("===============")
+				uni.navigateTo({
+					url:'/pages/questions/detailpage/detailpage?questionId='+questionId
+				})
+			},
 			getNotices(){
 				findNotice({
 					
@@ -37,8 +44,7 @@
 					console.log(err)
 				})
 			}
-		},
-		
+		}
 	}
 </script>
 

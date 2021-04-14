@@ -37,7 +37,7 @@
 			</view>
 		</view>
 		<view>
-			<view class="comment" v-for="(res, index) in commentList" :key="index" @click="goAnswer(res.commentContent,res.imgPath,res.userName,res.commentMainId,res.questionId,res.userId)">
+			<view class="comment" v-for="(res, index) in commentList" :key="index" >
 				<view class="left">
 					<image :src="res.imgPath" mode="aspectFill"></image>
 				</view>
@@ -50,7 +50,7 @@
 							<u-icon v-if="res.isLike" name="thumb-up-fill" :size="30" @click="getLike(index)"></u-icon>
 						</view>
 					</view>
-					<view class="content">{{ res.commentContent }}</view>
+					<view class="content" @click="goAnswer(res.commentContent,res.imgPath,res.userName,res.commentMainId,res.questionId,res.userId)">{{ res.commentContent }}</view>
 					<view class="reply-box">
 						<view class="item" v-for="(item, index) in res.commentMainShowVO" :key="index">
 							<view class="info">

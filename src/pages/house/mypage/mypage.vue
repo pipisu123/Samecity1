@@ -53,7 +53,7 @@
 				</view>
 				<view class="item">
 					<view class="border">
-						<image class="img" src="../../../static/main_off.png" style="width: 60rpx; height: 60rpx;"></image>
+						<image class="img" src="../../../static/main_off.png" style="width: 60rpx; height: 60rpx;" @click="SecHouseList"></image>
 					</view>
 					<text class="txt">二手房房源</text>
 				</view>
@@ -243,6 +243,11 @@
 			myCollection(){
 				uni.navigateTo({//这个是跳转的方法
 					url:'/pages/house/myCollection/myCollection'//这个是跳转的路径
+				})
+			},
+			SecHouseList(){
+				uni.navigateTo({//这个是跳转的方法
+					url:'/pages/house/mypage/mySecHouseList/mySecHouseList'//这个是跳转的路径
 				})
 			},
 			// 经纪人发布
