@@ -8,10 +8,10 @@
 				<view class="right">
 					<view class="top">
 						<view class="name" @click="getName(res.userName,res.commentMainId,res.userId,index)">{{ res.userName }}</view>
-						<view class="like" :class="{ highlight: res.isLike }">
+						<view class="like" :class="{ highlight: res.likes_out }">
 							<view class="num">{{ res.peaseCount }}</view>
-							<u-icon v-if="!res.isLike" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index)"></u-icon>
-							<u-icon v-if="res.isLike" name="thumb-up-fill" :size="30" @click="getLike(index)"></u-icon>
+							<u-icon v-if="!res.likes_out" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index,res.commentMainId)"></u-icon>
+							<u-icon v-if="res.likes_out" name="thumb-up-fill" :size="30" @click="getLike(index,res.commentMainId)"></u-icon>
 						</view>
 					</view>
 					<view class="content">{{ res.commentContent }}</view>
@@ -34,7 +34,7 @@
 						{{ res.createTime }}
 						<view class="reply" @click="getName(res.userName,res.commentMainId,res.userId,index)">回复</view>
 					</view>
-				</view>	
+				</view>
 			</view>
 		</view>
 		<!-- 评论 -->
@@ -63,6 +63,7 @@
 				<button class="send" @tap="sendReply">发送</button>
 			</view>
 		</view>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -85,7 +86,7 @@
 				data: {},
 				value: '我也说几句...',
 				userid: '', //当前人的userId
-				publicUserId:'', //发布问题人的ID
+				publicUserId: '', //发布问题人的ID
 				username: '',
 				avatar: '',
 				content: '',
@@ -163,11 +164,26 @@
 			},
 			// 点赞
 			getLike(index) {
-				this.commentList[index].isLike = !this.commentList[index].isLike;
-				if (this.commentList[index].isLike == true) {
-					this.commentList[index].likeNum++;
+				if (this.commentList[index].likes_out == true) {
+					this.$refs.uToast.show({
+						title: '不能重复点赞',
+						type: 'default',
+						url: '/pages/user/index'
+					})
 				} else {
-					this.commentList[index].likeNum--;
+					thumbsUpCommentMain({
+						"commentMainId": commentMainId
+					}).then(res => {
+						console.log(res)
+						if (res.data.code === 0) {
+							this.commentList[index].likes_out = true;
+							this.commentList[index].peaseCount++;
+						} else {
+
+						}
+					}).catch(err => {
+						console.log(err)
+					})
 				}
 			},
 			// 发表评论

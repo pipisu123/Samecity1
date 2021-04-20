@@ -9,7 +9,7 @@
 				<text>{{city}}</text>
 			</view>
 			<view class="seach">
-				<u-search v-model="seach" placeholder="请输入工作或房屋信息" @input="oninput"></u-search>
+				<u-search v-model="seach" placeholder="请输入房屋信息" @input="oninput"></u-search>
 			</view>
 		</view>
 		<view class="container">
@@ -228,18 +228,22 @@
 		components: {
 			page,
 		},
+		onReady() {
+			this.$store.dispatch('getCity')
+			this.city = this.$store.state.city
+		},
 		onLoad() {
-			let self = this //这里面出现了指针问题  
-			uni.chooseLocation({
-				success: function(res) {
-					var reg = /.+?(省|市|自治区|自治州|县|区)/g;
-					var re = /.+?(?=省|市|自治区|自治州|县|区)/;
-					console.log(res)
-					let a = (res.address.match(reg))
-					console.log(a)
-					self.city = (a[1].match(re))[0];
-				}
-			});
+			// let self = this //这里面出现了指针问题  
+			// uni.chooseLocation({
+			// 	success: function(res) {
+			// 		var reg = /.+?(省|市|自治区|自治州|县|区)/g;
+			// 		var re = /.+?(?=省|市|自治区|自治州|县|区)/;
+			// 		console.log(res)
+			// 		let a = (res.address.match(reg))
+			// 		console.log(a)
+			// 		self.city = (a[1].match(re))[0];
+			// 	}
+			// });
 			this.getHouseList()
 		},
 		onReachBottom() {
@@ -249,7 +253,7 @@
 				})
 				this.page += 1;
 				this.$myRequest({
-					url: '/solr-query/house/secondHandQuery', //url就是放接口的地址的   
+					url: 'solr-query/house/secondHandQuery', //url就是放接口的地址的   
 					method: "GET", //method是放GET或者POST的   不写的话默认POST  看接口文档 根据接口文档写
 					data: {
 						city: '茂名',

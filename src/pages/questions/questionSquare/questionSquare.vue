@@ -41,22 +41,30 @@
 						<view style="font-size: 26rpx;margin-left: 20rpx;">{{item.commentCount}}</view>
 					</view>
 				</view>
-				<view class="" style="display: flex;align-items: center;margin-left: 50rpx;">
-					<u-icon name="thumb-up"  size="30"></u-icon>
-					<view style="font-size: 26rpx;margin-left: 20rpx;">2016</view>
+				<view class="" style="display: flex;align-items: center;margin-right: 25rpx;">
+					<view class="like" :class="{ highlight: item.likes_out }">
+						<view class="num">{{item.likes}}</view>
+						<u-icon v-if="!item.likes_out" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index,item.questionId)"></u-icon>
+						<u-icon v-if="item.likes_out" name="thumb-up-fill" :size="30" @click="getLike(index,item.questionId)"></u-icon>
+					</view>
+					<!-- <u-icon name="thumb-up"  size="30"></u-icon>
+					<view style="font-size: 26rpx;margin-left: 20rpx;">2016</view> -->
 				</view>
 			</view>
 			</view>
+			<u-toast ref="uToast" />
 		</view>
 </template>
 
 <script>
-	import { findQuestionAll } from '../../../util/questions/question.js'
+	import { findQuestionAll } from '@/util/questions/question.js'
+	import { thumbsUp } from '@/util/questions/handleQuestion.js'
 	export default {
 		data() {
 			return {
 				keyword: '遥看瀑布挂前川',
 				show:true,
+				likes_out:true,
 				list: [{
 					name: '推荐'
 				},
@@ -97,6 +105,32 @@
 			
 		},
 		methods: {
+			// 点赞问题
+			getLike(index,questionId){
+				console.log(index)
+				console.log(questionId)
+				if (this.questionList[index].likes_out == true) {
+					this.$refs.uToast.show({
+						title: '不能重复点赞',
+						type: 'default'
+					})
+				} else {
+					thumbsUp({
+						"questionId": questionId
+					}).then(res => {
+						console.log(res)
+						if (res.data.code === 0) {
+							this.questionList[index].likes_out = true;
+							this.questionList[index].likes++;
+						} else {
+							
+						}
+					}).catch(err => {
+						console.log(err)
+					})
+				}
+			},
+			// 预览图片
 			_previewImage(image) {
 				var imgArr = [];
 				imgArr.push(image);
@@ -112,9 +146,7 @@
 				})
 			},
 			change(index) {
-				this.current = index;
-					
-				
+				this.current = index;	
 			}
 		}
 	}
@@ -123,5 +155,23 @@
 <style lang="scss">
 .content{
 	border-bottom: 5px solid #F1F1F1;
+	.like {
+		display: flex;
+		align-items: center;
+		color: #9a9a9a;
+		font-size: 26rpx;
+	
+		.num {
+			margin-right: 4rpx;
+			color: #9a9a9a;
+		}
+	}
+	.highlight {
+		color: #5677fc;
+	
+		.num {
+			color: #5677fc;
+		}
+	}
 }
 </style>

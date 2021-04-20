@@ -17,3 +17,12 @@ export function findCommentMain(data){
 		data:data	
 	})
 }
+
+//点赞评论
+export function thumbsUpCommentMain(data){
+	return myRequest ({
+		url:'question/comment-main/thumbsUpCommentMain',
+		method:'POST',
+		data:data	
+	})
+}

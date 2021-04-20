@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://192.168.101.24:8080/'
+export const BASE_URL = 'http://192.168.3.4:8080/'
 export const myRequest = (options)=>{  
 	return new Promise((resolve,reject)=>{
 		const boundary = `----FooBar${new Date().getTime()}`;
@@ -8,8 +8,8 @@ export const myRequest = (options)=>{
 				"authorization":uni.getStorageSync('token'),
 				// 'Accept': 'application/json',
 			    // 'content-type':  `multipart/form-data; boundary=${boundary}`,
-				 'content-type':  'multipart/form-data',
-				// 'content-type': 'application/x-www-form-urlencoded'
+				 // 'content-type':  'multipart/form-data',
+				'content-type': 'application/x-www-form-urlencoded'
 			},
 			method:options.method || 'POST',
 			data: options.data || {},

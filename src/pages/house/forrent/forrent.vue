@@ -690,10 +690,12 @@ export default {
 		// 小区获取
 		getValue(e){
 			this.model.area = e
+			console.log(e)
 		},
 		// 选择回调出小区id
 		getid(e){
 			this.model.communityId = e
+			console.log(e)
 		},
 		getVal(val){
 			

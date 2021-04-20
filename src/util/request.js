@@ -1,5 +1,5 @@
 // 请求服务器地址
-const baseURL = 'http://192.168.101.55:8080'
+const baseURL = 'http://192.168.3.4:8080'
 // 向外暴露一个方法 myRequest
 export const myRequest = (options) => {
 	//加载loading

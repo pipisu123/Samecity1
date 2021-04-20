@@ -81,11 +81,11 @@
 			
 			<view class="welfare">
 				<template>
-					<view class="item" @click="houseestimates">
+					<view class="item" @click="agentPublic">
 						<view class="border">
 							<image class="img" src="../../../static/card.png" style="width: 60rpx; height: 60rpx;"></image>
 						</view>
-						<text class="txt">房屋估价</text>
+						<text class="txt">经纪人发布</text>
 					</view>
 					<view class="item">
 						<view class="border">
@@ -174,67 +174,25 @@
 			}
 		},
 		created() {
-			this.src = this.$store.state.avatar,
-			this.getUser()
+		
 		},
 		onLoad() {
 			
 		},
 		methods: {
-			// 查询个人信息
-			async getUser(){
-				
-				// const res = await this.$myRequest({
-				// 	url:'findUser',
-				// 	dataType: "json",
-				// 	header: {
-				// 	        'content-type': 'application/json', 
-				// 	        },
-				// 	data:JSON.stringify({ 
-				// 		"user_id":1
-				// 	}),
-				// 	method: 'POST'
-				// })
-				// console.log(res.data.data.user[0])
-				// this.user = res.data.data.user[0]
-				
-				},
-
-			// logout() {
-
-			// 	uni.showModal({
-			// 		title: '提示',
-			// 		content: '确认退出登陆？',
-			// 		success: function(res) {
-			// 			if (res.confirm) {
-			// 				uni.removeStorage({
-			// 					key: 'token',
-			// 					success(res) {
-			// 						uni.redirectTo({
-			// 							url: '/pages/login/login'
-			// 						})
-			// 					}
-			// 				})
-			// 			} else if (res.cancel) {
-			// 				console.log('用户点击取消');
-			// 			}
-			// 		}
-			// 	});
-
-
-			// }
+			// 经纪人发布
+			agentPublic(){
+				uni.navigateTo({//这个是跳转的方法
+					url:'/pages/house/mypage/agentPublic/agentPublic'//这个是跳转的路径
+				})
+			},
 			//我的积分
 			myintegral(){//这个叫方法     @click="houseestimates"   这个是点击事件   点击事件是要写方法触发的    并不是你只写个点击事件然后你就点他想让他干嘛就干嘛
 				uni.navigateTo({//这个是跳转的方法 
 					url:'/pages/house/myintegral/myintegral'//这个是跳转的路径
 				})
 			},
-			//房屋估价
-			houseestimates(){//这个叫方法     @click="houseestimates"   这个是点击事件   点击事件是要写方法触发的    并不是你只写个点击事件然后你就点他想让他干嘛就干嘛
-				uni.navigateTo({//这个是跳转的方法 
-					url:'/pages/house/houseestimates/houseestimates'//这个是跳转的路径
-				})
-			},
+			
 			myrelease(){//这个叫方法     @click="houseestimates"   这个是点击事件   点击事件是要写方法触发的    并不是你只写个点击事件然后你就点他想让他干嘛就干嘛
 				uni.navigateTo({//这个是跳转的方法 
 					url:'/pages/house/myrelease/myrelease'//这个是跳转的路径
@@ -510,8 +468,6 @@
 	
 			.border {
 				margin-top: 5px;
-				border: 2px solid #c9ac7a;
-				border-radius: 50%;
 				display: flex;
 				align-items: center;
 				justify-content: center;

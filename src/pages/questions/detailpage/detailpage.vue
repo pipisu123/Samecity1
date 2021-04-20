@@ -37,17 +37,17 @@
 			</view>
 		</view>
 		<view>
-			<view class="comment" v-for="(res, index) in commentList" :key="index" >
+			<view class="comment" v-for="(res, index) in commentList" :key="index">
 				<view class="left">
 					<image :src="res.imgPath" mode="aspectFill"></image>
 				</view>
 				<view class="right">
 					<view class="top">
 						<view class="name" @click="getName(res.userName)">{{ res.userName }}</view>
-						<view class="like" :class="{ highlight: res.isLike }">
-							<view class="num">{{ res.likeNum }}</view>
-							<u-icon v-if="!res.isLike" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index)"></u-icon>
-							<u-icon v-if="res.isLike" name="thumb-up-fill" :size="30" @click="getLike(index)"></u-icon>
+						<view class="like" :class="{ highlight: res.likes_out }">
+							<view class="num">{{ res.peaseCount }}</view>
+							<u-icon v-if="!res.likes_out" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index,res.commentMainId)"></u-icon>
+							<u-icon v-if="res.likes_out" name="thumb-up-fill" :size="30" @click="getLike(index,res.commentMainId)"></u-icon>
 						</view>
 					</view>
 					<view class="content" @click="goAnswer(res.commentContent,res.imgPath,res.userName,res.commentMainId,res.questionId,res.userId)">{{ res.commentContent }}</view>
@@ -90,6 +90,7 @@
 				</view>
 			</view>
 		</view>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -97,6 +98,9 @@
 	import {
 		findCommentMain
 	} from '@/util/questions/comment.js'
+	import {
+		thumbsUpCommentMain
+	} from '@/util/questions/handleComment.js'
 	export default {
 		data() {
 			return {
@@ -105,7 +109,8 @@
 				data: null,
 				value: '我也说几句...',
 				page: 1,
-				limit: 4
+				limit: 4,
+				isLike: false,
 			};
 		},
 		onLoad(options) {
@@ -115,7 +120,7 @@
 		},
 		methods: {
 			// 回复评论
-			goAnswer(commentContent, imgPath, userName, commentMainId, questionId, userId){
+			goAnswer(commentContent, imgPath, userName, commentMainId, questionId, userId) {
 				uni.navigateTo({
 					url: '/pages/questions/questionSquare/allAnswer/allAnswer?commentContent=' + commentContent + '&imgPath=' +
 						imgPath + '&userName=' + userName + '&commentMainId=' + commentMainId + '&questionId=' + questionId +
@@ -123,7 +128,7 @@
 				})
 			},
 			// 去评论
-			click(questionId,userId) {
+			click(questionId, userId) {
 				console.log(questionId)
 				uni.navigateTo({
 					url: '/pages/questions/questionSquare/allComment/allComment?questionId=' + questionId + '&userId=' + userId
@@ -152,13 +157,36 @@
 				});
 			},
 			// 点赞
-			getLike(index) {
-				this.commentList[index].isLike = !this.commentList[index].isLike;
-				if (this.commentList[index].isLike == true) {
-					this.commentList[index].likeNum++;
+			getLike(index, commentMainId) {
+				console.log(index)
+				if (this.commentList[index].likes_out == true) {
+					this.$refs.uToast.show({
+						title: '不能重复点赞',
+						type: 'default',
+						url: '/pages/user/index'
+					})
 				} else {
-					this.commentList[index].likeNum--;
+					thumbsUpCommentMain({
+						"commentMainId": commentMainId
+					}).then(res => {
+						console.log(res)
+						if (res.data.code === 0) {
+							this.commentList[index].likes_out = true;
+							this.commentList[index].peaseCount++;
+						} else {
+							
+						}
+					}).catch(err => {
+						console.log(err)
+					})
 				}
+				// this.commentList[index].likes_out = !this.commentList[index].likes_out;
+				// if (this.commentList[index].likes_out == true) {
+				// 	this.commentList[index].peaseCount++;
+				// 	console.log("点赞成功")
+				// } else {
+				// 	this.commentList[index].peaseCount--;
+				// }
 			},
 			// 评论列表
 			getComment(questionId) {

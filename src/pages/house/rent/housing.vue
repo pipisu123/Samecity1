@@ -1,27 +1,32 @@
 <template>
 	<view class="news">
-		<view class="new-items"  @click="goDetail"
-		>
-			<image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1358193358,3195625911&fm=26&gp=0.jpg" mode=""></image>
-			
+		<view class="new-items" v-for="(item,index) in houseList" :key="index" @click="goDetail(item.id)">
+			<image :src="item.img" mode="scaleToFill"></image>
 			<view class="right">
 				<view class="title">
-					<text>出租|</text>
-					<text class="worktype">中成公寓</text>
+					<!-- <text class="title-item">{{item.leaseType}} | {{item.title}}</text> -->
+					<view class="title-item">
+						<u-parse :html="item.title" :tag-style="style"></u-parse>
+					</view>
 				</view>
-				<view class="industry">
-					<text>面积：360平方米|东|明湖百货</text>
+				<view class="square" style="display: flex;">
+					<text>{{item.square}}㎡|朝{{item.orientation}}|</text>
+					<u-parse :html="item.community" :tag-style="style"></u-parse>
 				</view>
-				<view class="wages">中介|南北通透|随时看房</view>
-				<view>1200/月</view>
-				
+				<view class="item">
+					<view class="item1">
+						<text>{{item.elevator}}</text>
+					</view>
+					<view class="item1" style="margin-left: 10rpx;">
+						<text>{{item.decoration}}</text>
+					</view>
+					<view class="item1" style="margin-left: 10rpx;">
+						<text>{{item.canLookTime}}</text>
+					</view>
+				</view>
+				<view style="font-size: 30rpx;color: #ff0000;">{{item.money}}元/月</view>
 			</view>
 			<view>
-				
-				<view class="avatar">
-					<u-avatar :src="src" size=55 show-level=true></u-avatar>
-				</view>
-				<!-- 	<text style="font-size: 18rpx; margin-left: 35rpx;">酒馆</text> -->
 			</view>
 		</view>
 	</view>
@@ -29,18 +34,20 @@
 
 <script>
 	export default {
-		// props: {
-		// 	list: {
-		// 		type: Array,
-		// 		default: null
-		// 	}
-		// },
+		props: {
+			houseList: {
+				type: Array,
+				default: null
+			}
+		},
 		data() {
 			return {
 				src: null,
 				pic: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-				scrollTop:0
-
+				scrollTop: 0,
+				style:{
+					title: 'font-size: 30rpx'
+				},
 			}
 		},
 		onLoad() {
@@ -50,10 +57,10 @@
 			this.src = this.$store.state.avatar
 		},
 		methods: {
-				goDetail(){
-					uni.navigateTo({
-						url:'/pages/house/detailpage/detailpage'
-					})
+			goDetail(id) {
+				uni.navigateTo({
+					url: '/pages/house/detailpage/detailpage?id='+id
+				})
 			}
 		}
 	}
@@ -65,52 +72,45 @@
 			display: flex;
 			padding: 15rpx 20rpx;
 			border-bottom: 2rpx solid #F1F1F1;
-
 			image {
 				min-width: 30rpx;
 				max-width: 200rpx;
 				min-height: 30rpx;
 				max-height: 160rpx;
 			}
-
 			.right {
-				width: 400rpx;
+				width: 450rpx;
 				margin-left: 15rpx;
 				margin-right: 40rpx;
-
 				view {
 					font-size: 23rpx;
 				}
-
 				.title {
 					font-weight: bold;
-					font-size: 28rpx;
+					font-size: 80rpx;
 					display: flex;
-
-					.worktype {
-						margin-left: 30rpx;
-						color: #999999;
-						font-size: 20rpx;
-						padding: 3px;
+					text{
+						font-size: 30rpx;
 					}
-
+					.title-item {
+						overflow:hidden;
+						text-overflow:ellipsis;
+						white-space:nowrap; 
+					}
+					
+				}
+				.item{
+					margin-top: 10rpx;
+					display: flex;
+					margin-bottom: 10rpx;
+					.item1{
+						background-color: #5785E5;
+						text-align: center;
+						border-radius: 10upx;
+					}
 				}
 			}
 
 		}
-	}
-
-	.avatar {}
-
-	.info {
-		margin-top: 15rpx;
-
-		.time {
-			font-size: 20rpx;
-		}
-	}
-
-	.wages {
-		color: #FF0000;
 	}
 </style>

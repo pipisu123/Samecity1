@@ -53,7 +53,8 @@
 				token: '',
 				"userid":'',
 				"username":'',
-				wechatname:''
+				wechatname:'',
+				city:''
 			}
 		},
 		onLoad() {
@@ -71,6 +72,8 @@
 			console.log(this.username)
 			this.wechatname = this.$store.state.wechatname
 			console.log(this.wechatname)
+			this.city = this.$store.state.city
+			console.log(this.city)
 		},
 		methods: {
 			goDetail(recruitment_id,user_id) {
@@ -98,11 +101,9 @@
 				width: 400rpx;
 				margin-left: 15rpx;
 				margin-right: 40rpx;
-
 				view {
 					font-size: 23rpx;
 				}
-
 				.title {
 					font-weight: bold;
 					font-size: 28rpx;

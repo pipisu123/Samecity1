@@ -262,7 +262,7 @@
             "path" : "pages/house/rent/rent",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "出租房源列表",
                 "enablePullDownRefresh": false
             }
             
@@ -427,7 +427,7 @@
 		    "path" : "pages/house/detailpage/detailpage",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "",
+		        "navigationBarTitleText": "房屋详情",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -771,6 +771,42 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/changeCity/changeCity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/agentPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "经纪人发布",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/registerAgent/registerAgent",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册经纪人",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/addCompany/addCompany",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加公司",
                 "enablePullDownRefresh": false
             }
             

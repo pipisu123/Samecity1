@@ -108,16 +108,11 @@
 	import bar from './bar/bar.vue'
 	import rental from './rental/rentalissue.vue'
 	import mypage from './mypage/mypage.vue'
-
-
-
-
-
 	export default {
 		data() {
 			return {
 				houselist:[],//搜索出来的房源
-				city:'未定位',//城市
+				city:'',//城市
 				seach: '', //搜索框
 				value2:2,
 				value3:3,
@@ -286,12 +281,13 @@
 			bar,
 			rental,
 			mypage
-
-
-
-
+		},
+		onReady() {
+			this.$store.dispatch('getCity')
+			this.city = this.$store.state.city
 		},
 		onLoad() {
+			
 			this.$myRequest({
 				url: '/solr-query/house/leaseQuery',//url就是放接口的地址的   
 				method: "GET",//method是放GET或者POST的   不写的话默认POST  看接口文档 根据接口文档写
@@ -307,8 +303,8 @@
 			}).catch(err => {//这里是失败   一般用不着
 				console.log(err)
 			})
-			console.log(this.city)
-				let self=this//这里面出现了指针问题  
+			// console.log(this.city)
+			// 	let self=this//这里面出现了指针问题  
 			// uni.chooseLocation({
 				  
 			// 	success: function(res) {
@@ -342,14 +338,14 @@
 			open(index){
 				this.$refs.uDropdown.highlight();
 					if(index===0){
-						let self=this
-						console.log(uni.getStorageSync('token'))
-						console.log(this.city)
+						// let self=this
+						// console.log(uni.getStorageSync('token'))
+						// console.log(self.city)
 						this.$myRequest({
 							url: '/comboBoxList/house/getAreaComboBoxListByCity',//url就是放接口的地址的   
 							method: "GET",//method是放GET或者POST的   不写的话默认POST  看接口文档 根据接口文档写
 							data:{
-								city:self.city,
+								city:this.city,
 							} //写完上面两个就可以开始写你需要传给后端的数据了  this是指针  指向全局变量的   也就是说你用data里面的变量要在前面加this.    在html中渲染数据不用加this.   有的时候会出现指针无法指向全局变量的情况    那就在方法中第一行加上 let self=this  然后用self.全局变量就可以了
 											//这里传的是对象  不能加引号   加引号的话就变成了字符串
 						}).then(res => {//这里是请求成功之后饭后的数据
