@@ -388,15 +388,6 @@
             
         }
         ,{
-            "path" : "pages/house/rental/rental",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/house/mypage/mypage",
             "style" :                                                                                    
             {
@@ -451,15 +442,6 @@
 		    }
 		    
 		}
-		,{
-		    "path" : "pages/house/newdish/newdish",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
         ,{
             "path" : "pages/myResume/UpdateworkExp/UpdateworkExp",
             "style" :                                                                                    
@@ -482,7 +464,7 @@
 		     "path" : "pages/house/secondhandhousingrelease/secondhandhousingrelease",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "",
+		        "navigationBarTitleText": "二手房发布",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -523,15 +505,6 @@
             }
             
         }
-		,{
-		    "path" : "pages/house/register/register",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
         ,{
             "path" : "pages/man/PersonalCenter/manageDelivery/manageDelivery",
             "style" :                                                                                    
@@ -541,15 +514,6 @@
             }
             
         }
-		,{
-		    "path" : "pages/house/register/login/login",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
         ,{
             "path" : "pages/man/PersonalCenter/myDelivery/myDelivery",
             "style" :                                                                                    
@@ -807,6 +771,96 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "添加公司",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/rentPublic/rentPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "房屋出租",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/secondPublic/secondPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "二手房出售",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/addCommunity/addCommunity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加小区",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/officeRentPublic/officeRentPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "写字楼出租",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/officeSellPublic/officeSellPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "写字楼预售",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/addEstate/addEstate",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加楼盘",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/officeOrShop/officeOrShop",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "写字楼商铺",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/officeDetail/officeDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "写字楼详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/PersonPublic/officeRent/officeRent",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人办公楼出租",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/PersonPublic/secondOfficeSell/secondOfficeSell",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人办公楼预售",
                 "enablePullDownRefresh": false
             }
             

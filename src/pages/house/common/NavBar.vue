@@ -29,17 +29,22 @@
 					},
 					{
 						src: '../../../static/90.jpg',
-						title: '新房发布',
-						path: '/pages/house/econdhandhousingrelease/econdhandhousingrelease'
+						title: '办公楼出租',
+						path: '/pages/house/PersonPublic/officeRent/officeRent'
 					},
 					{
 						src: '../../../static/70.jpg',
-						title: '商铺发布',
-						path: '/pages/house/forrent/forrent'
+						title: '办公楼出售',
+						path: '/pages/house/PersonPublic/secondOfficeSell/secondOfficeSell'
 					},
 					{
 						src: '../../../static/70.jpg',
-						title: '经纪人发布',
+						title: '商铺出租',
+						path: '/pages/house/mypage/Brokerrelease/Brokerrelease'
+					},
+					{
+						src: '../../../static/70.jpg',
+						title: '商铺出售',
 						path: '/pages/house/mypage/Brokerrelease/Brokerrelease'
 					},
 				]

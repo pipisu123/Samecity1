@@ -1,30 +1,30 @@
 <template>
 	<view class="news">
-		<view class="new-items" v-for="(item,index) in houseList" :key="index" @click="goDetail(item.id)">
+		<view class="new-items" @click="goDetail(item.id)" v-for="(item,index) in houseList" :key="index">
 			<image :src="item.img" mode="scaleToFill"></image>
 			<view class="right">
 				<view class="title">
-					<view><text class="title-item">{{item.leaseType}} |</text></view>
+					<!-- <view><text class="title-item">{{item.leaseType}} |</text></view> -->
 					<view class="title-item">
 						<u-parse :html="item.title" :tag-style="style"></u-parse>
 					</view>
 				</view>
 				<view class="square" style="display: flex;">
-					<text>{{item.square}}㎡|朝{{item.orientation}}|</text>
-					<u-parse :html="item.community" :tag-style="style"></u-parse>
+					<text>{{item.square}}㎡|</text>
+					<u-parse :html="item.estateName" :tag-style="style"></u-parse>
 				</view>
 				<view class="item">
 					<view class="item1">
-						<text>{{item.elevator}}</text>
-					</view>
-					<view class="item1" style="margin-left: 10rpx;">
 						<text>{{item.decoration}}</text>
 					</view>
 					<view class="item1" style="margin-left: 10rpx;">
-						<text>{{item.canLookTime}}</text>
+						<text>{{item.isRegisterCompany}}</text>
+					</view>
+					<view class="item1" style="margin-left: 10rpx;">
+						<text>{{item.officeType}}</text>
 					</view>
 				</view>
-				<view style="font-size: 30rpx;color: #ff0000;">{{item.money}}元/月</view>
+				<view style="font-size: 30rpx;color: #ff0000;">{{item.money}}万</view>
 			</view>
 			<view>
 			</view>
@@ -48,6 +48,8 @@
 				style:{
 					title: 'font-size: 30rpx'
 				},
+				html: '出租茂南区文化广场纯写字楼1020室',
+				html1:'名雅花园',
 			}
 		},
 		onLoad() {
@@ -59,7 +61,7 @@
 		methods: {
 			goDetail(id) {
 				uni.navigateTo({
-					url: '/pages/house/detailpage/detailpage?id='+id
+					url: '/pages/house/officeDetail/officeDetail?id='+id
 				})
 			}
 		}

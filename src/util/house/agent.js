@@ -8,3 +8,12 @@ export function checkRegisterByBroker(data){
 		data:data	
 	})
 }
+
+// 添加经纪人
+export function addBroker(data){
+	return myRequest ({
+		url:'house/broker/addBroker',
+		method:'POST',
+		data:data	
+	})
+}

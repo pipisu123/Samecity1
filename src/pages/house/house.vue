@@ -80,7 +80,7 @@
 				<view class="EC_mr15">
 					选择发布类型
 				</view>
-				<rental></rental>
+				<NavBar></NavBar>
 			</view>
 		</template>
 		<template v-else-if="show3">
@@ -106,7 +106,7 @@
 	import fz from './bar/fz.vue'
 	import ym from './bar/ym.vue'
 	import bar from './bar/bar.vue'
-	import rental from './rental/rentalissue.vue'
+	import NavBar from './common/NavBar.vue'
 	import mypage from './mypage/mypage.vue'
 	export default {
 		data() {
@@ -279,7 +279,7 @@
 			fz,
 			ym,
 			bar,
-			rental,
+			NavBar,
 			mypage
 		},
 		onReady() {

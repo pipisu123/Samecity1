@@ -114,8 +114,8 @@
 </template>
 
 <script>
-import uploadvideo from '@/pages/components/easy-upload.vue'
-import uSearch from '@/pages/components/userzero-search.vue'
+import uploadvideo from '../../../../components/easy-upload.vue'
+import uSearch from '../../../../components/userzero-search.vue'
 	
 import { addLease } from '@/util/house.js'
 import { findAllCommunityByCity } from '@/util/house/arealist.js'
@@ -618,15 +618,15 @@ export default {
 			},
 			{
 				id:'5',
-				text: '南北'
-			},
-			{
-				id:'6',
 				text: '东西'
 			},
 			{
-				id:'7',
+				id:'6',
 				text: '东南'
+			},
+			{
+				id:'7',
+				text: '南北'
 			},
 			{
 				id:'8',
@@ -837,7 +837,7 @@ export default {
 						  	"floorNum":this.model.lasttime,//总楼层
 						  	"generalize":this.model.intro,//房屋概况
 						  	"houseType":this.model.houseTypeId,//房屋类型
-						  	"identityType":1,//发布类型
+						  	"identityType":2,//发布类型
 						  	"orientation":this.model.orientationId,
 						  	"money":this.model.count,//价钱
 						  	"square":this.model.phone,//面积

@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://192.168.3.4:8080/'
+export const BASE_URL = 'http://192.168.3.77:8080/'
 export const myRequest = (options)=>{  
 	return new Promise((resolve,reject)=>{
 		const boundary = `----FooBar${new Date().getTime()}`;
@@ -18,7 +18,15 @@ export const myRequest = (options)=>{
 					return uni.showToast({
 						title:'获取数据失败'
 					})
-				}
+				}else if(res.data.code === 4010002){
+						uni.navigateTo({
+							url:'/pages/login/login'
+						})
+					}else if(res.data.code === 4010001){
+						uni.navigateTo({
+							url:'/pages/login/login'
+						})
+					}
 				resolve(res)
 			},
 			fail:(err)=> {

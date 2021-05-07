@@ -1,7 +1,7 @@
 <template>
 	<view v-if="list.length!=0">
-		<u-swipe-action :show="item.show" :index="index" @click="click(index,item.id)" @open="open" v-for="(item,index) in list" :key="index"
-		 :options="options">
+		<u-swipe-action :show="item.show" :index="index" @click="click(index,item.id)" @open="open" v-for="(item,index) in list"
+		 :key="index" :options="options">
 			<view class="item u-border-bottom">
 				<image mode="" :src="item.img" style="height: 80px; width: 80px;" />
 				<!--   <image mode="" src="https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3753706363,1631718189&fm=26&gp=0.jpg"  style="height: 80px; width: 80px;"/> -->
@@ -30,13 +30,23 @@
 							</view>
 						</view>
 						<view class="left">
-							<button size="mini">上架</button>
-							<button size="mini">置顶</button>
+							<view v-if="item.auditState === 1" style="color: #F76260;margin-top: 25px;">
+								<text>审核中...</text>
+							</view>
+							<view v-else-if="item.auditState === 2&&item.online === 0"><button size="mini" @click="online(item.id)">上架</button></view>
+							<view v-else-if="item.auditState === 2&&item.online === 1" class="left">
+								<view><button size="mini" @click="downline(item.id)">下架</button></view>
+								<view style="margin-top: 10px;"><button size="mini" @click="Top(item.id)" :disabled="item.isTop === 1">置顶</button></view>
+							</view>
+							<view v-if="item.auditState === 3" style="color: #F76260;">
+								<text>未通过</text>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 		</u-swipe-action>
+		<u-toast ref="uToast" />
 	</view>
 	<view v-else>
 		<u-empty text="暂无您的发布" mode="list" margin-top=600></u-empty>
@@ -44,52 +54,54 @@
 </template>
 
 <script>
-	import { getLeaseList } from '../../../util/house/release.js'
+	import {
+		getLeaseList
+	} from '@/util/house/release.js'
 	// import { deleteHouseByHouseId } from '../../../util/house/housecommon.js'
+	import {
+		doReleaseOnlineTrue,
+		isTopHouseByHouseId,
+		doReleaseOnlineFalse
+	} from '@/util/house/housecommon.js'
 	export default {
 		data() {
 			return {
 				disabled: false,
 				btnWidth: 180,
 				show: false,
-				options: [
-					{
-						text: '删除',
-						style: {
-							backgroundColor: '#dd524d'
-						}
+				options: [{
+					text: '删除',
+					style: {
+						backgroundColor: '#dd524d'
 					}
-				],
+				}],
 				list: []
 			};
 		},
 		onLoad() {
-		this.getrentList()
+			this.getrentList()
 		},
 		methods: {
 			// 查询出租房源
-			getrentList(){
+			getrentList() {
 				getLeaseList({
-					"limit":10,
-					"page":1
-				}).then(res=>{
+					"limit": 10,
+					"page": 1
+				}).then(res => {
 					console.log(res)
 					this.list = res.data.data
-				}).catch(err=>{
+				}).catch(err => {
 					console.log(err)
 				})
 			},
-			click(index,id) {
+			click(index, id) {
 				uni.showLoading({
-					title:'删除中...'
+					title: '删除中...'
 				})
 				this.$myRequest({
-					url: '/house/common/deleteHouseByHouseId?houseId='+id+'&houseType='+ 1,
+					url: '/house/common/deleteHouseByHouseId?houseId=' + id + '&houseType=' + 1,
 					method: "PUT",
-					data:{
-						
-					} 
-									
+					data: {}
 				}).then(res => {
 					console.log(res)
 					uni.hideLoading()
@@ -97,26 +109,48 @@
 				}).catch(err => {
 					console.log(err)
 				})
-				// deleteHouseByHouseId({
-				// 	houseId:id,
-				// 	houseType:1
-				// }).then(res=>{
-				// 	console.log(res)
-					
-				// }).catch(err=>{
-				// 	console.log(err)
-				// })
 				console.log(id)
 				console.log(index)
+			},
+			// 上架房源
+			online(id) {
+				doReleaseOnlineTrue({
+					"houseId": id,
+					"houseType": 1,
+				}).then(res => {
+					console.log(res)
+				}).catch(err => {
+					console.log(err)
+				})
+			},
+			// 置顶房源
+			Top(id) {
+				isTopHouseByHouseId({
+					"houseId": id,
+					"houseType": 1,
+				}).then(res => {
+					console.log(res)
+					if (res.data.code === 0) {
+						this.getrentList()
+						this.$refs.uToast.show({
+							title: '置顶成功',
+							type: 'success',
+						})
+					} else {
+						console.log("置顶失败")
+					}
+				}).catch(err => {
+					console.log(err)
+				})
 			},
 			// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
 			open(index) {
 				// 先将正在被操作的swipeAction标记为打开状态，否则由于props的特性限制，
 				// 原本为'false'，再次设置为'false'会无效
 				this.list[index].show = true;
-								this.list.map((val, idx) => {
-									if(index != idx) this.list[idx].show = false;
-								})
+				this.list.map((val, idx) => {
+					if (index != idx) this.list[idx].show = false;
+				})
 			}
 		}
 	};
@@ -130,28 +164,30 @@
 
 	.content {
 		display: flex;
+
 		.left {
 			display: flex;
 			justify-content: space-between;
 			flex-direction: column;
-
 		}
 
 		.right {
 			width: 410rpx;
 			margin-left: 10rpx;
-			.itemlist{
-				
-				.item-title{
+
+			.itemlist {
+
+				.item-title {
 					font-size: 30rpx;
 					font-weight: bold;
-					overflow:hidden;
-					text-overflow:ellipsis;
-					white-space:nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
-				.price{
-					 color: #ff0000;
-					 margin-top: 15rpx;
+
+				.price {
+					color: #ff0000;
+					margin-top: 15rpx;
 				}
 			}
 		}

@@ -47,7 +47,7 @@
 				</u-form-item>
 				<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
 				 label="产权年限" prop="chan">
-					<u-input :border="border" placeholder="请输入产权年限" v-model="model.chan" type="select" :select-open="selectShow8"
+					<u-input :border="border" placeholder="请选择产权年限" v-model="model.chan" type="select" :select-open="selectShow8"
 					 @click="selectShow8 = true"></u-input>
 				</u-form-item>
 				<u-form-item :label-position="labelPosition" label="选择装修" prop="wagesType" label-width="150" color="#a0cfff">
@@ -75,6 +75,9 @@
 				</u-form-item>
 				<u-form-item :label-position="labelPosition" label="业主心态" prop="mentality" label-width="130">
 					<u-input type="textarea" :border="true" placeholder="描述一下业主心态趴!" v-model="model.mentality" :height="height" />
+				</u-form-item>
+				<u-form-item :label-position="labelPosition" label="服务介绍" prop="service" label-width="130">
+					<u-input type="textarea" :border="true" placeholder="描述一下小区的服务趴!" v-model="model.service" :height="height" />
 				</u-form-item>
 				<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
 				 label="电梯" prop="cou">
@@ -109,7 +112,7 @@
 			<u-button @click="submit" type="primary">立即发布</u-button>
 		</view>
 		<view class="" v-else>
-			<uSearch :dictArr="wArr" @selectIndexValue="getVal" ref="usearch" @getValue="getValue" @getid="getid" @cancel="cancel"></uSearch>
+			<uSearch :dictArr="wArr" @selectIndexValue="getVal" ref="usearch" @getid="getid" @cancel="cancel"></uSearch>
 			<view class="bottom-nav">
 				<u-button type="primary" @click="addCommunity">添加小区(如未搜索出添加即可)</u-button>
 			</view>
@@ -118,21 +121,20 @@
 </template>
 
 <script>
-	import uploadvideo from '../../components/easy-upload.vue'
-	import uSearch from '../../components/userzero-search.vue'
+	import uploadvideo from '@/pages/components/easy-upload.vue'
+	import uSearch from '@/pages/components/userzero-search.vue'
 
-	import {
-		addSecondHand
-	} from '../../../util/house.js'
 	import {
 		findAllCommunityByCity
-	} from '../../../util/house/arealist.js'
-
+	} from '@/util/house/arealist.js'
+	import {
+		addSecondHandByBroker
+	} from '@/util/house/secondHouse.js'
 	export default {
 		data() {
 			return {
-				showview: true,
 				height: 200,
+				showview: true,
 				sahow: false,
 				dataList: [],
 				public: {
@@ -156,6 +158,7 @@
 					name: '',
 					workType: '',
 					square: '',
+					wechat: '',
 					wagesType: '',
 					worktime: '',
 					zuf: '',
@@ -168,6 +171,7 @@
 					chanId: '',
 					sellingPoint: '',
 					mentality: '',
+					service: '',
 					seehouseId: '',
 					region: '',
 					photo: [],
@@ -176,6 +180,8 @@
 					count: '',
 					coun: '',
 					propertyRightId: '',
+					deposit: '',
+					payment: '',
 					industry: '',
 					video: '',
 					area: '',
@@ -201,15 +207,15 @@
 					// 	}
 					// ],
 					square: [{
-						required: true,
-						message: '请输入面积',
-						trigger: 'blur'
-					}, 
-					{
-						type: 'number',
-						message: '只能为数字',
-						trigger: ['change', 'blur'],
-					}
+							required: true,
+							message: '请输入面积',
+							trigger: 'blur'
+						},
+						{
+							type: 'number',
+							message: '只能为数字',
+							trigger: ['change', 'blur'],
+						}
 					],
 					goodsType: [{
 						required: true,
@@ -222,28 +228,27 @@
 						trigger: 'change',
 					}],
 					count: [{
-						required: true,
-						message: '出售价格不能空',
-						trigger: 'blur',
-					},
-					{
-						type: 'number',
-						message: '只能为数字',
-						trigger: ['change', 'blur'],
-					}
+							required: true,
+							message: '出售价格不能空',
+							trigger: 'blur',
+						},
+						{
+							type: 'number',
+							message: '只能为数字',
+							trigger: ['change', 'blur'],
+						}
 					],
 					lasttime: [{
-						required: true,
-						message: '楼层不能为空',
-						trigger: 'blur',
-					},
-					{
-						type: 'number',
-						message: '只能为数字',
-						trigger: ['change', 'blur'],
-					}
+							required: true,
+							message: '楼层不能为空',
+							trigger: 'blur',
+						},
+						{
+							type: 'number',
+							message: '只能为数字',
+							trigger: ['change', 'blur'],
+						}
 					],
-
 				},
 				selectList: [{
 						value: '1',
@@ -460,22 +465,13 @@
 					},
 				],
 				selectList8: [{
-						value: '0',
-						label: '2年内'
+						value: '40',
+						label: '40年'
 					},
 					{
-						value: '1',
-						label: '2-5年'
+						value: '70',
+						label: '70年'
 					},
-					{
-						value: '2',
-						label: '5-10年'
-					},
-					{
-						value: '3',
-						label: '10年以上'
-					},
-
 				],
 				actionSheetList: [{
 						id: '1',
@@ -569,10 +565,7 @@
 		},
 
 		methods: {
-			// 小区获取
-			getValue(e) {
-				this.model.area = e
-			},
+			// 显示小区
 			showarea() {
 				this.showview = false
 			},
@@ -585,6 +578,10 @@
 					url: '/pages/house/mypage/addCommunity/addCommunity'
 				})
 			},
+			// // 小区获取
+			// getValue(e) {
+			// 	this.model.area = e
+			// },
 			// 选择回调出小区id
 			getid(e) {
 				this.model.communityId = e
@@ -695,16 +692,15 @@
 								let data = JSON.parse(res.data)
 								this.src = data.data
 								// 3.最后调用上传所有房源基本信息接口
-								addSecondHand({
+								addSecondHandByBroker({
 									"communityId": this.model.communityId, //小区
-									"decorationId": this.model.decorationId, //装修id
+									"decoration": this.model.decorationId, //装修id
 									"elevator": this.model.cou, //电梯
 									"floor": this.model.locengId, //楼层
 									"floorNum": this.model.lasttime, //总楼层
-									"generalize": this.model.intro, //房屋概况
+									"sellingPoint": this.model.sellingPoint, //卖点
 									"houseType": this.model.houseTypeId, //房屋类型
-									"propertyAge": this.model.propertyAge, //产权年限
-									"identityType": 1, //发布类型
+									"identityType": 2, //发布类型
 									"orientation": this.model.orientationId,
 									"money": this.model.count, //价钱
 									"square": this.model.square, //面积
@@ -712,7 +708,7 @@
 									"hallNum": this.model.hallNum, //厅
 									"roomNum": this.model.roomNum, //房
 									"bathroomNum": this.model.bathroomNum, //卫	
-									"sellingPoint": this.model.sellingPoint, //卖点
+									"service": this.model.service, //服务
 									"propertyRight": this.model.propertyRightId, //产权性质id
 									"propertyAge": this.model.chanId, //产权年限
 									"onlyOne": this.model.zufId, //唯一住房0否 1是
@@ -721,6 +717,13 @@
 									"imgFiles": this.images //图片
 								}).then(res => {
 									console.log(res)
+									if (res.data.code === 0) {
+										// uni.reLaunch({
+										// 	url:'/pages/house/'
+										// })
+									} else {
+
+									}
 
 								}).catch(err => {
 									console.log(err)
@@ -843,7 +846,6 @@
 				})
 				console.log(e[0].value)
 				this.model.chanId = e[0].value
-
 			},
 			borderChange(index) {
 				this.border = !index;

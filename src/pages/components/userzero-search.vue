@@ -1,6 +1,9 @@
 <template>
 	<view class="search-box">
-		<input type="text" :value="text" @input="searchInput" class="u-search-input" placeholder="请输入区域名字"/>
+		<view style="display: flex;">
+			<input type="text" :value="text" @input="searchInput" class="u-search-input" placeholder="请输入小区名称"/>
+			<view style="padding-top: 20rpx;" @click="cancel">取消</view>
+		</view>
 		<view v-for="(item,index) in searchArr" :key="index" class="u-search-list" @click="selectIndex( searchKey ? item[searchKey] : item,value)" v-show="show">
 			{{ searchKey ? item[searchKey] : item}}
 		</view>
@@ -60,6 +63,11 @@
 			
 		},
 		methods: {
+			// 取消
+			cancel(){
+				this.$emit('cancel')
+			},
+			// 
 			searchInput(e){
 				this.$emit('getValue',e.detail.value)
 				this.searchModel = e.detail.value
@@ -84,15 +92,17 @@
 
 <style>
 	.u-search-input{
+		width: 80%;
 		margin: 10rpx 30rpx 0 30rpx;
 		padding: 10rpx 10rpx;
-		height: 60rpx;
-		/* border-radius: 24rpx; */
-		/* border: 1px solid #CCCCCC; */
-		/* border-bottom: 2rpx solid #F1F1F1; */
+		height: 40rpx;
+		border-radius: 24rpx;
+		border: 1px solid #CCCCCC;
+		border-bottom: 2rpx solid #F1F1F1;
 	}
 	.u-search-list{
 		margin: 20rpx 30rpx;
+		height: 35px;
 		/* padding: 11px 20rpx; */
 		border-radius: 10rpx;
 		background: #FFFFFF;

@@ -1,11 +1,12 @@
 <template>
 	<view class="search-box">
 		<view style="display: flex;">
-			<input type="text" :value="text" @input="searchInput" class="u-search-input" placeholder="请输入公司名称"/>
+			<input type="text" :value="text" @input="searchInput" class="u-search-input" placeholder="请输入楼盘名称"/>
 			<view style="padding-top: 20rpx;" @click="cancel">取消</view>
 		</view>
 		<view v-for="(item,index) in searchArr" :key="index" class="u-search-list" @click="selectIndex( searchKey ? item[searchKey] : item,value)" v-show="show">
-			{{ searchKey ? item[searchKey] : item}}
+			{{ searchKey ? item[searchKey] : item.lable}}
+			<view style="font-size: 25rpx;color: #D1D1D1;">{{ searchKey ? item[searchKey] : item.address}}</view>
 		</view>
 	</view>
 </template>
@@ -21,20 +22,31 @@
 				if(!that.searchKey){
 					for (var i=0;i<len;i++) {
 						if(that.dictArr[i].label.indexOf(that.searchModel)>-1){
-							newArr.push(that.dictArr[i].label)
+							let ob = {
+								lable:that.dictArr[i].label,
+								address:that.dictArr[i].address,
+							}
+							newArr.push(ob)
+							// newArr.push(that.dictArr[i].address)
 							that.value = that.dictArr[i].value
+							that.address = that.dictArr[i].address
 						}
 					}
 				}else{
 					for (var i=0;i<len;i++) {
 						if(that.dictArr[i].label[that.searchKey].indexOf(that.searchModel)>-1){
-							newArr.push(that.dictArr[i].label)
+							let ob = {
+								lable:that.dictArr[i].label,
+								address:that.dictArr[i].address,
+							}
+							// newArr.push(that.dictArr[i].address)
 							that.value = that.dictArr[i].value
+							that.address = that.dictArr[i].address
 						}
 					}	
 				}
 				return newArr
-			}
+			},
 		},
 		props: {
 			"dictArr": {
@@ -55,6 +67,9 @@
 				value:'',
 				text:''
 			}
+		},
+		onShow() {
+			
 		},
 		created(){
 			
@@ -81,6 +96,7 @@
 				
 			},
 			selectIndex(val,value){
+				console.log(val)
 				this.$emit('selectIndexValue', val);
 				this.text = val
 				this.show = false
@@ -102,7 +118,7 @@
 	}
 	.u-search-list{
 		margin: 20rpx 30rpx;
-		height: 35px;
+		height: 45px;
 		/* padding: 11px 20rpx; */
 		border-radius: 10rpx;
 		background: #FFFFFF;

@@ -15,7 +15,8 @@ const store = new Vuex.Store({
 		refreshtoken: uni.getStorageSync('refreshtoken'),
 		userid: uni.getStorageSync('userid'),
 		username: uni.getStorageSync('username'),
-		city: '北京',
+		city: '茂名',
+		district:'',
 	},
 	mutations: {
 		setavatar(state, data) {
@@ -42,7 +43,11 @@ const store = new Vuex.Store({
 		newCityFun(state, city) {
 			state.city = city
 			console.log(state.city)
-		}
+		},
+		newDistrictFun(state, district) {
+			state.district = district
+			console.log(state.district)
+		},
 	},
 	actions: {
 			getCity(context) {
@@ -72,10 +77,13 @@ const store = new Vuex.Store({
 									},
 									success(res) {
 										var city = ''
+										var district=''
 										console.log(res)
 										// 取到用户的定位城市，赋值传递出去
-										city = res.result.address_component.city.slice(0,2)
+										city = res.result.address_component.city.slice(0,2);
+										district = res.result.address_component.district.slice(0,2);
 										context.commit('newCityFun', city)
+										context.commit('newDistrictFun', district)
 									}
 								})	
 						    }

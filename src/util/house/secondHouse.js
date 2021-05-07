@@ -17,3 +17,12 @@ export function getSecondHandList(data){
 		data:data	
 	})
 }
+
+// 经纪人添加二手房
+export function addSecondHandByBroker(data){
+	return myRequest ({
+		url:'house/secondHand/addSecondHandByBroker',
+		method:'POST',
+		data:data	
+	})
+}

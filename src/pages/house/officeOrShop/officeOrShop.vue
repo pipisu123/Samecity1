@@ -12,16 +12,17 @@
 				<u-search placeholder="请输入房屋信息" @search="search" v-model="content" @custom="custom"></u-search>
 			</view>
 		</view>
+		<view><centerBar></centerBar></view>
 		<view class="wage">
 			<u-dropdown @open="open" ref="uDropdown" border-bottom=true>
 				<u-dropdown-item v-model="value1" title="区域" :options="options1" @change="change"></u-dropdown-item>
 				<u-dropdown-item v-model="value2" title="价格" :options="options2" @change="change1"></u-dropdown-item>
 				<u-dropdown-item v-model="value3" title="户型" :options="options3" @change="change2"></u-dropdown-item>
 			</u-dropdown>
-			<view class="wages" @click="show5 = true">
+			<view class="wages" @click="showselect = true">
 				更多
 			</view>
-			<u-popup v-model="show5" width=600>
+			<u-popup v-model="showselect" width=600>
 				<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
 				 label="电梯" prop="cou">
 					<u-radio-group v-model="value" @change="radioGroupChange">
@@ -60,14 +61,15 @@
 				</view>
 			</u-popup>
 		</view>
-		<housing :houseList="houseList"></housing>
+		<officeHouse :houseList="houseList"></officeHouse>
 	</view>
 </template>
 
 <script>
-	import housing from '../rent/housing.vue'
+	import centerBar from './childComps/centerBar.vue'
+	import officeHouse from './childComps/officeHouseList.vue'
 	import {
-		leaseQuery
+		officeSecondHandQuery
 	} from '@/util/house/searchHouse.js'
 	export default {
 		data() {
@@ -79,13 +81,13 @@
 				value2: 2,
 				value3: 3,
 				value4: 4,
-				show5: false,
-				search: {
-					elevator: '',
-					orientation: '',
-					leaseType: '',
-					identityType: ''
-				},
+				showselect: false,
+				// search: {
+				// 	elevator: '',
+				// 	orientation: '',
+				// 	leaseType: '',
+				// 	identityType: ''
+				// },
 				options1: [],
 				options2: [{
 						label: '0-500',
@@ -254,12 +256,33 @@
 		},
 		onLoad() {
 			this.city = this.$store.state.city;
-			this.gethouseList()
+			this.getsecondList()
 		},
 		components: {
-			housing
+			centerBar,
+			officeHouse
 		},
 		methods: {
+			// 获取二手列表
+			getsecondList(){
+				officeSecondHandQuery({
+					"page":1,
+					"limit":10,
+					"city":this.$store.state.city,
+				}).then(res=>{
+					console.log(res)
+					if(res.data.code === 0){
+						this.houseList = res.data.data;
+					}else{
+						console.log("搜索失败！")
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			},
+			btn(){
+				console.log("==========")
+			},
 			search() {
 				if (this.content != '') {
 					this.gethouseList()

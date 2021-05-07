@@ -11,12 +11,7 @@
 			</view>
 		</view>
 		<!-- 前往创建经纪人 -->
-		<view class="box">
-			<view class="item">
-				<text @tap="confirm">如果还没有注册经纪人，请先前往创建经纪人？</text>
-			</view>
-		</view>
-		<u-modal ref="uModal" v-model="show1" :show-cancel-button="true"  :async-close="asyncClose" title="提示"
+		<u-modal ref="uModal" v-model="show1" :show-cancel-button="true"  :async-close="asyncClose" title="提示" @cancel="cancel"
 		 @confirm="confirm" :content="content" confirm-text="立即注册">
 		</u-modal>
 	</view>
@@ -34,23 +29,28 @@
 				content:'您尚未注册经纪人，请先前往注册',
 				navs: [{
 						src: '../../../../static/17.jpg',
-						title: '二手房发布',
-						path: '/pages/house/secondhandhousingrelease/secondhandhousingrelease'
+						title: '二手房出售',
+						path: '/pages/house/mypage/agentPublic/secondPublic/secondPublic'
 					},
 					{
 						src: '../../../../static/90.jpg',
-						title: '新房发布',
-						path: '/pages/house/econdhandhousingrelease/econdhandhousingrelease'
+						title: '房屋出租',
+						path: '/pages/house/mypage/agentPublic/rentPublic/rentPublic'
 					},
 					{
 						src: '../../../../static/70.jpg',
-						title: '商铺发布',
+						title: '商铺出租',
 						path: '/pages/house/forrent/forrent'
 					},
 					{
 						src: '../../../../static/70.jpg',
-						title: '办公楼发布',
-						path: '/pages/house/mypage/Brokerrelease/Brokerrelease'
+						title: '办公楼出租',
+						path: '/pages/house/mypage/agentPublic/officeRentPublic/officeRentPublic'
+					},
+					{
+						src: '../../../../static/70.jpg',
+						title: '办公楼出售',
+						path: '/pages/house/mypage/agentPublic/officeSellPublic/officeSellPublic'
 					},
 					{
 						src: '../../../../static/70.jpg',
@@ -61,6 +61,9 @@
 			}
 		},
 		onLoad() {
+			this.checkUser()
+		},
+		onShow() {
 			this.checkUser()
 		},
 		methods: {
@@ -89,6 +92,11 @@
 					}
 				}).catch(err => {
 					console.log(err)
+				})
+			},
+			cancel(){
+				uni.navigateBack({
+					
 				})
 			},
 		}
@@ -121,19 +129,6 @@
 
 			text {
 				font-size: 20rpx;
-			}
-		}
-	}
-
-	.box {
-		.item {
-			margin-top: 200px;
-			text-align: center;
-
-			text {
-				color: #0A8DE7;
-				font-size: 30rpx;
-				text-decoration: underline;
 			}
 		}
 	}

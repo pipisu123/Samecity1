@@ -32,18 +32,13 @@
 					},
 					{
 						src: '/static/70.jpg',
-						title: '新盘',
-
-						path: '/pages/house/newdish/newdish'
-
+						title: '写字楼商铺',
+						path: '/pages/house/officeOrShop/officeOrShop'
 					},
 					{
 						src: '/static/60.jpg',
 						title: '商铺',
-
 						path: '/pages/house/shop/shop'
-
-						
 					},
 					
 				]

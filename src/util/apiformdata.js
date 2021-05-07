@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://192.168.3.4:8080/'
+export const BASE_URL = 'http://192.168.3.77:8080/'
 export const myRequest = (options)=>{  
 	return new Promise((resolve,reject)=>{
 		const boundary = `----FooBar${new Date().getTime()}`;

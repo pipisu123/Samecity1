@@ -125,7 +125,8 @@
 		<!-- 经纪人信息 -->
 		<view class="house-person">
 			<view class="title">
-				<text>经纪人信息</text>
+				<text v-if="data.identityType === 1">房东信息</text>
+				<text v-else>经纪人信息</text>
 			</view>
 			<view class="person-info">
 				<view class="person-avatar">
@@ -145,14 +146,12 @@
 			</view>
 		</view>
 		<Bar></Bar>
-		<list></list>
 	</view>
 </template>
 
 <script>
 	import swippe from '../bar/swippe.vue'
 	import Bar from '../detailpage/Bar.vue'
-	import list from '../../components/list.vue'
 	
 	import { getLeaseDetails } from '../../../util/house/release.js'
 	export default {
@@ -180,7 +179,6 @@
 		components: {
 			swippe,
 			Bar,
-			list
 		},
 		methods: {
 			houseDetail(id){
@@ -207,6 +205,7 @@
 <style lang="scss" scoped>
 	.wrap {
 		padding: 10rpx;
+		margin-bottom: 49px;
 	}
     .title{
 		font-size: 40rpx;
