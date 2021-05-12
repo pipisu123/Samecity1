@@ -11,13 +11,9 @@
 			</view>
 			<view class="layout">
 				<view style="line-height: 20px;">
-					<view style="color: #F76260;" >{{detail.price}}万</view>
+					<view style="color: #F76260;" >{{detail.price}}{{detail.moneyUnits}}</view>
 					<view style="font-size: 25rpx;margin-left: 10rpx;">售价</view>
 				</view>
-				<!-- <view style="line-height: 20px;">
-					<view style="color: #F76260;">2500元/月</view>
-					<view style="font-size: 25rpx;margin-left: 20rpx;">月租</view>
-				</view> -->
 				<view style="line-height: 20px;">
 					<view style="color: #F76260;">{{detail.square}}㎡</view>
 					<view style="font-size: 25rpx;">面积</view>

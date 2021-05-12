@@ -19,13 +19,18 @@ export const myRequest = (options)=>{
 						title:'获取数据失败'
 					})
 				}else if(res.data.code === 4010002){
+					    uni.showToast({
+					    	title:'身份验证已过期，请重新登陆',
+							duration:5000,
+					    })
 						uni.navigateTo({
 							url:'/pages/login/login'
 						})
 					}else if(res.data.code === 4010001){
-						uni.navigateTo({
-							url:'/pages/login/login'
-						})
+						// uni.navigateTo({
+						// 	url:'/pages/login/login'
+						// })
+						console.log("用户登录")
 					}
 				resolve(res)
 			},

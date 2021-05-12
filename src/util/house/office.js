@@ -48,7 +48,7 @@ export function getOfficeDetails(data){
 // 查看个人办公楼租赁发布列表
 export function getOfficeLeaseList(data){
 	return myRequest ({
-		url:'house/office/getOfficeLeaseList',
+		url:'house/office/getOfficeLeaseListByPerson',
 		method:'GET',
 		data:data	
 	})
@@ -58,6 +58,15 @@ export function getOfficeLeaseList(data){
 export function getOfficeSecondHandList(data){
 	return myRequest ({
 		url:'house/office/getOfficeSecondHandList',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询经纪人身份发布的房源列表
+export function getOfficeLeaseListByBroker(data){
+	return myRequest ({
+		url:'house/office/getOfficeLeaseListByBroker',
 		method:'GET',
 		data:data	
 	})

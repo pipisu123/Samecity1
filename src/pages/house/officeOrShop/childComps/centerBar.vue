@@ -5,7 +5,7 @@
 				<view>
 					<image :src="item1.src" mode="" style="width: 80rpx;height: 80rpx;"></image>
 				</view>
-				<text>{{item.title}}</text>
+				<text>{{item1.title}}</text>
 			</view>
 		</view>
 	</view>
@@ -15,27 +15,27 @@
 	export default {
 		data() {
 			return {
-				navs: [{
+				navs: [
+					{
 						src: '/static/80.jpg',
-						title: '出租',
-						path: '/pages/house/rent/rent'
+						title: '租写字楼',
+						path: '/pages/house/officeOrShop/officeRentList/officeRentList'
 					},
 					{
 						src: '/static/17.jpg',
-						title: '二手房',
-						path: '/pages/house/resold/resold'
+						title: '买写字楼',
+						path: '/pages/house/officeOrShop/officeSellList/officeSellList'
 					},
 					{
 						src: '/static/70.jpg',
-						title: '写字楼商铺',
+						title: '租商铺',
 						path: ''
 					},
 					{
 						src: '/static/60.jpg',
-						title: '商铺',
-						path: '/pages/house/shop/shop'
+						title: '买商铺',
+						path: ''
 					},
-
 				]
 			}
 		},
@@ -51,7 +51,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.nav {
 		display: flex;
 		flex-wrap: wrap;

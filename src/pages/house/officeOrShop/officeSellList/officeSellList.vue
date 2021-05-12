@@ -9,20 +9,19 @@
 				<text>{{city}}</text>
 			</view>
 			<view class="seach">
-				<u-search placeholder="请输入房屋信息" @search="search" v-model="content" @custom="custom"></u-search>
+				<u-search placeholder="请输入房屋信息" @search="search1" v-model="content" @custom="custom"></u-search>
 			</view>
 		</view>
-		<centerBar></centerBar>
 		<view class="wage">
 			<u-dropdown @open="open" ref="uDropdown" border-bottom=true>
 				<u-dropdown-item v-model="value1" title="区域" :options="options1" @change="change"></u-dropdown-item>
 				<u-dropdown-item v-model="value2" title="价格" :options="options2" @change="change1"></u-dropdown-item>
-				<u-dropdown-item v-model="value3" title="面积" :options="options3" @change="change2"></u-dropdown-item>
+				<u-dropdown-item v-model="value3" title="户型" :options="options3" @change="change2"></u-dropdown-item>
 			</u-dropdown>
-			<view class="wages" @click="showselect = true">
+			<view class="wages" @click="show5 = true">
 				更多
 			</view>
-			<u-popup v-model="showselect" width=600>
+			<u-popup v-model="show5" width=600>
 				<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
 				 label="电梯" prop="cou">
 					<u-radio-group v-model="value" @change="radioGroupChange">
@@ -61,16 +60,13 @@
 				</view>
 			</u-popup>
 		</view>
-		<officeHouse :houseList="houseList"></officeHouse>
+		<officeHouseList :houseList="houseList"></officeHouseList>
 	</view>
 </template>
 
 <script>
-	import centerBar from './childComps/centerBar.vue'
-	import officeHouse from './childComps/officeHouseList.vue'
-	import {
-		officeSecondHandQuery
-	} from '@/util/house/searchHouse.js'
+	import { officeSecondHandQuery } from '@/util/house/searchHouse.js'
+	import officeHouseList from '../childComps/officeHouseList.vue'
 	export default {
 		data() {
 			return {
@@ -81,76 +77,62 @@
 				value2: 2,
 				value3: 3,
 				value4: 4,
-				showselect: false,
-				// search: {
-				// 	elevator: '',
-				// 	orientation: '',
-				// 	leaseType: '',
-				// 	identityType: ''
-				// },
+				show5: false,
+				search: {
+					elevator: '',
+					orientation: '',
+					leaseType: '',
+					identityType: ''
+				},
 				options1: [],
-				options2: [
-					{
-						label: '0-100万',
+				options2: [{
+						label: '0-500',
 						value: 1,
 					},
 					{
-						label: '100-200万',
+						label: '500-1000',
 						value: 2,
 					},
 					{
-						label: '200-300万',
+						label: '1000-2000',
 						value: 3,
 					},
 					{
-						label: '300-500万',
+						label: '2000-3000',
 						value: 4,
 					},
 					{
-						label: '500-800万',
+						label: '3000-4000',
 						value: 5,
 					},
 					{
-						label: '800-1200万',
+						label: '4000-5000',
 						value: 6,
 					},
 					{
-						label: '1200-2000万',
+						label: '5000以上',
 						value: 7,
-					},
-					{
-						label: '2000万以上',
-						value: 8,
 					},
 				],
-				options3: [
-					{
-						label: '0-100㎡',
+				options3: [{
+						label: '一室',
 						value: 1,
 					},
 					{
-						label: '100-150㎡',
+						label: '二室',
 						value: 2,
 					},
 					{
-						label: '150-200㎡',
+						label: '三室',
 						value: 3,
 					},
 					{
-						label: '200-300㎡',
+						label: '四室',
 						value: 4,
 					},
 					{
-						label: '300-500㎡',
+						label: '五室以上',
 						value: 5,
-					},
-					{
-						label: '500-1000㎡',
-						value: 6,
-					},
-					{
-						label: '1000㎡以上',
-						value: 7,
 					},
 				],
 				options4: [{
@@ -270,34 +252,13 @@
 		},
 		onLoad() {
 			this.city = this.$store.state.city;
-			this.getsecondList()
+			this.gethouseList()
 		},
 		components: {
-			centerBar,
-			officeHouse
+			officeHouseList
 		},
 		methods: {
-			// 获取二手列表
-			getsecondList(){
-				officeSecondHandQuery({
-					"page":1,
-					"limit":10,
-					"city":this.$store.state.city,
-				}).then(res=>{
-					console.log(res)
-					if(res.data.code === 0){
-						this.houseList = res.data.data;
-					}else{
-						console.log("搜索失败！")
-					}
-				}).catch(err=>{
-					console.log(err)
-				})
-			},
-			btn(){
-				console.log("==========")
-			},
-			search() {
+			search1() {
 				if (this.content != '') {
 					this.gethouseList()
 				} else {
@@ -361,7 +322,7 @@
 					title: '加载中...'
 				})
 				officeSecondHandQuery({
-					"square": this.options3[index].value,
+					"roomNum": this.options3[index].value,
 					"city": this.city,
 					"limit": 10,
 					"page": 1,
@@ -444,7 +405,7 @@
 				}
 			},
 			gethouseList() {
-				leaseQuery({
+				officeSecondHandQuery({
 					"page": 1,
 					"limit": 10,
 					"city": this.city,
@@ -461,7 +422,7 @@
 				console.log(this.search)
 				uni.showLoading({})
 				this.show5 = false
-				leaseQuery({
+				officeSecondHandQuery({
 					"elevator": this.search.elevator,
 					"leaseType": this.search.leaseType,
 					"identityType": this.search.identityType,
@@ -488,7 +449,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.searchbar {
 		display: flex;
 		border-color: #fff;

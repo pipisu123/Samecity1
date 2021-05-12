@@ -305,16 +305,6 @@
             
         }
         ,{
-
-            "path" : "pages/house/newdishpage/newdishpage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/house/sellhousepage/sellhousepage",
             "style" :                                                                                    
             {
@@ -343,43 +333,15 @@
             
         }
         ,{
-            "path" : "pages/house/newbuildings/newbuildings",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/house/Soldbuilding/Soldbuilding",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/earlymorning/earlymorning",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
+            } 
         }
         ,{
             "path" : "pages/house/lowprice/lowprice",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/beenopened/beenopened",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -523,15 +485,6 @@
             }
             
         }
-		,{
-		   "path" : "pages/house/newhouserelease/newhouserelease",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
         ,{
             "path" : "pages/man/PersonalCenter/myInvitation/myInvitation",
             "style" :                                                                                    
@@ -861,6 +814,105 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "个人办公楼预售",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/myPublic/myPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的发布",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/rentShop/rentShop",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商铺出租",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/shopSellPublic/shopSellPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商铺出售",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/officeOrShop/officeRentList/officeRentList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "写字楼出租",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/officeOrShop/officeSellList/officeSellList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "买写字楼",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/officeDetail/rentOfficeDetail/rentOfficeDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "写字楼出租详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/myOfficeList/myOfficeList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的写字楼",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/myShopList/myShopList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的商铺",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/PersonPublic/PersonRentShop/PersonRentShop",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人商铺出租",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/PersonPublic/personSellShop/personSellShop",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人商铺出售",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/house/mypage/agentPublic/changeRentPublic/changeRentPublic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商铺转租",
                 "enablePullDownRefresh": false
             }
             

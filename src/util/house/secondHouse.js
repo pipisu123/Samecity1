@@ -12,7 +12,16 @@ export function getSecondHandDetails(data){
 // 查看个人二手发布列表
 export function getSecondHandList(data){
 	return myRequest ({
-		url:'house/secondHand/getSecondHandList',
+		url:'house/secondHand/getSecondHandListByPerson',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询经纪人身份发布的房源列表
+export function getSecondHandListByBroker(data){
+	return myRequest ({
+		url:'house/secondHand/getSecondHandListByBroker',
 		method:'GET',
 		data:data	
 	})

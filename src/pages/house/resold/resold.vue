@@ -9,7 +9,7 @@
 				<text>{{city}}</text>
 			</view>
 			<view class="seach">
-				<u-search v-model="seach" placeholder="请输入房屋信息" @input="oninput"></u-search>
+				<u-search placeholder="请输入房屋信息" @search="searchSecondhouse" v-model="content" @custom="customSecondhouse"></u-search>
 			</view>
 		</view>
 		<view class="container">
@@ -27,7 +27,7 @@
 						<u-popup v-model="show5" width=600>
 							<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
 							 label="电梯" prop="cou">
-								<u-radio-group v-model="value" @change="radioGroupChange">
+								<u-radio-group v-model="value" @change="radioChange">
 									<u-radio @change="radioChange" v-for="(item, index) in list1" :key="index" :name="item.name" :disabled="item.disabled">
 										{{item.name}}
 									</u-radio>
@@ -35,20 +35,32 @@
 							</u-form-item>
 							<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
 							 label="朝向" prop="cour">
-								<u-radio-group v-model="value" @change="radioGroupChange1">
-									<u-radio @change="radioChange" v-for="(item, index) in list" :key="index" :name="item.name" :disabled="item.disabled">
+								<u-radio-group v-model="value" @change="radioChange1">
+									<u-radio @change="radioChange1" v-for="(item, index) in list" :key="index" :name="item.name" :disabled="item.disabled">
 										{{item.name}}
 									</u-radio>
 								</u-radio-group>
 							</u-form-item>
 							<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
 							 label="是否唯一住房" prop="court">
-								<u-radio-group v-model="value" @change="radioGroupChange2">
-									<u-radio @change="radioChange" v-for="(item, index) in list2" :key="index" :name="item.name" :disabled="item.disabled">
+								<u-radio-group v-model="value" @change="radioChange2">
+									<u-radio @change="radioChange2" v-for="(item, index) in list2" :key="index" :name="item.name" :disabled="item.disabled">
 										{{item.name}}
 									</u-radio>
 								</u-radio-group>
 							</u-form-item>
+							<u-form-item :leftIconStyle="{color: '#a0cfff', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition"
+							 label="发布类型" prop="identityType">
+								<u-radio-group v-model="value" @change="radioChange3">
+									<u-radio @change="radioChange3" v-for="(item, index) in list4" :key="index" :name="item.name" :disabled="item.disabled">
+										{{item.name}}
+									</u-radio>
+								</u-radio-group>
+							</u-form-item>
+							<view class="bottom-nav">
+								<view style="width: 50%;text-align: center;background-color: #F3F3F3;line-height: 49px;" @click="Cancel"><text>取消</text></view>
+								<view style="width: 50%;color: #FFFFFF;text-align: center; background-color: #5785E5;line-height: 49px;" @click="Confirm">确定</view>
+							</view>
 						</u-popup>
 					</view>
 			</view>
@@ -68,7 +80,7 @@
 			return {
 				houselist: [], //搜索出来的房源
 				city: '未定位', //城市
-				seach: '', //搜索框
+				content: '', //搜索框
 				value2: 2,
 				value3: 3,
 				value1: 1,
@@ -82,6 +94,12 @@
 				page:1,
 				limit:10,
 				hasMore:true,
+				search: {
+					elevator: '',
+					orientation: '',
+					Islive: '',
+					identityType: ''
+				},
 				list1: [{
 						value: '1',
 						name: '有',
@@ -153,7 +171,8 @@
 						disabled: false
 					},
 				],
-				list2: [{
+				list2: [
+					{
 						value: '0',
 						name: '是',
 						disabled: false
@@ -164,8 +183,18 @@
 						disabled: false
 					},
 				],
-
-
+				list4:[
+					{
+						value: '0',
+						name: '个人',
+						disabled: false
+					},
+					{
+						value: '1',
+						name: '经纪人',
+						disabled: false
+					},
+				],
 				options1: [
 
 				],
@@ -280,6 +309,20 @@
 		},
 
 		methods: {
+			searchSecondhouse() {
+				if (this.content != '') {
+					this.getHouseList()
+				} else {
+					console.log("内容不能为空")
+				}
+			},
+			customSecondhouse() {
+				if (this.content != '') {
+					this.getHouseList()
+				} else {
+					console.log("内容不能为空")
+				}
+			},
 			closeDropdown() {
 				this.$refs.uDropdown.close();
 			},
@@ -386,13 +429,77 @@
 				}
 
 			},
-			// 选择查询电梯回调
-			radioGroupChange(){
-				console.log("")
+			// 选择电梯回调
+			radioChange(e){
+				if (e === '有') {
+					this.search.elevator = 1
+				} else {
+					this.search.elevator = 2
+				}
 			},
-			//选择查询朝向回调
-			radioGroupChange1(){
-				console.log("")
+			// 选择朝向回调
+			radioChange1(e){
+			if (e === '东') {
+				this.search.orientation = 1
+			} else if (e === '南') {
+				this.search.orientation = 2
+			} else if (e === '西') {
+				this.search.orientation = 3
+			} else if (e === '北') {
+				this.search.orientation = 4
+			} else if (e === '南北') {
+				this.search.orientation = 5
+			} else if (e === '东西') {
+				this.search.orientation = 6
+			} else if (e === '东南') {
+				this.search.orientation = 7
+			} else if (e === '西南') {
+				this.search.orientation = 8
+			} else if (e === '东北') {
+				this.search.orientation = 9
+			} else if (e === '西北') {
+				this.search.orientation = 10
+			}
+			},
+			// 选择是否唯一住房回调
+			radioChange2(e){
+				if(e === '是'){
+					this.search.Islive = 1
+				}else{
+					this.search.Islive = 2
+				}
+			},
+			// 选择发布类型回调
+			radioChange3(e){
+				if(e === '个人'){
+					this.search.identityType = 1
+				}else{
+					this.search.identityType = 2
+				}
+			},
+			// 筛选条件，点击确定回调
+			Confirm(){
+				console.log(this.search)
+				uni.showLoading({})
+				this.show5 = false
+				secondHandQuery({
+					"elevator": this.search.elevator,
+					"onlyOne": this.search.Islive,
+					"identityType": this.search.identityType,
+					"orientation": this.search.orientation,
+					"limit": 10,
+					"page": 1,
+				}).then(res => {
+					console.log(res)
+					if (res.data.code === 0) {
+						uni.hideLoading()
+						this.houselist = res.data.data
+					} else {
+						console.log("搜索失败")
+					}
+				}).catch(err => {
+					console.log(err)
+				})
 			},
 			// 查询二手房列表
 			getHouseList(){
@@ -400,9 +507,10 @@
 					url: '/solr-query/house/secondHandQuery', //url就是放接口的地址的   
 					method: "GET", //method是放GET或者POST的   不写的话默认POST  看接口文档 根据接口文档写
 					data: {
-						city: '茂名',
+						city: this.$store.state.city,
 						limit: this.limit,
 						page: this.page,
+						"keywords": this.content,
 					} //写完上面两个就可以开始写你需要传给后端的数据了  this是指针  指向全局变量的   也就是说你用data里面的变量要在前面加this.    在html中渲染数据不用加this.   有的时候会出现指针无法指向全局变量的情况    那就在方法中第一行加上 let self=this  然后用self.全局变量就可以了
 					//这里传的是对象  不能加引号   加引号的话就变成了字符串
 				}).then(res => { //这里是请求成功之后饭后的数据
@@ -515,5 +623,16 @@
 
 	.wages {
 		padding: 20rpx;
+	}
+	.bottom-nav {
+		position: fixed;
+		display: flex;
+		left: 0;
+		width: 100%;
+		bottom: 0;
+		height: 49px;
+		z-index: 2;
+		border-top: #e5e5e5 solid 1px;
+		box-sizing: content-box;
 	}
 </style>

@@ -9,7 +9,7 @@
 				<text>{{city}}</text>
 			</view>
 			<view class="seach">
-				<u-search placeholder="请输入房屋信息" @search="search" v-model="content" @custom="custom"></u-search>
+				<u-search placeholder="请输入房屋信息" @search="search1" v-model="content" @custom="custom"></u-search>
 			</view>
 		</view>
 		<view class="wage">
@@ -116,7 +116,8 @@
 						value: 7,
 					},
 				],
-				options3: [{
+				options3: [
+					{
 						label: '一室',
 						value: 1,
 					},
@@ -260,7 +261,7 @@
 			housing
 		},
 		methods: {
-			search() {
+			search1() {
 				if (this.content != '') {
 					this.gethouseList()
 				} else {

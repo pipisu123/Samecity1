@@ -4,15 +4,16 @@
 			<image :src="item.img" mode=""></image>
 			<view class="right">
 				<view class="title">
-					<view class="worktype">
-						<text>{{item.leaseType}}|{{item.title}}</text>
+					<view><text class="title-item">{{item.leaseType}} |</text></view>
+					<view class="title-item">
+						<u-parse :html="item.title" :tag-style="style"></u-parse>
 					</view>
 				</view>
-				<view class="industry">
-					<text>2室.</text>
+				<view class="industry" style="display: flex;">
+					<text>{{item.roomNum}}室.</text>
 					<text>{{item.square}}㎡</text>
 					<text>|{{item.orientation}}|</text>
-					<text>双山二路花园小区</text>
+					<u-parse :html="item.community" :tag-style="style"></u-parse>
 				</view>
 				
 				<view class="wagess">
@@ -70,8 +71,10 @@
 			return {
 				src: null,
 				pic: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-				scrollTop:0
-
+				scrollTop:0,
+				style:{
+					title: 'font-size: 30rpx'
+				},
 			}
 		},
 		onLoad() {
@@ -148,9 +151,12 @@
 
 				.title {
 					font-weight: bold;
-					font-size: 30rpx;
-					.worktype {
+					font-size: 80rpx;
+					display: flex;
+					text{
 						font-size: 30rpx;
+					}
+					.title-item {
 						overflow:hidden;
 						text-overflow:ellipsis;
 						white-space:nowrap; 

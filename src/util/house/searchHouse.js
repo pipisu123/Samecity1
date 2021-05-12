@@ -18,7 +18,16 @@ export function leaseQuery(data){
 	})
 }
 
-// 
+// 办公楼二手搜索
+export function officeSecondHandQuery(data){
+	return myRequest ({
+		url:'solr-query/house/officeSecondHandQuery',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 办公楼租赁搜索
 export function officeLeaseQuery(data){
 	return myRequest ({
 		url:'solr-query/house/officeLeaseQuery',
@@ -27,10 +36,28 @@ export function officeLeaseQuery(data){
 	})
 }
 
-// 办公楼二手搜索
-export function officeSecondHandQuery(data){
+// 商铺租赁搜索
+export function shopLeaseQuery(data){
 	return myRequest ({
-		url:'solr-query/house/officeSecondHandQuery',
+		url:'solr-query/house/shopLeaseQuery',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 商铺二手搜索
+export function shopSecondHandQuery(data){
+	return myRequest ({
+		url:'solr-query/house/shopSecondHandQuery',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 商铺转租搜索
+export function shopSubletQuery(data){
+	return myRequest ({
+		url:'solr-query/house/shopSubletQuery',
 		method:'GET',
 		data:data	
 	})

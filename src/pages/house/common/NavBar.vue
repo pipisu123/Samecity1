@@ -40,12 +40,12 @@
 					{
 						src: '../../../static/70.jpg',
 						title: '商铺出租',
-						path: '/pages/house/mypage/Brokerrelease/Brokerrelease'
+						path: '/pages/house/PersonPublic/PersonRentShop/PersonRentShop'
 					},
 					{
 						src: '../../../static/70.jpg',
 						title: '商铺出售',
-						path: '/pages/house/mypage/Brokerrelease/Brokerrelease'
+						path: '/pages/house/PersonPublic/personSellShop/personSellShop'
 					},
 				]
 			}

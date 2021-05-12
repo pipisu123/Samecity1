@@ -39,8 +39,7 @@
  
 		<!-- 下半部分 -->
 		<view class="title_line" >
-			<text class="title">我的发布</text>
-			<text class="more">查看更多</text>
+			<text class="title">个体发布</text>
 		</view>
 		
 		<view class="welfare">
@@ -51,23 +50,23 @@
 					</view>
 					<text class="txt">出租房源</text>
 				</view>
-				<view class="item">
-					<view class="border">
-						<image class="img" src="../../../static/main_off.png" style="width: 60rpx; height: 60rpx;" @click="SecHouseList"></image>
-					</view>
-					<text class="txt">二手房房源</text>
-				</view>
-				<view class="item">
+				<view class="item" @click="SecHouseList">
 					<view class="border">
 						<image class="img" src="../../../static/main_off.png" style="width: 60rpx; height: 60rpx;"></image>
 					</view>
-					<text class="txt">新盘房源</text>
+					<text class="txt">二手房房源</text>
 				</view>
-				<view class="item">
+				<view class="item" @click="myOfficeList">
+					<view class="border">
+						<image class="img" src="../../../static/main_off.png" style="width: 60rpx; height: 60rpx;"></image>
+					</view>
+					<text class="txt">我的写字楼</text>
+				</view>
+				<view class="item" @click="myShopList">
 					<view class="border">
 						<image class="img" src="../../../static/5.png" style="width: 60rpx; height: 60rpx;"></image>
 					</view>
-					<text class="txt">商铺房源</text>
+					<text class="txt">我的商铺</text>
 				</view>
 			
 			</template>
@@ -76,7 +75,6 @@
 			
 			<view class="title_line" >
 				<text class="title">房产工具</text>
-				<text class="more">查看更多</text>
 			</view>
 			
 			<view class="welfare">
@@ -192,7 +190,16 @@
 					url:'/pages/house/myintegral/myintegral'//这个是跳转的路径
 				})
 			},
-			
+			myOfficeList(){
+				uni.navigateTo({//这个是跳转的方法
+					url:'/pages/house/mypage/myOfficeList/myOfficeList'//这个是跳转的路径
+				})
+			},
+			myShopList(){
+				uni.navigateTo({//这个是跳转的方法
+					url:'/pages/house/mypage/myShopList/myShopList'//这个是跳转的路径
+				})
+			},
 			myrelease(){//这个叫方法     @click="houseestimates"   这个是点击事件   点击事件是要写方法触发的    并不是你只写个点击事件然后你就点他想让他干嘛就干嘛
 				uni.navigateTo({//这个是跳转的方法 
 					url:'/pages/house/myrelease/myrelease'//这个是跳转的路径

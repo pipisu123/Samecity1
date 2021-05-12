@@ -21,7 +21,16 @@ export function getLeaseDetails(data){
 //查看个人租赁发布列表
 export function getLeaseList(data){
 	return myRequest ({
-		url:'house/lease/getLeaseList',
+		url:'house/lease/getLeaseListByPerson',
+		method:'GET',
+		data:data	
+	})
+}
+
+//查看经纪人租赁发布列表
+export function getLeaseListByBroker(data){
+	return myRequest ({
+		url:'house/lease/getLeaseListByBroker',
 		method:'GET',
 		data:data	
 	})
