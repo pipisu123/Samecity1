@@ -76,10 +76,10 @@
 </template>
 
 <script>
-	import WarningTip from '../../detail/childComps/WarningTip.vue'
+	import WarningTip from '@/pages/detail/childComps/WarningTip.vue'
 	
-	import { addRecruitment } from '../../../util/recruitment.js'
-	import { findRecruitmentUser } from '../../../util/recruitment/personCenter.js'
+	import { addRecruitment } from '@/util/recruitment.js'
+	import { findRecruitmentUser } from '@/util/recruitment/personCenter.js'
 	export default {
 		data() {
 			return {
@@ -97,6 +97,7 @@
 					goodsType: '',
 					intro: '',
 					region: '',
+					street:'',
 					photo:'',
 					lasttime: '',
 					count: '',
@@ -122,6 +123,7 @@
 			this.recruitment2.photo = recruitment.photo
 			this.recruitment2.photourl = recruitment.photourl
 			this.recruitment2.region = recruitment.region
+			this.recruitment2.street = recruitment.street
 			this.recruitment2.industry = recruitment.industry
 			console.log(recruitment)
 		},
@@ -149,7 +151,7 @@
 				}).then(res=>{
 					console.log(res)
 					this.companyId = res.data.data.recruitmentUserVO.companyId
-					if(res.data.data.recruitmentUserVO.companyId === '0'){
+					if(res.data.data.recruitmentUserVO.companyId === null){
 						this.show = true
 						console.log("还没有创建公司")
 					    }else{
@@ -164,13 +166,12 @@
 						    "work_types":this.recruitment2.workType,
 						    "work_name":this.recruitment2.goodsType,
 						    "experience":this.recruitment2.worktime,
-						    "address":this.recruitment2.region,
+						    "region":this.recruitment2.region,
+							"street":this.recruitment2.street,
 						    "introduction": this.recruitment2.intro,
 						    "max_degree":this.recruitment2.worktime,
-						    "wages": this.recruitment2.wagesType,
-						    "poster":{
-						   	"picture_file": this.recruitment2.photo
-						    },
+						    "wages": this.recruitment2.wagesTyp,
+						   	"poster_file": this.recruitment2.photo,
 						    "industry":this.recruitment2.industry,
 						    "phone": this.recruitment2.phone,
 						    "wechat": this.recruitment2.wechat,
@@ -183,10 +184,8 @@
 						   		uni.reLaunch({
 						   			url:'/pages/man/man'
 						   		})
-						   	}else{
-						   		uni.showToast({
-						   			title:'发布失败'
-						   		})
+						   	}else if(res.data.code === 400213){
+						   		
 						   	}
 						   }).catch(err=>{
 						   	console.log(err)

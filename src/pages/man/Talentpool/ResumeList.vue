@@ -1,7 +1,5 @@
 <template>
 	<view class="Resume">
-		<!-- 中间导航 -->
-		<tabBar @cityChange="cityChange" @wagesChange="wagesChange" @worktype="worktype" @selectsex="selectsex"></tabBar>
 		<view class="resumelist" v-for="(item,index) in list" :key="index" @click="ResumeDetail(item.resumeId)">
 			<u-avatar :src="item.src" size=100 show-sex=true :sex-icon="item.sex"></u-avatar>
 			<view class="right">
@@ -40,7 +38,6 @@
 </template>
 
 <script>
-	import tabBar from './tabBar/tabBar.vue'
 	
 	import {resumeList} from '../../../util/resume.js'
 	export default {
@@ -58,7 +55,7 @@
 		this.getResumelist()	
 		},
 		components:{
-			tabBar
+			
 		},
 		methods: {
 			// 根据性别来查询
@@ -72,8 +69,8 @@
 				resumeList({
 				"sex": data,
 				"wages": this.wages,
-				"work_type":this.work_types,
-				"work_city":this.work_city,
+				"workType":this.work_types,
+				"workCity":this.work_city,
 				"paging":{
 					"page":this.page
 				}
@@ -126,7 +123,7 @@
 			// 根据城市查询招聘列表
 			async cityChange(data){
 				resumeList({
-				"work_city": data,
+				"workCity": data,
 				"wages": this.wages,
 				"paging":{
 					"page":this.page
@@ -153,8 +150,8 @@
 			async wagesChange(data){
 				resumeList({
 				"compensation": data,
-				"work_city":this.city,
-				"work_types":this.work_types,
+				"workCity":this.city,
+				"workType":this.work_types,
 				"paging":{
 					"page":this.page
 				}
@@ -180,8 +177,8 @@
 			async worktype(data){
 				resumeList({
 				"compensation": this.wages,
-				"work_city":this.city,
-				"work_type":data,
+				"workCity":this.city,
+				"workType":data,
 				"paging":{
 					"page":this.page
 				}

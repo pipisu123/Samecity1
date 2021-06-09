@@ -51,7 +51,7 @@
 </template>
 
 <script>
-	import swipper from '../../components/swipper.vue'
+	import swipper from '@/pages/components/swipper.vue'
 	export default {
 		data() {
 			return {

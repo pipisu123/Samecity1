@@ -39,5 +39,7 @@
 .nav{
 	border-bottom: 1rpx solid #F1F1F1;
 	padding: 10rpx;
+	font-size: 25rpx;
+	font-weight: bold;
 }
 </style>

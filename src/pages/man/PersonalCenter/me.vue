@@ -305,13 +305,13 @@
 			myCompany(companyId) {
 				console.log(companyId)
 				uni.navigateTo({
-					url: '/pages/myCompany/myCompany?companyId='+companyId
+					url: '/pageB/myCompany/myCompany?companyId='+companyId
 				})
 			},
 			// 我的简历
 			myResume(resumeId) {
 				uni.navigateTo({
-					url: '/pages/myResume/myResume?resumeId='+resumeId
+					url: '/pageB/myResume/myResume?resumeId='+resumeId
 				})
 			},
 			// 我的简历收藏

@@ -26,10 +26,6 @@
 			</view>
 		</view>
 		<goodlist></goodlist>
-		<!-- 列表测试 -->
-		<text>{{newCity}}</text>
-		<list></list>
-
 	</view>
 </template>
 

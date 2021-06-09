@@ -17,7 +17,7 @@
 </template>
 
 <script>
-	import {addRecruitment} from '../../../util/recruitment.js'
+	import {addRecruitment} from '@/util/recruitment.js'
 	export default {
 		data() {
 			return {

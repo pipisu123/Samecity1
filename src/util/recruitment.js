@@ -32,6 +32,8 @@ export function refreshTime(data){
 		data:data	
 	})
 }
+
+
 // 招聘失效时间
 export function Invalidation(data){
 	return myRequest ({
@@ -40,4 +42,3 @@ export function Invalidation(data){
 		data:data	
 	})
 }
-

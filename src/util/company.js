@@ -27,7 +27,7 @@ export function findCompany(data){
 	})
 }
 
-//按条件查公司信息
+//按用户id查公司信息
 export function findCompanyByUserId(data){
 	return myRequest ({
 		url:'recruitment/recruitment-company/findCompanyByUserId',

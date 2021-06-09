@@ -13,13 +13,14 @@
 				<u-input :border="border" placeholder="请输入年龄" v-model="model.age" type="text"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="性别" prop="sex">
-				<u-input :border="border" type="select" :select-open="actionSheetShow" v-model="model.sex" placeholder="请选择性别" @click="actionSheetShow = true"></u-input>
+				<u-radio-group v-model="value">
+					<u-radio @change="radioGroupChange2" v-for="(item, index) in sexList" :key="index" :name="item.name" :disabled="item.disabled">
+						{{item.name}}
+					</u-radio>
+				</u-radio-group>
 			</u-form-item>
 			<u-form-item :leftIconStyle="{color: '#888', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition" label="电话" prop="phone">
 				<u-input :border="border" placeholder="请输入电话号码" v-model="model.phone" type="text"></u-input>
-			</u-form-item>
-			<u-form-item :leftIconStyle="{color: '#888', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition" label="微信" prop="wechat">
-				<u-input :border="border" placeholder="请输入微信号" v-model="model.wechat" type="text"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="选择类型" prop="workType" label-width="150">
 				<u-input :border="border" type="select" :select-open="selectShow" v-model="model.workType" placeholder="请选择工作类型" @click="selectShow = true"></u-input>
@@ -30,14 +31,8 @@
 			<u-form-item :leftIconStyle="{color: '#888', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition" label="学历" prop="maxdegree">
 				<u-input :border="border" placeholder="请输入最高学历" v-model="model.maxdegree" type="text"></u-input>
 			</u-form-item>
-			<!-- <u-form-item :leftIconStyle="{color: '#888', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition" label="行业" prop="industry">
-				<u-input :border="border" placeholder="请输入行业" v-model="model.industry" type="text"></u-input>
-			</u-form-item> -->
 			<u-form-item :label-position="labelPosition" label="选择行业" prop="industry" label-width="150">
-				<u-input :border="border" type="select" :select-open="selectShow5" v-model="model.industry" placeholder="请选择行业" @click="selectShow5 = true"></u-input>
-			</u-form-item>
-			<u-form-item :label-position="labelPosition" label="毕业时间" prop="time" label-width="150">
-				<u-input :border="border" type="select" :select-open="pickerShow1" v-model="model.time" placeholder="请选择毕业时间" @click="pickerShow1 = true"></u-input>
+				<u-input :border="border" type="select" :select-open="selectShow5" v-model="model.industry" placeholder="请选择行业" @click="SelectMore"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="所在地区" prop="region" label-width="150">
 				<u-input :border="border" type="select" :select-open="pickerShow" v-model="model.region" placeholder="请选择地区" @click="pickerShow = true"></u-input>
@@ -60,7 +55,11 @@
 					<u-input :border="border" type="select" :select-open="selectShow1" v-model="model.workname" placeholder="请选择公司职位" @click="selectShow1 = true"></u-input>
 				</u-form-item>
 				<u-form-item :leftIconStyle="{color: '#888', fontSize: '32rpx'}" label-width="150" :label-position="labelPosition" label="在职时间" prop="worktime">
-					<u-input :border="border" placeholder="请输入在职时间" v-model="model.worktime" type="text"></u-input>
+					<view style="display: flex;">
+						<u-input border="true" placeholder="起始日期" v-model="model.beginTime" type="text" @click="pickerShow2 = true"></u-input>
+						<text>到</text>
+						<u-input border="true" placeholder="结束日期" v-model="model.stopTime" type="text" @click="pickerShow3 = true"></u-input>
+					</view>
 				</u-form-item>
 				<u-form-item :label-position="labelPosition" label="工作内容" prop="workmatter" label-width="150">
 					<u-input type="textarea" :border="border" placeholder="请填写工作内容" v-model="model.workmatter" />
@@ -84,6 +83,9 @@
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="选择学历" prop="degree" label-width="150">
 				<u-input :border="border" type="select" :select-open="selectShow2" v-model="model.degree" placeholder="请选择学历" @click="selectShow2 = true"></u-input>
+			</u-form-item>
+			<u-form-item :label-position="labelPosition" label="毕业时间" prop="time" label-width="150">
+				<u-input :border="border" type="select" :select-open="pickerShow1" v-model="model.time" placeholder="请选择毕业时间" @click="pickerShow1 = true"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="学校经历" prop="shcoolexp" label-width="150">
 				<u-input type="textarea" :border="border" placeholder="请填写学校经历" v-model="model.shcoolexp" />
@@ -113,22 +115,24 @@
 		<view class="create">
 			<u-button @click="submit" type="primary">创建</u-button>
 		</view>
-		<u-action-sheet :list="actionSheetList" v-model="actionSheetShow" @click="actionSheetCallback"></u-action-sheet>
 		<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectConfirm"></u-select>
 		<u-select mode="single-column" :list="selectList1" v-model="selectShow1" @confirm="selectConfirm1"></u-select>
 		<u-select mode="single-column" :list="selectList2" v-model="selectShow2" @confirm="selectConfirm2"></u-select>
 		<u-select mode="single-column" :list="selectList3" v-model="selectShow3" @confirm="selectConfirm3"></u-select>
 		<u-select mode="single-column" :list="selectList4" v-model="selectShow4" @confirm="selectConfirm4"></u-select>
-		<u-select mode="mutil-column-auto" :list="selectList5" v-model="selectShow5" @confirm="selectConfirm5"></u-select>
+		<jobSelect ref="jobSelect" :listData="listData" @confirem="confiremJob"></jobSelect>
 		<u-picker mode="region" v-model="pickerShow" @confirm="regionConfirm"></u-picker>
-		<u-picker mode="time" v-model="pickerShow1" @confirm="timeConfirm"></u-picker>
+		<u-picker mode="time" v-model="pickerShow1" @confirm="timeConfirm1"></u-picker>
+		<u-picker mode="time" v-model="pickerShow2" @confirm="timeConfirm2"></u-picker>
+		<u-picker mode="time" v-model="pickerShow3" @confirm="timeConfirm3"></u-picker>
 		<u-toast ref="uToast" />
 	</view>
 </template>
 
 <script>
 	import { addResume } from '../../util/resume.js'
-	
+	import jobSelect from '@/common/yunmiao-jobSelect/yunmiao-jobSelect.vue'
+	const industryselect = require('@/lib/industry.json')
 	export default {
 		data() {
 			return {
@@ -150,6 +154,8 @@
 					// 工作经历
 					Companyname:'',
 					workname:'',
+					beginTime:'',
+					stopTime:'',
 					worktime:'',
 					workmatter: '',
 					// 教育经历
@@ -184,7 +190,7 @@
 							{
 								required: true,
 								message: '请选择性别',
-								trigger: 'change'
+								trigger: 'blur'
 							},
 						],
 					phone: [
@@ -276,16 +282,16 @@
 					],
 					
 				},
-				actionSheetList: [
-					{
-						text: '男'
+				sexList: [{
+						value: '1',
+						name: '男',
+						disabled: false
 					},
 					{
-						text: '女'
+						value: '2',
+						name: '女',
+						disabled: false
 					},
-					{
-						text: '保密'
-					}
 				],
 				selectList: [
 					{
@@ -301,52 +307,7 @@
 						label: '其他'
 					}
 				],
-				selectList1: [
-					{
-						value: '销售',
-						label: '销售'
-					},
-					{
-						value: '客服',
-						label: '客服'
-					},
-					{
-						value: '行政',
-						label: '行政'
-					},
-					{
-						value: '主管',
-						label: '主管'
-					},
-					{
-						value: '经理',
-						label: '经理'
-					},
-					{
-						value: '厨师',
-						label: '厨师'
-					},
-					{
-						value: '服务员',
-						label: '服务员'
-					},
-					{
-						value: '学徒',
-						label: '学徒'
-					},
-					{
-						value: '教练',
-						label: '教练'
-					},
-					{
-						value: '程序员',
-						label: '程序员'
-					},
-					{
-						value: '老师',
-						label: '老师'
-					}
-				],
+				listData: industryselect,//行业选择
 				selectList2:[
 					{
 						value: '高中',
@@ -425,94 +386,6 @@
 						label: '25000以上'
 					}
 				],
-				selectList5:[
-					{
-						value: 1,
-						label: '销售',
-						children: [
-							{
-								value: 2,
-								label: '销售代表',
-							},
-							{
-								value: 3,
-								label: '销售经理',
-							},
-							{
-								value: 4,
-								label: '销售部主管',
-							},
-							{
-								value: 5,
-								label: '销售总监',
-							},
-							{
-								value: 6,
-								label: '电话销售',
-							},
-							{
-								value: 7,
-								label: '汽车销售',
-							},
-							{
-								value: 8,
-								label: '房屋销售',
-							},
-							{
-								value: 9,
-								label: '销售支持',
-							},
-							
-						]
-					},
-					{
-						value: 10,
-						label: '客服',
-						children: [
-							{
-								value: 11,
-								label: '客服专员',
-							},
-							{
-								value: 12,
-								label: '客服助理',
-							},
-							{
-								value: 12,
-								label: '客服专员',
-							},
-							{
-								value: 13,
-								label: '客服助理',
-							},
-							{
-								value: 14,
-								label: '客服专员',
-							},
-							{
-								value: 15,
-								label: '客服助理',
-							},
-							{
-								value: 16,
-								label: '客服专员',
-							},
-							{
-								value: 17,
-								label: '客服助理',
-							},
-							{
-								value: 18,
-								label: '客服专员',
-							},
-							{
-								value: 19,
-								label: '客服助理',
-							},
-							
-						]
-					}
-				],
 				check: false,
 				selectStatus: 'close',
 				border: false,
@@ -521,6 +394,8 @@
 				errorType: ['message'],
 				pickerShow: false,
 				pickerShow1: false,
+				pickerShow2: false,
+				pickerShow3: false,
 				selectShow: false,
 				selectShow1: false,
 				selectShow2: false,
@@ -533,6 +408,9 @@
 			borderCurrent() {
 				return this.border ? 0 : 1;
 			}
+		},
+		components:{
+			jobSelect
 		},
 		onReady() {
 			this.$refs.uForm.setRules(this.rules);
@@ -557,24 +435,22 @@
 								
 							  }
 							});
-				uni.showLoading({
-					title:'创建中...'
-				})
 				this.$refs.uForm.validate(valid => {
 					if (valid) {	
+						uni.showLoading({
+							title:'创建中...'
+						})
 						addResume({
 							// 个人信息
-							"userId":"8037950193056940034",
+							// "userId":"8037950193056940034",
 							"resumeName":this.model.name,
 							"age":this.model.age,							
 							"sex":this.model.sex,
 							"phone": this.model.phone,
-							"wechat": this.model.wechat,
 							"workType":this.model.workType,
 							"industry":this.model.industry,
 							"maxDegree":this.model.maxdegree,
 							"workCity":this.model.region,
-							"graduation_time":this.model.time,
 							"introduction":this.model.intro,
 							"compensation":this.model.compensation,
 							// 工作经历
@@ -587,10 +463,11 @@
 							// 教育经历
 							"educationalExp":[
 								{
-									"school_name":this.model.Schoolname,
+									"schoolName":this.model.Schoolname,
 									"institution":this.model.institution,
 									"degree":this.model.degree,
-									"specialty":this.model.speciality,
+									"schoolTime":this.model.time,
+									"specialty":this.model.specialty,
 									"schoolExperience":this.model.shcoolexp
 								}
 							],
@@ -621,10 +498,16 @@
 					}
 				});
 			},
-			// 点击actionSheet回调
-			actionSheetCallback(index) {
-				uni.hideKeyboard();
-				this.model.sex = this.actionSheetList[index].text;
+			// 选择行业回调
+			confiremJob(e){
+				this.model.industry = e;
+			},
+			SelectMore() {
+				this.$refs.jobSelect.show()
+			},
+			// 点击性别回调
+			radioGroupChange2(e){
+				this.model.sex = e;
 			},
 			// 选择类型回调
 			selectConfirm(e) {
@@ -673,8 +556,16 @@
 				this.model.region = e.province.label + '-' + e.city.label + '-' + e.area.label;
 			},
 			// 选择毕业时间回调
-			timeConfirm(e){
+			timeConfirm1(e){
 				this.model.time = e.year + '-' + e.month + '-' + e.day;
+			},
+			timeConfirm2(e){
+				this.model.beginTime = e.year + '-' + e.month + '-' + e.day;
+			},
+			timeConfirm3(e){
+				this.model.stopTime = e.year + '-' + e.month + '-' + e.day;
+				this.model.worktime = this.model.beginTime+'到'+this.model.stopTime;
+				console.log(this.model.worktime)
 			},
 			borderChange(index) {
 				this.border = !index;

@@ -17,3 +17,12 @@ export function findAllCommunityByCity(data){
 		data:data	
 	})
 }
+
+// 根据用户Id获取小区的数据接口
+export function findAllCommunityByUserId(data){
+	return myRequest ({
+		url:'house/community/findAllCommunityByUserId',
+		method:'GET',
+		data:data	
+	})
+}

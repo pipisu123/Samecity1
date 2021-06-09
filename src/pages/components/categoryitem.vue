@@ -28,7 +28,7 @@
 					{
 						src: '/static/19.jpg',
 						title: '房屋出售',
-						path: '/pages/house/house'
+						path: '/pageA/house/house'
 					},
 					{
 						src: '/static/er.jpg',
@@ -43,7 +43,7 @@
 					{
 						src: '../../static/jj.png',
 						title: '积分商城',
-						path: '/pages/questions/questions'
+						path: '/pageB/questions/questions'
 					},
 					{
 						src: '../../static/discount.png',

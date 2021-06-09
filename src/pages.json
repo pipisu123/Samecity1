@@ -1,968 +1,797 @@
 {
 	"easycom": {
-			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
-		},
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "微同城系统"
-				
+
 			}
 		},
 		{
-			"path":"pages/category/category",
-			"style":{
-				
+			"path": "pages/category/category",
+			"style": {
+
 			}
 		},
 		{
-			"path":"pages/public/public",
-			"style":{
+			"path": "pages/public/public",
+			"style": {
+
+			}
+		},
+		{
+			"path": "pages/business/business",
+			"style": {
+
+			}
+		},
+		{
+			"path": "pages/me/me",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/man/man",
+			"style": {
+				"navigationBarTitleText": "招聘人才",
+				"enablePullDownRefresh": true
+			}
+
+		},
+		{
+			"path": "pages/PubRecruitment/PubRecruitment",
+			"style": {
+				"navigationBarTitleText": "招聘发布",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/PubResume/PubResume",
+			"style": {
+				"navigationBarTitleText": "个人简历发布",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/PubCompany/PubCompany",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "招聘详情",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/companyDetail/companyDetail",
+			"style": {
+				"navigationBarTitleText": "公司详情",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/CreateResume/CreateResume",
+			"style": {
+				"navigationBarTitleText": "创建简历",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/CreateCompany/CreateCompany",
+			"style": {
+				"navigationBarTitleText": "创建公司信息",
+				"enablePullDownRefresh": false
+			}
+
+		},  {
+			"path": "pages/update/update",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+
+		, {
+			"path": "pages/ResumeDeatil/ResumeDeatil",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+		, {
+			"path": "pages/PubRecruitment/ShowRcruitment/ShowRcruitment",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/PubRecruitment/ToComfirmPublic/ToComfirmPublic",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/mall/mall",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/mall/Me/Me",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/myCollection/myCollection",
+			"style": {
+				"navigationBarTitleText": "我的收藏",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/PubRecruitment/ShowPerson/ShowPerson",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/PubRecruitment/ToComfirmPerson/ToComfirmPerson",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/myPosition/myPosition",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/detail/chat/chat",
+			"style": {
+				"navigationBarTitleText": "聊天",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/resumeCollection/resumeCollection",
+			"style": {
+				"navigationBarTitleText": "简历收藏",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/manageDelivery/manageDelivery",
+			"style": {
+				"navigationBarTitleText": "投递管理",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/myDelivery/myDelivery",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/myInvitation/myInvitation",
+			"style": {
+				"navigationBarTitleText": "我的面试",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/manageInvitation/manageInvitation",
+			"style": {
+				"navigationBarTitleText": "面试邀请",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/DetailInvite/DetailInvite",
+			"style": {
+				"navigationBarTitleText": "面试待接受",
+				"enablePullDownRefresh": false
+			}
+
+		},  {
+			"path": "pages/man/PersonalCenter/resumeInvite/resumeInvite",
+			"style": {
+				"navigationBarTitleText": "邀请详情",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/myPoints/myPoints",
+			"style": {
+				"navigationBarTitleText": "积分购买",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/index/advertisementUrl/advertisementUrl",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/myPoints/integralOrder/integralOrder",
+			"style": {
+				"navigationBarTitleText": "积分订单",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/man/PersonalCenter/buyResume/buyResume",
+			"style": {
+				"navigationBarTitleText": "已购买简历",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},  {
+			"path": "pages/index/changeCity/changeCity",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+    ],
+	"subPackages": [{
+		"root": "pageA",
+		"pages": [
+			{
+				"path": "house/house",
+				"style": {
+					"navigationBarTitleText": "房屋",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "house/shopTransfer/shopTransfer",
+				"style": {
+					"navigationBarTitleText": "商铺转让",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/myEstate/myEstate",
+				"style": {
+					"navigationBarTitleText": "我的楼盘",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/mypage/agentPublic/myShopPublicList/myShopPublicList",
+				"style": {
+					"navigationBarTitleText": "我的商铺",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/myOfficePublicList/myOfficePublicList",
+				"style": {
+					"navigationBarTitleText": "我的写字楼",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeOrShop/shopRentList/shopRentList",
+				"style": {
+					"navigationBarTitleText": "租商铺",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeOrShop/shopSellList/shopSellList",
+				"style": {
+					"navigationBarTitleText": "买商铺",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeOrShop/shopSubleaseList/shopSubleaseList",
+				"style": {
+					"navigationBarTitleText": "商铺转让",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/BrowsingHistory/BrowsingHistory",
+				"style": {
+					"navigationBarTitleText": "浏览记录",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/agentPublic",
+				"style": {
+					"navigationBarTitleText": "经纪人发布",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/registerAgent/registerAgent",
+				"style": {
+					"navigationBarTitleText": "注册经纪人",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/addCompany/addCompany",
+				"style": {
+					"navigationBarTitleText": "添加公司",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/rentPublic/rentPublic",
+				"style": {
+					"navigationBarTitleText": "房屋出租",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/secondPublic/secondPublic",
+				"style": {
+					"navigationBarTitleText": "二手房出售",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/addCommunity/addCommunity",
+				"style": {
+					"navigationBarTitleText": "添加小区",
+					"enablePullDownRefresh": false
+				}
+
+			}, 
+			{
+				"path": "house/mypage/myCommunity/myCommunity",
+				"style": {
+					"navigationBarTitleText": "我的小区",
+					"enablePullDownRefresh": false
+				}
+			
+			},
+			{
+				"path": "house/mypage/agentPublic/officeRentPublic/officeRentPublic",
+				"style": {
+					"navigationBarTitleText": "写字楼出租",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/officeSellPublic/officeSellPublic",
+				"style": {
+					"navigationBarTitleText": "写字楼预售",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/addEstate/addEstate",
+				"style": {
+					"navigationBarTitleText": "添加楼盘",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeOrShop/officeOrShop",
+				"style": {
+					"navigationBarTitleText": "写字楼商铺",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeDetail/officeDetail",
+				"style": {
+					"navigationBarTitleText": "写字楼详情",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "house/shopDetail/shopDetail",
+				"style": {
+					"navigationBarTitleText": "商铺详情",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/PersonPublic/officeRent/officeRent",
+				"style": {
+					"navigationBarTitleText": "个人办公楼出租",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/PersonPublic/secondOfficeSell/secondOfficeSell",
+				"style": {
+					"navigationBarTitleText": "个人办公楼预售",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/myPublic/myPublic",
+				"style": {
+					"navigationBarTitleText": "我的发布",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/rentShop/rentShop",
+				"style": {
+					"navigationBarTitleText": "商铺出租",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/shopSellPublic/shopSellPublic",
+				"style": {
+					"navigationBarTitleText": "商铺出售",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeOrShop/officeRentList/officeRentList",
+				"style": {
+					"navigationBarTitleText": "写字楼出租",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeOrShop/officeSellList/officeSellList",
+				"style": {
+					"navigationBarTitleText": "买写字楼",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/officeDetail/rentOfficeDetail/rentOfficeDetail",
+				"style": {
+					"navigationBarTitleText": "写字楼出租详情",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/myOfficeList/myOfficeList",
+				"style": {
+					"navigationBarTitleText": "我的写字楼",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/myShopList/myShopList",
+				"style": {
+					"navigationBarTitleText": "我的商铺",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/PersonPublic/PersonRentShop/PersonRentShop",
+				"style": {
+					"navigationBarTitleText": "个人商铺出租",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/PersonPublic/personSellShop/personSellShop",
+				"style": {
+					"navigationBarTitleText": "个人商铺出售",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/mypage/agentPublic/changeRentPublic/changeRentPublic",
+				"style": {
+					"navigationBarTitleText": "商铺转租",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/PersonPublic/ShopSublease/ShopSublease",
+				"style": {
+					"navigationBarTitleText": "个人商铺转租",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/mypage/mySecHouseList/mySecHouseList",
+				"style": {
+					"navigationBarTitleText": "我的二手房源",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/secondhandhousingpage/secondhandhousingpage",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/secondhandhousingrelease/secondhandhousingrelease",
+				"style": {
+					"navigationBarTitleText": "二手房发布",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/persomalpublishing/persomalpublishing",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/rent/rent",
+				"style": {
+					"navigationBarTitleText": "出租房源列表",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/resold/resold",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/release/release",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/mypage/mypage",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/forrent/forrent",
+				"style": {
+					"navigationBarTitleText": "个人出租发布",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/brokerpage/brokerpage",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "house/detailpage/detailpage",
+				"style": {
+					"navigationBarTitleText": "房屋详情",
+					"enablePullDownRefresh": false
+				}
+
+			},
+			{
+				"path": "house/myrelease/myrelease",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			
+			},
+			{
+				"path": "house/myCollection/myCollection",
+				"style": {
+					"navigationBarTitleText": "我的收藏",
+					"enablePullDownRefresh": false
+				}
 			
 			}
-		},
-		{
-			"path":"pages/business/business",
-			"style":{
-				
+		]
+	},
+	{
+	      "root": "pageB",
+	      "pages": [
+	        {
+	        	"path": "questions/questions",
+	        	"style": {
+	        		"navigationBarTitleText": "问答",
+	        		"enablePullDownRefresh": false
+	        	}
+	        
+	        },
+	        {
+	        	"path": "questions/detailpage/detailpage",
+	        	"style": {
+	        		"navigationBarTitleText": "",
+	        		"enablePullDownRefresh": false
+	        	}
+	        
+	        }, {
+	        	"path": "questions/questionSquare/allComment/allComment",
+	        	"style": {
+	        		"navigationBarTitleText": "评论",
+	        		"enablePullDownRefresh": false
+	        	}
+	        
+	        }, {
+	        	"path": "questions/questionSquare/allAnswer/allAnswer",
+	        	"style": {
+	        		"navigationBarTitleText": "回复",
+	        		"enablePullDownRefresh": false
+	        	}
+	        
+	        }, {
+	        	"path": "questions/personCenter/myQuestion/myQuestion",
+	        	"style": {
+	        		"navigationBarTitleText": "我的问题",
+	        		"enablePullDownRefresh": false
+	        	}
+	        
+	        }, {
+	        	"path": "questions/personCenter/myCollection/myCollection",
+	        	"style": {
+	        		"navigationBarTitleText": "我的问题收藏",
+	        		"enablePullDownRefresh": false
+	        	}
+	        
+	        }, {
+	        	"path": "questions/notices/replyMe/replyMe",
+	        	"style": {
+	        		"navigationBarTitleText": "回复我的",
+	        		"enablePullDownRefresh": false
+	        	}
+	        
+	        }
+			,{
+				"path": "myCompany/myCompany",
+				"style": {
+					"navigationBarTitleText": "我的公司",
+					"enablePullDownRefresh": false
+				}
+			
+			},
+			 {
+				"path": "myCompany/UpdateCompany/UpdateCompany",
+				"style": {
+					"navigationBarTitleText": "修改公司",
+					"enablePullDownRefresh": false
+				}
+			
+			},
+			{
+				"path": "myResume/myResume",
+				"style": {
+					"navigationBarTitleText": "我的简历",
+					"enablePullDownRefresh": false
+				}
+			
+			},
+			{
+				"path": "myResume/UpdatemyResume/UpdatemyResume",
+				"style": {
+					"navigationBarTitleText": "修改个人信息",
+					"enablePullDownRefresh": false
+				}
+			
+			}, {
+				"path": "myResume/UpdateworkExp/UpdateworkExp",
+				"style": {
+					"navigationBarTitleText": "修改工作经历",
+					"enablePullDownRefresh": false
+				}
+			
+			}, {
+				"path": "myResume/UpdateEducation/UpdateEducation",
+				"style": {
+					"navigationBarTitleText": "修改教育经历",
+					"enablePullDownRefresh": false
+				}
+			
+			}, {
+				"path": "myResume/UpdateProject/UpdateProject",
+				"style": {
+					"navigationBarTitleText": "修改项目经历",
+					"enablePullDownRefresh": false
+				}
+			
 			}
-		},
-		{
-            "path" : "pages/man/man",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "招聘人才",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/house",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "房子出售",
-                "enablePullDownRefresh": false
-            }
-            
-        },
-		{
-            "path" : "pages/PubRecruitment/PubRecruitment",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "招聘发布",
-                "enablePullDownRefresh": false
-            }
-            
-        },
-		{
-            "path" : "pages/PubResume/PubResume",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人简历发布",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/PubCompany/PubCompany",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        
-        
-        ,{
-            "path" : "pages/me/me",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/detail/detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "招聘详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/companyDetail/companyDetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "公司详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/CreateResume/CreateResume",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "创建简历",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/login/login",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/CreateCompany/CreateCompany",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "创建公司信息",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/myResume/myResume",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的简历",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/update/update",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        
-        ,{
-            "path" : "pages/ResumeDeatil/ResumeDeatil",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/myCompany/myCompany",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的公司",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        
-        ,{
-            "path" : "pages/myCompany/UpdateCompany/UpdateCompany",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/PubRecruitment/ShowRcruitment/ShowRcruitment",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/PubRecruitment/ToComfirmPublic/ToComfirmPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/mall/mall",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/mall/Me/Me",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/man/PersonalCenter/myCollection/myCollection",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的收藏",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/PubRecruitment/ShowPerson/ShowPerson",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/PubRecruitment/ToComfirmPerson/ToComfirmPerson",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/man/PersonalCenter/myPosition/myPosition",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/detail/chat/chat",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "聊天",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/rent/rent",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "出租房源列表",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/house/resold/resold",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/house/sell/sell",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/shop/shop",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-
-            "path" : "pages/house/shoppage/shoppage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/sellhousepage/sellhousepage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/release/release",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        
-        ,{
-            "path" : "pages/house/map/map",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/Soldbuilding/Soldbuilding",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            } 
-        }
-        ,{
-            "path" : "pages/house/lowprice/lowprice",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/mypage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/forrent/forrent",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-          ,{
-           "path" : "pages/house/brokerpage/brokerpage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/house/detailpage/detailpage",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "房屋详情",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/myResume/UpdatemyResume/UpdatemyResume",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		
-		,{
-		    "path" : "pages/house/newrelease/newrelease",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/myResume/UpdateworkExp/UpdateworkExp",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/myResume/UpdateEducation/UpdateEducation",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		     "path" : "pages/house/secondhandhousingrelease/secondhandhousingrelease",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "二手房发布",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/myResume/UpdateProject/UpdateProject",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/house/shopsrelease/shopsrelease",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-		,{
-		    "path" : "pages/house/pubilshedpage/pubilshedpage",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/man/PersonalCenter/resumeCollection/resumeCollection",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "简历收藏",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/man/PersonalCenter/manageDelivery/manageDelivery",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "投递管理",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/man/PersonalCenter/myDelivery/myDelivery",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/man/PersonalCenter/myInvitation/myInvitation",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的面试",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/house/newpupups/newpupups",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/man/PersonalCenter/manageInvitation/manageInvitation",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "面试邀请",
-                "enablePullDownRefresh": false
-            }
-          
-        }
-		,{
-		    "path" : "pages/house/persomalpublishing/persomalpublishing",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/man/PersonalCenter/DetailInvite/DetailInvite",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "面试待接受",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/house/popup/popup",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/man/PersonalCenter/resumeInvite/resumeInvite",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "邀请详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/house/secondhandhousingpage/secondhandhousingpage",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/man/PersonalCenter/myPoints/myPoints",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "积分购买",
-                "enablePullDownRefresh": false
-            }
-            
-        },
-		{
-		    "path" : "pages/index/advertisementUrl/advertisementUrl",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/man/PersonalCenter/myPoints/integralOrder/integralOrder",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "积分订单",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/man/PersonalCenter/buyResume/buyResume",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "已购买简历",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/register/register",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/house/myrelease/myrelease",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/questions/questions",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "问答",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/questions/detailpage/detailpage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/myCollection/myCollection",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的收藏",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/questions/questionSquare/allComment/allComment",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "评论",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/questions/questionSquare/allAnswer/allAnswer",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "回复",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/questions/personCenter/myQuestion/myQuestion",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的问题",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/questions/personCenter/myCollection/myCollection",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的问题收藏",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/questions/notices/replyMe/replyMe",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "回复我的",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/mySecHouseList/mySecHouseList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/index/changeCity/changeCity",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/agentPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "经纪人发布",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/registerAgent/registerAgent",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "注册经纪人",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/addCompany/addCompany",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "添加公司",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/rentPublic/rentPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "房屋出租",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/secondPublic/secondPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "二手房出售",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/addCommunity/addCommunity",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "添加小区",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/officeRentPublic/officeRentPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "写字楼出租",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/officeSellPublic/officeSellPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "写字楼预售",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/addEstate/addEstate",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "添加楼盘",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/officeOrShop/officeOrShop",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "写字楼商铺",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/officeDetail/officeDetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "写字楼详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/PersonPublic/officeRent/officeRent",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人办公楼出租",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/PersonPublic/secondOfficeSell/secondOfficeSell",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人办公楼预售",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/myPublic/myPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的发布",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/rentShop/rentShop",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "商铺出租",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/shopSellPublic/shopSellPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "商铺出售",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/officeOrShop/officeRentList/officeRentList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "写字楼出租",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/officeOrShop/officeSellList/officeSellList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "买写字楼",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/officeDetail/rentOfficeDetail/rentOfficeDetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "写字楼出租详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/myOfficeList/myOfficeList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的写字楼",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/myShopList/myShopList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的商铺",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/PersonPublic/PersonRentShop/PersonRentShop",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人商铺出租",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/PersonPublic/personSellShop/personSellShop",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人商铺出售",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/house/mypage/agentPublic/changeRentPublic/changeRentPublic",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "商铺转租",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+			
+	      ]
+	    }
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#5785E5",
 		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar":{
-	   "color":"#2C405A",
-	   "selectedColor":"#333333",
-	   "borderStyle":"white",
-	   "backgroundColor":"#FFFFFF",
-		"list":[
-			{
-				"pagePath":"pages/index/index",
-				"text":"首页",
-				"iconPath":"static/main_off.png",
-				"selectedIconPath":"static/main_offa.png"
-				
+	"tabBar": {
+		"color": "#2C405A",
+		"selectedColor": "#333333",
+		"borderStyle": "white",
+		"backgroundColor": "#FFFFFF",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/main_off.png",
+				"selectedIconPath": "static/main_offa.png"
+
 			},
 			{
-				"pagePath":"pages/category/category",
-				"text":"分类信息",
-				"iconPath":"static/catetory-b.png",
-				"selectedIconPath":"static/catetory-c.png"
+				"pagePath": "pages/category/category",
+				"text": "分类信息",
+				"iconPath": "static/catetory-b.png",
+				"selectedIconPath": "static/catetory-c.png"
 			},
 			{
-				"pagePath":"pages/public/public",
-				"text":"发布",
-				"iconPath":"static/new.png",
-				"selectedIconPath":"static/new.png"
+				"pagePath": "pages/public/public",
+				"text": "发布",
+				"iconPath": "static/new.png",
+				"selectedIconPath": "static/new.png"
 			},
 			{
-				"pagePath":"pages/business/business",
-				"text":"商家",
-				"iconPath":"static/myself_on.png",
-				"selectedIconPath":"static/myself_ona.png"
+				"pagePath": "pages/business/business",
+				"text": "商家",
+				"iconPath": "static/myself_on.png",
+				"selectedIconPath": "static/myself_ona.png"
 			},
 			{
-				"pagePath":"pages/me/me",
-				"text":"我的",
-				"iconPath":"static/myself_on.png",
-				"selectedIconPath":"static/myself_ona.png"
+				"pagePath": "pages/me/me",
+				"text": "我的",
+				"iconPath": "static/myself_on.png",
+				"selectedIconPath": "static/myself_ona.png"
 			}
-			
+
 		]
 	}
-	
+
 }

@@ -45,7 +45,7 @@
 </template>
 
 <script>
-	import citySelect from '../../childComps/u-city-select.vue';
+	// import citySelect from '../../childComps/u-city-select.vue';
 	export default {
 		data() {
 			return {
@@ -84,7 +84,7 @@
 			}
 		},
 		components:{
-			citySelect
+			// citySelect
 		},
 		methods: {
 			// 城市选择

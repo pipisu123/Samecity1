@@ -61,7 +61,7 @@
 			
 			// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 			this.connectSocketInit();
-			this.receiveId = options.e
+			this.receiveId = options.e;
 			// 进入页面前查询个人信息
 			findRecruitmentUser({
 				
@@ -95,7 +95,7 @@
 				// 创建一个this.socketTask对象【发送、接收、关闭socket都由这个对象操作】
 				this.socketTask = uni.connectSocket({
 					// 【非常重要】必须确保你的服务器是成功的,如果是手机测试千万别使用ws://127.0.0.1:9099【特别容易犯的错误】
-					url: "ws://" + '192.168.101.24:8080/ws/'+ uni.getStorageSync('token'),
+					url: "ws://" + '192.168.3.77:8080/ws/'+ uni.getStorageSync('token'),
 					success(data) {
 						console.log("websocket连接成功");
 					},
@@ -273,7 +273,7 @@
 				    success: function (res) {
 				        console.log(res.tempFilePaths[0]);
 						uni.uploadFile({
-							url: 'http://192.168.101.74:8080/sys/uploadImgFile', 
+							url: 'http://192.168.3.77:8080/sys/uploadImgFile', 
 							header: {
 								"authorization":uni.getStorageSync('token'),
 								'Accept': 'application/json',

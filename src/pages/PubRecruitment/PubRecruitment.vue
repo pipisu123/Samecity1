@@ -14,7 +14,7 @@
 		</u-form>
 	<!-- 创建企业招聘信息 -->
 		<u-form :model="model" :rules="rules" ref="uForm" :errorType="errorType" v-if="showview">
-			<u-form-item :leftIconStyle="{color: '#888', fontSize: '32rpx'}" left-icon="account" label-width="120" :label-position="labelPosition" label="标题" prop="name">
+			<u-form-item :leftIconStyle="{color: '#888', fontSize: '32rpx'}" label-width="120" :label-position="labelPosition" label="标题" prop="name">
 				<u-input :border="border" placeholder="请输入标题" v-model="model.name" type="text"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="工作类型" prop="workType" label-width="150">
@@ -33,19 +33,13 @@
 				<u-input :border="border" placeholder="工作经验" v-model="model.worktime" type="text"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="选择行业" prop="industry" label-width="150">
-				<u-input :border="border" type="select" :select-open="selectShow2" v-model="model.industry" placeholder="请选择行业" @click="selectShow2 = true"></u-input>
+				<u-input :border="border" type="select" :select-open="selectShow2" v-model="model.industry" placeholder="请选择行业" @click="selectShow2"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="选择职位" prop="goodsType" label-width="150">
 				<u-input :border="border" type="select" :select-open="selectShow" v-model="model.goodsType" placeholder="请选择工作职位" @click="selectShow = true"></u-input>
 			</u-form-item>
 			<u-form-item :label-position="labelPosition" label="简介" prop="intro">
 				<u-input type="textarea" :border="border" placeholder="请填写简介" v-model="model.intro" />
-			</u-form-item>
-			<u-form-item :label-position="labelPosition" label="所在地区" prop="region" label-width="150">
-				<u-input :border="border" type="select" :select-open="pickerShow" v-model="model.region" placeholder="请选择地区" @click="pickerShow = true"></u-input>
-			</u-form-item>
-			<u-form-item :leftIconStyle="{color: '#888', fontSize: '16rpx'}" label-width="180" :label-position="labelPosition" label="招聘最后期限" prop="lasttime">
-				<u-input :border="border" placeholder="请输入招聘期限" v-model="model.lasttime" type="text"></u-input>
 			</u-form-item>
 			<u-form-item :leftIconStyle="{color: '#888', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition" label="招聘人数" prop="count">
 				<u-input :border="border" placeholder="请输入招聘人数" v-model="model.count" type="text"></u-input>
@@ -63,9 +57,8 @@
 		<u-action-sheet :list="actionSheetList" v-model="actionSheetShow" @click="actionSheetCallback"></u-action-sheet>
 		<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectConfirm"></u-select>
 		<u-select mode="single-column" :list="selectList1" v-model="selectShow1" @confirm="selectConfirm1"></u-select>
+		<jobSelect ref="jobSelect" :listData="listData" @confirem="confiremJob"></jobSelect>
 		<u-select mode="single-column" :list="selectList3" v-model="selectShow3" @confirm="selectConfirm3" title="请选择要发布的类型"></u-select>
-		<u-select mode="mutil-column-auto" :list="selectList2" v-model="selectShow2" @confirm="selectConfirm2"></u-select>
-		<u-picker mode="region" v-model="pickerShow" @confirm="regionConfirm"></u-picker>
 		<u-toast ref="uToast" />
 		<u-modal ref="uModal" v-model="show" :show-cancel-button="true"
 			:show-title="showTitle" :async-close="asyncClose"
@@ -79,12 +72,15 @@
 </template>
 
 <script>
-	import PersonRecruitment from './childComps/PersonRecruitment.vue'
+import PersonRecruitment from './childComps/PersonRecruitment.vue'
+import jobSelect from '@/common/yunmiao-jobSelect/yunmiao-jobSelect.vue'
+
+const industryselect = require('@/lib/industry.json')
+import { findCompanyByUserId } from '@/util/company.js'
 export default {
 	data() {
 		return {
-			// action: 'C:/Users/angel/Desktop/新建文件夹 (2)',
-			// url:null,
+			listData: industryselect,
 			showview: true,
 			public:{
 				publicType:''
@@ -99,12 +95,14 @@ export default {
 				goodsType: '',
 				intro: '',
 				region: '',
+				street:'',
 				photo:'',
 				lasttime: '',
 				count: '',
 				show: false,
 				photourl:'',
 				industry:''
+				
 			},
 			model:{
 				name: '',
@@ -116,6 +114,7 @@ export default {
 				goodsType: '',
 				intro: '',
 				region: '',
+				street:'',
 				photo:'',
 				lasttime: '',
 				count: '',
@@ -283,92 +282,6 @@ export default {
 				}
 			],
 			selectList2:[
-				{
-					value: 1,
-					label: '销售',
-					children: [
-						{
-							value: 2,
-							label: '销售代表',
-						},
-						{
-							value: 3,
-							label: '销售经理',
-						},
-						{
-							value: 4,
-							label: '销售部主管',
-						},
-						{
-							value: 5,
-							label: '销售总监',
-						},
-						{
-							value: 6,
-							label: '电话销售',
-						},
-						{
-							value: 7,
-							label: '汽车销售',
-						},
-						{
-							value: 8,
-							label: '房屋销售',
-						},
-						{
-							value: 9,
-							label: '销售支持',
-						},
-						
-					]
-				},
-				{
-					value: 10,
-					label: '客服',
-					children: [
-						{
-							value: 11,
-							label: '客服专员',
-						},
-						{
-							value: 12,
-							label: '客服助理',
-						},
-						{
-							value: 12,
-							label: '客服专员',
-						},
-						{
-							value: 13,
-							label: '客服助理',
-						},
-						{
-							value: 14,
-							label: '客服专员',
-						},
-						{
-							value: 15,
-							label: '客服助理',
-						},
-						{
-							value: 16,
-							label: '客服专员',
-						},
-						{
-							value: 17,
-							label: '客服助理',
-						},
-						{
-							value: 18,
-							label: '客服专员',
-						},
-						{
-							value: 19,
-							label: '客服助理',
-						},
-						
-					]
-				}
 			],
 			selectList3:[
 				{
@@ -400,7 +313,6 @@ export default {
 			pickerShow: false,
 			selectShow: false,
 			selectShow1:false,
-			selectShow2:false,
 			selectShow3:true,
 			show: false,
 			zoom: false,
@@ -418,7 +330,8 @@ export default {
 		};
 	},
 	components:{
-		PersonRecruitment
+		PersonRecruitment,
+		jobSelect
 	},
 	computed: {
 		borderCurrent() {
@@ -426,14 +339,19 @@ export default {
 		}
 	},
 	onReady() {
+		this.getCompanyDetail();
 		this.$refs.uForm.setRules(this.rules);
 		console.log("这是父组件")
 	},
-	onLoad() {
-	   
-	},
-	
 	methods:{
+		// 选择行业现实行业
+		selectShow2(){
+			this.$refs.jobSelect.show()
+		},
+		confiremJob(e){
+			console.log(e)
+			this.model.industry = e;
+		},
 		// 上传图片回调
 		uploadImage(){
 		   let files = [];
@@ -443,6 +361,25 @@ export default {
 		   this.recruitment.photourl = files[0].url
 		   console.log(files[0].url);
 		   console.log(this.model.photo)
+		},
+		// 获取公司详细信息
+		getCompanyDetail(){
+			var reg = /.+?(省|市|自治区|自治州|县|区|路)/g;
+			findCompanyByUserId({
+				
+			}).then(res=>{
+				console.log(res)
+				if(res.data.code === 20000){
+					let a=(res.data.data.companys.company_address.match(reg))
+					this.model.region = a[2];
+					this.model.street = a[3];
+					console.log(a)
+				}else{
+					console.log("失败")
+				}
+			}).catch(err=>{
+				console.log(err)
+			})
 		},
 		// 关闭提示
 		close() {
@@ -476,8 +413,8 @@ export default {
 			let files = [];
 			files = this.$refs.uUpload.lists;
 			// this.urlTobase64(files[0].url); 
-			this.base64(files[0].url)
-			this.recruitment.photourl = files[0].url
+			this.base64(files[0].url);
+			this.recruitment.photourl = files[0].url;
 			console.log(files[0].url);
 			console.log(this.model.photo)
 		},
@@ -495,6 +432,7 @@ export default {
 						this.recruitment.lasttime = this.model.lasttime
 						this.recruitment.count = this.model.count
 						this.recruitment.region = this.model.region
+						this.recruitment.street = this.model.street
 						this.recruitment.photo = this.model.photo
 						this.recruitment.goodsType = this.model.goodsType
 						this.recruitment.workType = this.model.workType
@@ -559,12 +497,7 @@ export default {
 			this.model.industry = '';
 			e.map((val, index) => {
 				this.model.industry += this.model.industry == '' ? val.label : '/' + val.label;
-				
 			})
-		},
-		// 选择地区回调
-		regionConfirm(e) {
-			this.model.region = e.province.label + '-' + e.city.label + '-' + e.area.label;
 		},
 		borderChange(index) {
 			this.border = !index;

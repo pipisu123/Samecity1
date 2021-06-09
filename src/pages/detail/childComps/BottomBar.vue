@@ -17,25 +17,26 @@
 				  </view>
 				</view>
 			</view>
-			<view class="defa" :class="{'active': rSelect.indexOf()!=-1}" @tap="tapInfo()" v-if="collectId === '0'">
-				<view>
-				 <u-icon name="star" size=45></u-icon>
-				  <view>
-				  	<text>{{collectName}}</text>
-				  </view>
+			<view v-if="collection === 1" @click="unCollect">
+					<view>
+					 <image src="../../../static/collect.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
+					  <view class="">
+					  	<text style="color: #f4ea2a;">已收藏</text>
+					  </view>
+					</view>
 				</view>
-			</view>
-			<view class="defa" :class="{'active': rSelect.indexOf()!=1}" @tap="tapInfo1()" v-else>
-				<view>
-				 <u-icon name="star" size=45></u-icon>
-				  <view>
-				  	<text>已收藏</text>
-				  </view>
+				<view v-else @click="Collect">
+					<view>
+					<u-icon name="star" size=45></u-icon>
+					  <view class="">
+					  	<text>收藏</text>
+					  </view>
+					</view>
 				</view>
+				 <u-toast ref="uToast" />
 			</view>
-		</view>
 		<view class="button">
-			<u-button type="warning" @click="deliveryResume" :disabled="disabled" v-if="DeliveryId==='0'">{{Delivery}}</u-button>
+			<u-button type="warning" @click="deliveryResume" :disabled="disabled" v-if="delivery===0">{{Delivery}}</u-button>
 			<u-button type="warning" @click="deliveryResume" disabled=true v-else>已投递</u-button>
 		</view>
 	</view>
@@ -44,12 +45,12 @@
 <script>
 	export default {
 	props: {
-		collectId: {
-			type: String,
+		collection: {
+			type: Number,
 			default: null
 		},
-		DeliveryId: {
-			type: String,
+		delivery: {
+			type: Number,
 			default: null
 		},
 		releaseUserId: {
@@ -66,26 +67,13 @@
 	  }
 	},
 	methods:{
-		tapInfo(e) {
-			if (this.rSelect.indexOf(e) == -1) {
-				this.rSelect.push(e);//选中添加到数组里
-				this.$emit('Collect')
-				this.collectName = '已收藏'
-				
-			} else {
-				this.rSelect.splice(this.rSelect.indexOf(e), 1); //取消
-			    this.$emit('UnCollect')
-				this.collectName = '收藏'	
-					console.log("取消收藏")
-			}
-			
+		// 收藏
+		Collect(){
+			this.$emit('Collect')
 		},
-		// 第二次进来取消收藏
-		tapInfo1(e){
-			this.rSelect.splice(this.rSelect.indexOf(e), 1);
-			this.$emit('UnCollect1')
-			this.collectName = '收藏'
-			console.log("取消收藏")
+		// 取消收藏
+		unCollect(){
+			this.$emit('unCollect')
 		},
 		// 拨打电话
 		Callphone(){

@@ -54,3 +54,65 @@ export function addShopSubletByPerson(data){
 	})
 }
 
+// 查看商铺房源详情
+export function getShopDetails(data){
+	return myRequest ({
+		url:'house/shop/getShopDetails',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询个人身份发布的商铺租赁房源列表
+export function getShopLeaseListByPerson(data){
+	return myRequest ({
+		url:'house/shop/getShopLeaseListByPerson',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询个人身份发布的商铺二手房源列表
+export function getShopSecondHandListByPerson(data){
+	return myRequest ({
+		url:'house/shop/getShopSecondHandListByPerson',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询个人身份发布的商铺转租房源列表
+export function getShopSubletListByPerson(data){
+	return myRequest ({
+		url:'house/shop/getShopSubletListByPerson',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询经纪人身份发布的商铺租赁房源列表
+export function getShopLeaseListByBroker(data){
+	return myRequest ({
+		url:'house/shop/getShopLeaseListByBroker',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询经纪人身份发布的商铺二手房源列表
+export function getShopSecondHandListByBroker(data){
+	return myRequest ({
+		url:'house/shop/getShopSecondHandListByBroker',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询经纪人身份发布的商铺转租房源列表
+export function getShopSubletListByBroker(data){
+	return myRequest ({
+		url:'house/shop/getShopSubletListByBroker',
+		method:'GET',
+		data:data	
+	})
+}

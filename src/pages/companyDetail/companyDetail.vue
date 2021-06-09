@@ -4,12 +4,13 @@
 			<u-row gutter="16">
 				<u-col span="10">
 					<view class="demo-layout bg-purple">
-						<text>{{list.company_name}}</text>
+						<text>{{list.companyName}}</text>
 					</view>
 				</u-col>
 				<u-col span="2">
 					<view class="demo-layout bg-purple-dark">
-						<u-avatar :src="'http://192.168.101.24:8080/'+list.logo_picture_path" mode="square"></u-avatar>
+						<!-- <u-avatar :src="'http://192.168.3.77:8080/'+list.logoPicturePath" mode="square"></u-avatar> -->
+						<image :src="'http://192.168.3.77:8080/'+list.logoPicturePath" mode="aspectFill" style="width: 90rpx;height: 90rpx;border-radius: 50rpx;"></image>
 					</view>
 				</u-col>
 			</u-row>
@@ -19,13 +20,13 @@
 				<text>公司地址</text>
 			</view>
 			<view class="detailAddress">
-				<text>{{list.company_address}}</text>
+				<text>{{list.companyAddress}}</text>
 			</view>
 		</view>
 		<view class="intro">
 			<text>公司简介</text>
 			<u-read-more ref="uReadMore" text-indent="0" show-height="200" font-size="25" close-text="查看全部" color="#C0C0C0">
-				<u-parse :html="list.company_introduction" @load="parseLoaded" font-size="15"></u-parse>
+				<u-parse :html="list.companyIntroduction" @load="parseLoaded" font-size="15"></u-parse>
 			</u-read-more>
 		</view>
 		<view class="welfare">
@@ -43,14 +44,8 @@
 		<view class="company_picture">
 			<text>公司相册</text>
 			<scroll-view scroll-x="true">
-				<view class="item1">
-					<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3512557436,3609543414&fm=26&gp=0.jpg" mode=""></image>
-				</view>
-				<view class="item2">
-					<image src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=566496445,288264743&fm=26&gp=0.jpg" mode=""></image>
-				</view>
-				<view class="item3">
-					<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3512557436,3609543414&fm=26&gp=0.jpg" mode=""></image>
+				<view class="item1" v-for="(item,index) in imgList" :key="index">
+					<image :src="'http://192.168.3.77:8080/'+item.picturePath" mode="" @tap="_previewImage('http://192.168.3.77:8080/'+item.picturePath)"></image>
 				</view>
 			</scroll-view>
 		</view>
@@ -66,11 +61,12 @@
 		data() {
 			return {
 				img: [
-					'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3512557436,3609543414&fm=26&gp=0.jpg',
-					'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=566496445,288264743&fm=26&gp=0.jpg',
+					// 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3512557436,3609543414&fm=26&gp=0.jpg',
+					// 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=566496445,288264743&fm=26&gp=0.jpg',
 				],
 				list: null,
-				welfarelist:[]
+				welfarelist:[],
+				imgList:[]
 			}
 		},
 		components: {
@@ -78,22 +74,32 @@
 		},
 		onLoad(options) {
 			console.log(options)
-			this.goCompany(options.company_id)
+			this.goCompany(options.companyId)
 		},
 		methods: {
 			parseLoaded() {
 				this.$refs.uReadMore.init();
 			},
-			async goCompany(company_id) {
+			async goCompany(companyId) {
 				findCompany({
-					"company_id": company_id
+					"companyId": companyId
 				}).then(res=>{
 					console.log(res)
-					this.list = res.data.data.companys[0]
-					this.welfarelist = res.data.data.companys[0].company_welfares
+					this.list = res.data.data.companys[0];
+					this.welfarelist = res.data.data.companys[0].companyWelfares;
+					this.imgList = res.data.data.companys[0].companyPicture;
 				}).catch(err=>{
 					console.log(err)
 				})
+			},
+			_previewImage(image){
+				var imgArr = [];
+				imgArr.push(image);
+				//预览图片
+				uni.previewImage({
+					urls: imgArr,
+					current: imgArr[0]
+				});
 			}
 		}
 	}

@@ -37,11 +37,11 @@
 				<u-col span="7">
 					<view class="demo-layout bg-purple">
 						<view class="title">
-							<text>{{item.recruitment_title}}</text>
+							<text>{{item.recruitmentTitle}}</text>
 						</view>
 					</view>
 				</u-col>
-				
+
 				<u-col span="5" text-align="right">
 					<view class="demo-layout bg-purple-dark">
 						<text>{{item.wages}}</text>
@@ -51,13 +51,14 @@
 			<u-row gutter="16" justify="space-between">
 				<u-col span="4">
 					<view class="demo-layout bg-purple">
-						<text class="update">发布：{{item.publish_time.split("T")[0]}}</text>
+						<text class="update">发布：{{item.publishTime}}</text>
 					</view>
 				</u-col>
 				<u-col span="8" text-align="right">
-					<view class="demo-layout bg-purple-light">	
-					    <u-button size="mini" @click="refresh">刷新</u-button>
-						<text>浏览：{{item.count}}</text>
+					<view class="demo-layout bg-purple-light">
+						<!-- <u-button size="mini" @click="refresh">刷新</u-button> -->
+						<u-icon name="eye" size=30 color="#999999"></u-icon>
+						<text style="margin-left: 5rpx;">{{item.count}}</text>
 					</view>
 				</u-col>
 			</u-row>
@@ -66,45 +67,40 @@
 			<view class="work">
 				<view class="position">
 					<text>职位：</text>
-					<text>Java程序员</text>
+					<text>{{item.industry}}</text>
 				</view>
 			</view>
 			<view class="work">
 				<view class="">
 					<text>要求：</text>
-					<text>{{item.experience}}经验</text>
+					<text>{{item.experience}}年经验</text>
 				</view>
 			</view>
 			<view class="work">
 				<view class="">
-					<text>人数：{{item.recruitment_number}}</text>
+					<text>招聘人数：{{item.recruitmentNumber}}人</text>
 				</view>
 			</view>
 			<view class="work">
 				<view class="">
-					<text>地区：</text>
-					<text>{{item.address}}</text>
+					<u-icon name="map" size=28></u-icon>
+					<text style="color: #999999;">{{item.address}}</text>
 				</view>
 			</view>
 		</view>
 		<!-- 职位详情 -->
 		<WorkIntroduce :item="item"></WorkIntroduce>
 		<!-- 公司导航 -->
-		<Companybar :item="item" @itemClick="goCompany()"></Companybar>
-		<map class="map" :longitude="longitude" :latitude="latitude" :markers="markers"></map>	
+		<view style="font-size: 35rpx;font-weight: bold;padding: 10rpx;">公司信息</view>
+		<Companybar :item="item" @itemClick="goCompany(item.companyId)"></Companybar>
+		<map style="width: 100%;height: 300rpx;" :longitude="longitude" :latitude="latitude" :markers="markers" @tap="Navigation(item.companyName,item.address)"></map>
 		<!-- 温馨提示 -->
 		<WarningTip></WarningTip>
 		<!-- 详情底部导航 -->
-		<Bottombar @gochat="gochat" @Collect="Collect"
-		 @UnCollect="UnCollect"
-		 @Callphone="Callphone"
-		  :collectId="collectId"
-		  :releaseUserId="releaseUserId"
-		  @UnCollect1="UnCollect1"
-		  @Delivery="Delivery"
-		  :DeliveryId="DeliveryId" v-show="nowUserId != releaseUserId"></Bottombar>
+		<Bottombar @gochat="gochat" @Collect="Collect" @unCollect="unCollect" @Callphone="Callphone" :collection="collection"
+		 :releaseUserId="releaseUserId" @Delivery="Delivery" :delivery="delivery" v-show="nowUserId != releaseUserId"></Bottombar>
+		<u-toast ref="uToast" />
 	</view>
-	
 </template>
 
 <script>
@@ -114,34 +110,41 @@
 	import notice from '../components/notice.vue'
 	import Bottombar from './childComps/BottomBar.vue'
 	import redbag from './childComps/red_bag.vue'
-	
-	import {recruitmentList} from '../../util/recruitment.js'
-	import { collectRecruitment, UncollectRecruitment } from '../../util/collection.js'
-	import {addDelivery} from '../../util/recruitment/delivery.js'
+
+	import {
+		findRecruitmentById
+	} from '@/util/recruitment/position.js'
+	import {
+		collectRecruitment,
+		UncollectRecruitment
+	} from '@/util/recruitment/position.js'
+	import {
+		addDelivery
+	} from '../../util/recruitment/delivery.js'
 	export default {
 		data() {
 			return {
-				longitude: '',//经度
-				latitude: '',//纬度
-				nowUserId:'',  //当前用户id，用来判断该用户是否能投递简历，聊天，收藏等功能
-				item:null,
-				recruitmentId:'',
-				phone:'',
-				collectionRecruitmentId:'',
-				collectId:'',
-				DeliveryId:'',
-				releaseUserId:'',  //发布人id，和当前用户id做判断
+				longitude: '', //经度
+				latitude: '', //纬度
+				nowUserId: '', //当前用户id，用来判断该用户是否能投递简历，聊天，收藏等功能
+				item: null,
+				recruitmentId: '',
+				phone: '',
+				collectionRecruitmentId: '',
+				collection: null,
+				delivery: null,
+				releaseUserId: '', //发布人id，和当前用户id做判断
 				markers: [{
-					longitude: '',//经度
-					latitude: '',//纬度
-					iconPath: '',    //显示的图标
-					title:'',//标注点名
+					longitude: '', //经度
+					latitude: '', //纬度
+					iconPath: '', //显示的图标
+					title: '', //标注点名
 				}]
 				// count1:0
 				// company_id: null
 			}
 		},
-		components:{
+		components: {
 			WorkIntroduce,
 			Companybar,
 			WarningTip,
@@ -150,135 +153,129 @@
 			redbag
 		},
 		onLoad(options) {
-			console.log(options.user_id)
+			console.log(options.id)
 			this.nowUserId = this.$store.state.userid
-			uni.showModal({
-				title:'恭喜获得10积分'
-			})
-			this.getDetail(options.recruitment_id,options.user_id)
+			this.getDetail(options.recruitmentId, options.id)
 		},
 		created() {
 			// this.refresh();
-			
+
 		},
 		methods: {
+			// 导航
+			Navigation(companyName, address) {
+				// console.log(that.Latitude)
+				const Latitude = this.latitude;
+				const longitude = this.longitude;
+				uni.openLocation({
+					latitude: Number(Latitude),
+					longitude: Number(longitude),
+					name: companyName,
+					address: address
+				});
+			},
 			// 收藏招聘
-			Collect(){
+			Collect() {
+				this.collection = 1;
 				collectRecruitment({
 					"recruitmentId": this.recruitmentId
-				}).then(res=>{
-					uni.showToast({
-						title:'收藏成功'
-					})
+				}).then(res => {
 					console.log(res)
-					this.collectionRecruitmentId = res.data.data.collectionRecruitmentId
-				}).catch(err=>{
+					this.$refs.uToast.show({
+						title: '收藏成功',
+						type: 'default',
+					})
+				}).catch(err => {
 					console.log(err)
 				})
 			},
 			// 取消收藏
-			UnCollect(){
-				console.log(this.collectionRecruitmentId)
+			unCollect() {
+				this.collection = 0;
 				UncollectRecruitment({
-					"collectionRecruitmentId": this.collectionRecruitmentId
-				}).then(res=>{
-					uni.showToast({
-						title:'取消收藏'
-					})
+					"recruitmentId": this.recruitmentId
+				}).then(res => {
 					console.log(res)
-				}).catch(err=>{
-					console.log(err)
-				})
-			},
-			// 第二次进来取消收藏
-			UnCollect1(){
-				console.log(this.collectId)
-				UncollectRecruitment({
-					"collectionRecruitmentId": this.collectId
-				}).then(res=>{
-					uni.showToast({
-						title:'取消收藏'
+					this.$refs.uToast.show({
+						title: '已取消收藏',
+						type: 'default',
 					})
-					console.log(res)
-				}).catch(err=>{
+				}).catch(err => {
 					console.log(err)
 				})
 			},
 			// 投递简历
-			Delivery(){
+			Delivery() {
 				addDelivery({
 					"recruitmentId": this.recruitmentId,
 					"releaseUserId": this.releaseUserId,
-				}).then(res=>{
+				}).then(res => {
 					console.log(res)
-				}).catch(err=>{
+				}).catch(err => {
 					console.log(err)
 				})
 			},
 			// 拨打电话
-			Callphone(){
+			Callphone() {
 				uni.makePhoneCall({
-				    phoneNumber: this.phone 
+					phoneNumber: this.phone
 				});
 			},
 			// 跳转到聊天
-			gochat(e){
-					const res = this.$myRequest({
-						url:'sys/message/addMessageUserList?toId='+e,
-						dataType: "json",
-						header: {
-						        'content-type': 'application/json', 
-						        },
-						data:JSON.stringify({ 
-						  
-						}),
-						method: 'POST'
-					})
+			gochat(e) {
+				const res = this.$myRequest({
+					url: 'sys/message/addMessageUserList?toId=' + e,
+					dataType: "json",
+					header: {
+						'content-type': 'application/json',
+					},
+					data: JSON.stringify({
+
+					}),
+					method: 'POST'
+				})
 				uni.navigateTo({
-					url:'/pages/detail/chat/chat?e='+e
+					url: '/pages/detail/chat/chat?e=' + e
 				})
 			},
 			// 招聘详情
-		   async getDetail(recruitment_id,user_id){
+			async getDetail(recruitmentId, id) {
+				console.log(recruitmentId)
+				uni.showLoading({
+					title: '正在加载...'
+				})
+				findRecruitmentById({
+					"recruitmentId": recruitmentId,
+				}).then(res => {
+					console.log(res)
+					uni.hideLoading()
+					this.recruitmentId = res.data.data.user_Recruitments.recruitmentId;
+					this.phone = res.data.data.user_Recruitments.phone;
+					this.item = res.data.data.user_Recruitments;
+					this.collection = res.data.data.user_Recruitments.collection;
+					this.delivery = res.data.data.user_Recruitments.delivery;
+					this.releaseUserId = res.data.data.user_Recruitments.id;
+					this.longitude = res.data.data.user_Recruitments.longitude;
+					this.latitude = res.data.data.user_Recruitments.latitude;
+					this.markers[0].longitude = res.data.data.user_Recruitments.longitude;
+					this.markers[0].latitude = res.data.data.user_Recruitments.latitude;
+					console.log(this.markers[0].longitude)
+				}).catch(err => {
+					console.log(err)
+				})
 
-			   uni.showLoading({
-			   	title:'正在加载...'
-			   })
-			   recruitmentList({
-				"recruitment_id":recruitment_id,
-				"paging":{
-					"page":0
-				}
-			   }).then(res=>{
-				   console.log(res)
-				   uni.hideLoading()
-				   this.recruitmentId = res.data.data.user_Recruitments[0].recruitment_id;
-				   this.phone = res.data.data.user_Recruitments[0].phone;
-				   this.item = res.data.data.user_Recruitments[0];
-				   this.collectId = res.data.data.user_Recruitments[0].collectionRecruitmentId;
-				   this.DeliveryId = res.data.data.user_Recruitments[0].deliveryId;
-				   this.releaseUserId = res.data.data.user_Recruitments[0].user.id;
-				   this.longitude = res.data.data.user_Recruitments[0].company.longitude;
-				   this.latitude = res.data.data.user_Recruitments[0].company.latitude;
-				   this.markers[0].longitude = res.data.data.user_Recruitments[0].company.longitude;
-				   this.markers[0].latitude = res.data.data.user_Recruitments[0].company.latitude;
-				   console.log(this.markers[0].longitude)
-			   }).catch(err=>{
-				   console.log(err)
-			   })
-			   
 			},
 			// 刷新
-			refresh(){
+			refresh() {
 				const res = this.$myRequest({
-					url:'refreshTime',
+					url: 'refreshTime',
 					dataType: "json",
 					header: {
-					        'content-type': 'application/json', 
-					        },
-					data:JSON.stringify({ 
-					    "user_id":1,
-						"recruitment_id":125
+						'content-type': 'application/json',
+					},
+					data: JSON.stringify({
+						"user_id": 1,
+						"recruitment_id": 125
 					}),
 					method: 'POST'
 				})
@@ -298,9 +295,9 @@
 			// 		method: 'POST'
 			// 	})
 			// },
-			goCompany(company_id){
+			goCompany(companyId) {
 				uni.navigateTo({
-					url:'/pages/companyDetail/companyDetail?company_id='+company_id
+					url: '/pages/companyDetail/companyDetail?companyId=' + companyId
 				})
 			}
 		}
@@ -308,12 +305,15 @@
 </script>
 
 <style scoped lang="scss">
-	page{
-		height:100%;
+	page {
+		height: 100%;
 	}
-	.content{
+
+	.content {
 		height: calc(100% - 49px);
+		margin-bottom: 49px;
 	}
+
 	// 企业发布
 	.wrap {
 		padding: 10rpx;
@@ -327,62 +327,66 @@
 	.demo-layout {
 		height: 80rpx;
 		border-radius: 8rpx;
-		
+
 	}
 
 	.bg-purple {
 		background: #FFFFFF;
-		.title{
+
+		.title {
 			font-size: 40rpx;
 			font-weight: bold;
 		}
-		.update{
+
+		.update {
 			font-size: 20rpx;
 		}
-		
+
 	}
 
 	.bg-purple-light {
 		background: #FFFFFF;
-		
+
 	}
 
 	.bg-purple-dark {
-		background:  #FFFFFF;
-		text{
+		background: #FFFFFF;
+
+		text {
 			color: #FF0000;
 		}
 	}
-	.work{
+
+	.work {
 		display: flex;
 		padding: 10rpx;
-		.position{
+
+		.position {
 			display: flex;
-			.icon{
+
+			.icon {
 				margin-left: 500rpx;
 			}
 		}
 	}
-	.detail{
+
+	.detail {
 		border-bottom: 10rpx solid #F1F1F1;
 	}
-	.map{
-		width:100%;
-		height: 400rpx;
-		margin-left: 10rpx;
-		border-radius: 25%;
-	}
+
 	// 个体发布
-	.personRecruitment{
-		
-		.head{
+	.personRecruitment {
+
+		.head {
 			display: flex;
 			padding: 15rpx;
-			.tit{
+
+			.tit {
 				font-weight: bold;
 				font-size: 40rpx;
 			}
-			.type{
+
+			.type {
 				background-color: #F1F1F1;
 				font-size: 20rpx;
 				border-radius: 25%;
@@ -392,26 +396,31 @@
 				height: 30rpx;
 				margin-top: 20rpx;
 			}
-			.wages{
+
+			.wages {
 				color: #ff0000;
 				margin-left: 500rpx;
 			}
 		}
-		.date{
+
+		.date {
 			display: flex;
 			padding: 15rpx;
 			font-size: 25rpx;
 			color: #999999;
-			.look{
+
+			.look {
 				margin-left: 400rpx;
 			}
 		}
-		.introdetail{
+
+		.introdetail {
 			padding: 15rpx;
-			text{
+
+			text {
 				margin-top: 10rpx;
 				font-size: 35rpx;
-				word-break:break-all;
+				word-break: break-all;
 			}
 		}
 	}

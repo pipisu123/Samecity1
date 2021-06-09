@@ -5,7 +5,7 @@
 			<view style="padding-top: 20rpx;" @click="cancel">取消</view>
 		</view>
 		<view v-for="(item,index) in searchArr" :key="index" class="u-search-list" @click="selectIndex( searchKey ? item[searchKey] : item,value)" v-show="show">
-			{{ searchKey ? item[searchKey] : item}}
+			{{ searchKey ? item[searchKey] : item.lable}}
 		</view>
 	</view>
 </template>
@@ -21,14 +21,22 @@
 				if(!that.searchKey){
 					for (var i=0;i<len;i++) {
 						if(that.dictArr[i].label.indexOf(that.searchModel)>-1){
-							newArr.push(that.dictArr[i].label)
+							let ob = {
+								lable:that.dictArr[i].label,
+								value: that.dictArr[i].value,
+							}
+							newArr.push(ob)
 							that.value = that.dictArr[i].value
 						}
 					}
 				}else{
 					for (var i=0;i<len;i++) {
 						if(that.dictArr[i].label[that.searchKey].indexOf(that.searchModel)>-1){
-							newArr.push(that.dictArr[i].label)
+							let ob = {
+								lable:that.dictArr[i].label,
+								value: that.dictArr[i].value,
+							}
+							// newArr.push(ob)
 							that.value = that.dictArr[i].value
 						}
 					}	
@@ -81,6 +89,7 @@
 				
 			},
 			selectIndex(val,value){
+				console.log(val)
 				this.$emit('selectIndexValue', val);
 				this.text = val
 				this.show = false

@@ -20,15 +20,15 @@
 	    		<u-form-item :leftIconStyle="{color: '#888', fontSize: '16rpx'}" label-width="130" :label-position="labelPosition" label="地址" prop="address">
 	    			<u-input :border="border" placeholder="请选择公司地址" v-model="model.address" type="select" @click="Toaddress"></u-input>
 	    		</u-form-item>
-	    		<u-form-item :label-position="labelPosition" label="上传图片" prop="photo" label-width="150">
+	    		<u-form-item :label-position="labelPosition" label="公司图片" prop="photo" label-width="150">
 	    			<u-upload width="160" height="160" action="#"  ref="uUpload" :auto-upload="true" max-count=5 @on-remove="deleteImgs" @on-choose-complete="uploadImage"></u-upload>
 					<text style="color: #999999;">最多只能上传5张图片，大小不超过1m</text>
 	    		</u-form-item>
-				<u-form-item :label-position="labelPosition" label="上传营业照" prop="license" label-width="150">
+				<u-form-item :label-position="labelPosition" label="营业照" prop="license" label-width="150">
 					<u-upload width="160" height="160" action="#"  ref="uUpload1" :auto-upload="true" max-count=1 @on-remove="deleteImgs" @on-choose-complete="uploadImage1"></u-upload>
 					<text style="color: #999999;">最多只能上传1张图片，大小不超过1m</text>
 				</u-form-item>
-				<u-form-item :label-position="labelPosition" label="上传公司logo" prop="companylogo" label-width="190">
+				<u-form-item :label-position="labelPosition" label="公司logo" prop="companylogo" label-width="190">
 					<u-upload width="160" height="160" action="#"  ref="uUpload2" :auto-upload="true" max-count=1 @on-remove="deleteImgs" @on-choose-complete="uploadImage2"></u-upload>
 					<text style="color: #999999;">最多只能上传1张图片，大小不超过1m</text>
 				</u-form-item>
@@ -50,7 +50,7 @@
 <script>
 	import easyUpload from '../components/easy-upload.vue'
 	
-	import { addCompany } from '../../util/company.js'
+	import { addCompany } from '@/util/company.js'
 	export default {
 		data() {
 			return {
@@ -298,7 +298,7 @@
 				this.$refs.uForm.validate(valid => {
 					if (valid) {
 					  uni.uploadFile({
-						url: 'http://192.168.101.24:8080/utils/video/addVideo',
+						url: 'http://192.168.3.9:8080/utils/video/addVideo',
 						method: 'POST',           // 可用可不用
 						filePath: this.model.src1,
 						header:{
@@ -327,6 +327,7 @@
 						  	},
 						  }).then(res=>{
 						  	console.log(this.src2)
+							console.log(res)
 						  	if(res.data.code === 20000){
 						  		uni.hideLoading()
 						  		uni.reLaunch({

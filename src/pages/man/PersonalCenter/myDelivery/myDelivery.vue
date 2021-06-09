@@ -1,18 +1,25 @@
 <template>
 	<view class="news" v-if="Deliverylist.length !=0">
-		<view class="new-items" v-for="(item,index) in Deliverylist" :key="index" @click="goDetail(item.recruitment.recruitment_id)">
-			<image :src="'http://192.168.101.24:8080/'+item.recruitment.poster_path" mode=""></image>
+		<view class="new-items" v-for="(item,index) in Deliverylist" :key="index" @click="goDetail(item.recruitmentId)">
+			<image :src="'http://192.168.3.77:8080/'+item.recruitment.posterPath" mode=""></image>
 			<view class="right">
 				<view class="title">
-					<text>{{item.recruitment.recruitment_title}}</text>
-					<text class="worktype">{{item.recruitment.work_types}}</text>
+					<view style="overflow:hidden;
+					text-overflow:ellipsis;
+					white-space:nowrap;
+					width: 150px;font-size: 28rpx;">
+						{{item.recruitment.recruitmentTitle}}
+					</view>
+					<text class="worktype">{{item.recruitment.workTypes}}</text>
 				</view>
 				<view class="industry">
-					<text>职位：{{item.recruitment.industry}}.{{item.recruitment.work_name}}</text>
+					<text>{{item.recruitment.industry}}</text>
 				</view>
-				<view>{{item.recruitment.address}}</view>
-				<view class="wages">薪资：{{item.recruitment.wages}}</view>
-				<view>公司：{{item.company.company_name}}</view>
+				<view style="display: flex;color: #999999;margin-top: 5rpx;">
+					<view>{{item.recruitment.region}}</view>
+					<view style="margin-left: 15rpx;">{{item.recruitment.street}}</view>
+				</view>
+				<view style="color: #ff0000;font-size: 35rpx;margin-top: 10rpx;">{{item.recruitment.wages}}</view>
 			</view>
 			<view>
 				<view class="handle" v-if="item.handle === 2">
@@ -33,11 +40,13 @@
 </template>
 
 <script>
-	import { findDelivery } from '../../../../util/recruitment/delivery.js'
+	import {
+		findDelivery
+	} from '../../../../util/recruitment/delivery.js'
 	export default {
 		data() {
 			return {
-				Deliverylist:[]
+				Deliverylist: []
 			}
 		},
 		onLoad() {
@@ -45,26 +54,26 @@
 		},
 		methods: {
 			// 跳转到详情
-			goDetail(recruitment_id){
+			goDetail(recruitmentId) {
 				uni.navigateTo({
-					url:'/pages/detail/detail?recruitment_id=' + recruitment_id
+					url: '/pages/detail/detail?recruitmentId=' + recruitmentId
 				})
 			},
 			// 查询我的投递列表
-			getDeliveryList(){
+			getDeliveryList() {
 				uni.showLoading({
-					title:'正在加载中...'
+					title: '正在加载中...'
 				})
 				findDelivery({
-					
-				 }).then(res=>{
+
+				}).then(res => {
 					console.log(res)
 					uni.hideLoading()
 					uni.showToast({
-						title:'加载完成'
+						title: '加载完成'
 					})
 					this.Deliverylist = res.data.data.deliveryVOs
-				  }).catch(err=>{
+				}).catch(err => {
 					console.log(err)
 				})
 			}
@@ -73,7 +82,7 @@
 </script>
 
 <style lang="scss">
-.news {
+	.news {
 		.new-items {
 			display: flex;
 			padding: 15rpx 20rpx;
@@ -113,18 +122,21 @@
 		}
 	}
 
-    .handle{
+	.handle {
 		font-size: 23rpx;
 		color: #ff0000;
 	}
-    .agreehandle{
+
+	.agreehandle {
 		font-size: 23rpx;
 		color: #008000;
 	}
-	.rejecthandle{
+
+	.rejecthandle {
 		font-size: 23rpx;
 		color: #ff0000;
 	}
+
 	.info {
 		margin-top: 15rpx;
 
@@ -136,5 +148,4 @@
 	.wages {
 		color: #FF0000;
 	}
-
 </style>

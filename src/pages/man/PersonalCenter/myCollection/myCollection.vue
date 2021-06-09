@@ -1,18 +1,16 @@
 <template>
 	<view class="" v-if="list.length!=0">
-		<view class="collection" v-for="(item,index) in list" :key="index" @click="goRecruitmentDetail(item.recruitment.recruitment_id)">
+		<view class="collection" v-for="(item,index) in list" :key="index" @click="goRecruitmentDetail(item.recruitmentId)">
 			<view class="title">
-				<text>{{item.recruitment.recruitment_title}}</text>
+				<text>{{item.recruitmentTitle}}</text>
 			</view>
 			<view class="wage">
-				<text>{{item.recruitment.wages}}/月</text>
+				<text>{{item.wages}}/月</text>
 			</view>
 			<u-line color="info" border-style="dotted"/>
 			<view class="companyname">
-				<text>联享科技有限公司</text>
-				<view class="address">
-					<text>{{item.recruitment.address.split("-")[2]}}</text>
-				</view>
+			<image :src="'http://192.168.3.77:8080/'+item.logoPicturePath" mode="aspectFill" style="width: 40rpx;height: 40rpx;border-radius: 50rpx;"></image>
+				<text style="margin-left: 10rpx;">{{item.companyName}}</text>
 			</view>
 		</view>
 	</view>
@@ -22,7 +20,7 @@
 </template>
 
 <script>
-	import { findMycollection } from '../../../../util/collection.js'
+	import { findMycollection } from '@/util/collection.js'
 	export default {
 		data() {
 			return {
@@ -39,7 +37,7 @@
 					title:'正在加载中...'
 				})
 				findMycollection({
-					// "userId": "8040423884719751168"
+					
 				}).then(res=>{
 					console.log(res)
 					console.log("====")
@@ -54,9 +52,9 @@
 				})
 			},
 			// 跳转到招聘详情
-			goRecruitmentDetail(recruitment_id){
+			goRecruitmentDetail(recruitmentId){
 				uni.navigateTo({
-					url:'/pages/detail/detail?recruitment_id=' + recruitment_id
+					url:'/pages/detail/detail?recruitmentId=' + recruitmentId
 				})
 			}
 		}

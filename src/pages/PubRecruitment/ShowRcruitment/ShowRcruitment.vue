@@ -51,7 +51,7 @@
 </template>
 
 <script>
-	import swipper from '../../components/swipper.vue'
+	import swipper from '@/pages/components/swipper.vue'
 	export default {
 		data() {
 			return {
@@ -71,6 +71,7 @@
 					goodsType: '',
 					intro: '',
 					region: '',
+					street:'',
 					photo:'',
 					lasttime: '',
 					count: '',
@@ -107,6 +108,7 @@
 			this.recruitment1.count = recruitment.count
 			this.recruitment1.photourl = recruitment.photourl
 			this.recruitment1.region = recruitment.region
+			this.recruitment1.street = recruitment.street
 			this.recruitment1.photo = recruitment.photo
 			this.recruitment1.industry = recruitment.industry
 			console.log(recruitment)

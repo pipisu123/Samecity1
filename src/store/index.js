@@ -15,8 +15,9 @@ const store = new Vuex.Store({
 		refreshtoken: uni.getStorageSync('refreshtoken'),
 		userid: uni.getStorageSync('userid'),
 		username: uni.getStorageSync('username'),
-		city: '茂名',
+		city: uni.getStorageSync('city'),
 		district:'',
+		province:uni.getStorageSync('province'),
 	},
 	mutations: {
 		setavatar(state, data) {
@@ -41,12 +42,16 @@ const store = new Vuex.Store({
 			uni.setStorageSync('username', data)
 		},
 		newCityFun(state, city) {
-			state.city = city
+			uni.setStorageSync('city', city)
 			console.log(state.city)
 		},
 		newDistrictFun(state, district) {
 			state.district = district
 			console.log(state.district)
+		},
+		newProvinceFun(state, province) {
+			uni.setStorageSync('province', province)
+			console.log(state.province)
 		},
 	},
 	actions: {
@@ -69,6 +74,7 @@ const store = new Vuex.Store({
 						    success: function (res) {
 						        console.log('当前位置的经度：' + res.longitude)
 						        console.log('当前位置的纬度：' + res.latitude)
+								   console.log('位置名称：' + res.name);
 								// 逆地址解析方法
 								qqmapsdk.reverseGeocoder({
 									location: {
@@ -78,12 +84,15 @@ const store = new Vuex.Store({
 									success(res) {
 										var city = ''
 										var district=''
+										var province=''
 										console.log(res)
 										// 取到用户的定位城市，赋值传递出去
 										city = res.result.address_component.city.slice(0,2);
 										district = res.result.address_component.district.slice(0,2);
+										province = res.result.address_component.province;
 										context.commit('newCityFun', city)
 										context.commit('newDistrictFun', district)
+										context.commit('newProvinceFun', province)
 									}
 								})	
 						    }

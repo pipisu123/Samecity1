@@ -14,7 +14,7 @@ export function addLease(data){
 // 发布二手房
 export function addSecondHand(data){
 	return myRequest ({
-		url:'house/second-hand/addSecondHand',
+		url:'house/secondHand/addSecondHandByPerson',
 		method:'POST',
 		data:data	
 	})

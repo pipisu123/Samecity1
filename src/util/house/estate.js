@@ -17,3 +17,12 @@ export function findAllEstateByCity(data){
 		data:data	
 	})
 }
+
+// 根据UserId获取所有楼盘的数据接口
+export function findAllEstateByUserId(data){
+	return myRequest ({
+		url:'house/estate/findAllEstateByUserId',
+		method:'GET',
+		data:data	
+	})
+}

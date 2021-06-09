@@ -1,10 +1,10 @@
 <template>
 	<view class="recruitment">
-		<view class="recruitment-items" v-for="(item,index) in list1" :key="index" @click="goDetail(item.recruitment_id,item.user_id)">
+		<view class="recruitment-items" v-for="(item,index) in list1" :key="index" @click="goDetail(item.recruitmentId,item.id)">
 			<image src="https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1050564413,3771618612&fm=26&gp=0.jpg" mode=""
-			 v-if="item.poster_path=='默认海报路径'"></image>
-			<image :src="'http://192.168.101.24:8080/'+item.poster_path" mode="" v-else></image>
-			<view class="personRecruitment" v-if="item.poster_path=='默认海报路径'">
+			 v-if="item.posterPath=='默认海报路径'"></image>
+			<image :src="'http://192.168.3.77:8080/'+item.posterPath" mode="" v-else></image>
+			<view class="personRecruitment" v-if="item.posterPath=='默认海报路径'">
 				<view class="persontitle">
 					<text>{{item.introduction}}</text>
 				</view>
@@ -19,19 +19,33 @@
 			</view>
 			<view class="right" v-else>
 				<view class="title">
-					<text>{{item.recruitment_title}}</text>
-					<text class="worktype">{{item.work_types}}</text>
+					<view style="overflow:hidden;
+					text-overflow:ellipsis;
+					white-space:nowrap;
+					width: 150px;font-size: 28rpx;">
+						{{item.recruitmentTitle}}
+					</view>
+					<text class="worktype">{{item.workTypes}}</text>
 				</view>
-				<view class="industry">
-					<text>职位：{{item.industry}}.{{item.work_name}}</text>
+				<view style="margin-top: 5rpx;margin-bottom: 5rpx;">
+					<text>{{item.industry}}</text>
 				</view>
-				<view>{{item.address}}</view>
-				<view class="wages">薪资：{{item.wages}}</view>
-				<view>公司：{{item.company.company_name}}</view>
+				<view style="color: #ff0000;font-size: 30rpx;">{{item.wages}}</view>
+				<view style="display: flex;margin-top: 5rpx;">
+					<u-avatar :src="'http://192.168.3.77:8080/'+item.logoPicturePath" size=35></u-avatar>
+					<text style="margin-left: 10rpx;overflow:hidden;
+						text-overflow:ellipsis;
+						white-space:nowrap; 
+						width: 70px;">{{item.companyName}}</text>
+					<view style="color: #999999;width: 60px;margin-left: 10rpx;">{{item.region}}</view>
+					<view style="color: #999999;overflow:hidden;
+						text-overflow:ellipsis;
+						white-space:nowrap;width: 90px;">{{item.street}}</view>
+				</view>
 			</view>
 			<view>
 				<view class="avatar">
-					<u-avatar :src="item.user.imgpath" size=55 show-level=true></u-avatar>
+					<u-avatar :src="item.imgpath" size=55 show-level=true></u-avatar>
 				</view>
 			</view>
 		</view>
@@ -44,7 +58,7 @@
 			list1: {
 				type: Array,
 				default: null
-			}
+			},
 		},
 		data() {
 			return {
@@ -76,8 +90,8 @@
 			console.log(this.city)
 		},
 		methods: {
-			goDetail(recruitment_id,user_id) {
-				this.$emit('itemClick', recruitment_id,user_id)
+			goDetail(recruitmentId,id) {
+				this.$emit('itemClick', recruitmentId,id)
 			}
 		}
 	}
@@ -106,9 +120,7 @@
 				}
 				.title {
 					font-weight: bold;
-					font-size: 28rpx;
 					display: flex;
-
 					.worktype {
 						margin-left: 30rpx;
 						color: #999999;
@@ -130,10 +142,6 @@
 		.time {
 			font-size: 20rpx;
 		}
-	}
-
-	.wages {
-		color: #FF0000;
 	}
 
 	// 个体信息

@@ -20,17 +20,16 @@ export const myRequest = (options)=>{
 					})
 				}else if(res.data.code === 4010002){
 					    uni.showToast({
-					    	title:'身份验证已过期，请重新登陆',
+					    	title:'身份已过期，请重新登陆',
 							duration:5000,
 					    })
 						uni.navigateTo({
 							url:'/pages/login/login'
 						})
 					}else if(res.data.code === 4010001){
-						// uni.navigateTo({
-						// 	url:'/pages/login/login'
-						// })
-						console.log("用户登录")
+						uni.navigateTo({
+							url:'/pages/login/login'
+						})
 					}
 				resolve(res)
 			},

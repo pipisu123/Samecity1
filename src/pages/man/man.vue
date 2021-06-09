@@ -18,16 +18,17 @@
 			<!-- 广告通知 -->
 			<notice></notice>
 			<!-- 条件选择招聘列表 -->
-			<RecruitmentBar @cityChange="cityChange" @wagesChange="wagesChange" @worktype="worktype" @industryselect="industryselect"></RecruitmentBar>
+			<!-- <RecruitmentBar @cityChange="cityChange" @wagesChange="wagesChange" @worktype="worktype" @industryselect="industryselect"></RecruitmentBar> -->
+			<jobSelect ref="jobSelect" :listData="listData" @confirem="confiremJob"></jobSelect>
+			<view class="center-bar">
+				<Dropdown :itemArr="itemArr" :listArr="listArr" @subItemClick="subItemClick" @itemClick="itemClick" @SelectMore="SelectMore"></Dropdown>
+			</view>
 			<!-- 招聘发布列表 -->
 			<view>
 				<view v-if="list1.length ===0">
 					<u-empty text="暂无数据" mode="search" margin-top=200></u-empty>
 				</view>
-				<scroll-view scroll-y="true" class="scroll-Y" @scrolltolower="lower">
-					<Recruitmentlist :list1="list1" @itemClick="goDetail"></Recruitmentlist>
-					<u-loadmore :status="status" v-model="showLoad" :load-text="loadText" />
-				</scroll-view>
+				<Recruitmentlist :list1="list1" @itemClick="goDetail"></Recruitmentlist>
 			</view>
 		</template>
 
@@ -39,6 +40,10 @@
 					<view class="wrap">
 						<u-swiper :list="list" effect3d="true" height=320 title=true effect3d-previous-margin=35 @click="click"></u-swiper>
 					</view>
+				</view>
+				<jobSelect ref="jobSelect" :listData="listData" @confirem="confiremJob"></jobSelect>
+				<view class="center-bar">
+					<Dropdown :itemArr="itemArr" :listArr="listArr" @subItemClick="subItemClick" @itemClick="itemClick" @SelectMore="SelectMore"></Dropdown>
 				</view>
 				<!-- 个人简历列表 -->
 				<ResumeList></ResumeList>
@@ -62,11 +67,9 @@
 				<me></me>
 			</view>
 		</template>
-
 		<!-- 底部导航栏 -->
 		<Bottombar @Clickitem="Clickitem"></Bottombar>
 		<u-toast ref="uToast" />
-		
 	</view>
 
 </template>
@@ -74,15 +77,21 @@
 <script>
 	// import Recruitment from './childComps/Recruitment.vue';
 	import notice from '../components/notice.vue'
-	import RecruitmentBar from './childComps/RecruitmentBar.vue'
+	// import RecruitmentBar from './childComps/RecruitmentBar.vue'
 	import Recruitmentlist from './childComps/Recruitmentlist.vue'
+	import Dropdown from '@/common/Components/dropdown-screen.vue'
+	import jobSelect from '@/common/yunmiao-jobSelect/yunmiao-jobSelect.vue'
 	import Bottombar from './childComps/Bottombar.vue'
 	import me from './PersonalCenter/me.vue'
 	import ResumeList from './Talentpool/ResumeList.vue'
-	import Position from './Position/position.vue'
-	import Public from '../PubRecruitment/PubRecruitment.vue'
-	
-	import { findAdvertisement } from '../../util/advertisement/advertisement.js'
+	import Position from '@/common/Chat/chatList.vue'
+	import Public from '@/pages/PubRecruitment/PubRecruitment.vue'
+
+	import {
+		findAdvertisement
+	} from '../../util/advertisement/advertisement.js'
+	const industryselect = require('@/lib/industry.json')
+	const CHINA_REGIONS = require('@/lib/regions.json')
 
 	import {
 		recruitmentList
@@ -91,6 +100,70 @@
 	export default {
 		data() {
 			return {
+				// 测试
+				listData: industryselect,
+				// isShowMore:false,
+				all: CHINA_REGIONS,
+				listArr: ['区域', '薪资', '类型'],
+				itemArr: [
+					[{
+							name: '不限',
+							value: 1,
+						},
+						{
+							name: '1000以下',
+							value: 2,
+						},
+						{
+							name: '1000-2000',
+							value: 3,
+						},
+						{
+							name: '2000-3000',
+							value: 4,
+						},
+						{
+							name: '3000-5000',
+							value: 5,
+						},
+						{
+							name: '5000-8000',
+							value: 6,
+						},
+						{
+							name: '8000-12000',
+							value: 7,
+						},
+						{
+							name: '12000-20000',
+							value: 8,
+						},
+						{
+							name: '20000-25000',
+							value: 9,
+						},
+						{
+							name: '25000',
+							value: 10,
+						},
+					],
+					[{
+							name: '兼职',
+							value: 1,
+						},
+						{
+							name: '全职',
+							value: 2,
+						},
+						{
+							name: '实习',
+							value: 2,
+						},
+					],
+				],
+				currentIndex: '',
+				// 测试
+				ClickIndex: 0,
 				value: '',
 				list: [],
 				list1: [],
@@ -105,28 +178,39 @@
 				work_types: '',
 				page: 1,
 				limit: 5,
-				hasMore:true,
-				status:'nomore',
-				loadText: {
-					nomore: '没有更多数据了~'
-				},
-				showLoad:false
+				hasMore: true,
+				status: 'nomore',
+				showLoad: false
 
 			}
 		},
 		components: {
 			notice,
-			RecruitmentBar,
+			// RecruitmentBar,
+			jobSelect,
 			Recruitmentlist,
 			Bottombar,
 			ResumeList,
 			me,
 			Position,
-			Public
+			Public,
+			Dropdown,
+		},
+		onShow() {
+			console.log(this.$store.state.province)
 		},
 		onLoad() {
 			this.getRecruitmentlist();
 			this.getadverDetail();
+			this.$store.dispatch('getCity')
+			let city = this.all.filter(item => {
+				return item.name === uni.getStorageSync('province');
+			})
+			let area = city[0].childs.filter(item => {
+				return item.name === '茂名市';
+			})
+			this.itemArr.unshift(area[0].childs)
+			console.log(this.itemArr)
 			// this.cityChange();
 			// this.wagesChange()
 		},
@@ -144,84 +228,129 @@
 				// console.log(val);
 			}
 		},
+		onReachBottom() {
+			if (this.hasMore&&this.ClickIndex ===0) {
+				this.page += 1;
+				recruitmentList({
+					"str": this.value,
+					"address": this.city,
+					"wages": this.wages,
+					"industry": this.industry,
+					"work_types": this.work_types,
+					"page": this.page,
+					"limit": this.limit,
+				}).then(res => {
+					uni.hideLoading()
+					console.log(res)
+					if (res.data.code === 20000) {
+						if (res.data.data.user_Recruitments.length === 0) {
+							this.hasMore = false;
+							uni.showToast({
+								title: "没有数据了",
+								icon: "none"
+							});
+							return;
+						}
+						this.list1 = this.list1.concat(res.data.data.user_Recruitments)
+						// this.list1 = [...this.list1, ...res.data.data.user_Recruitments];
+					} else {
+
+					}
+				}).catch(err => {
+					console.log(err)
+
+				})
+			} else {
+				console.log("这是第二页")
+			}
+		},
 		methods: {
-			// 触底分页查询
-			lower() {
-				 if (this.hasMore) {
-				        this.page += 1;
-				       recruitmentList({
-				       	"str": this.value,
-				       	"address": this.city,
-						"wages": this.wages,
-						"industry": this.industry,
-						"work_types": this.work_types,
-				       	"page":this.page,
-				       	"limit":this.limit,
-				       }).then(res => {
-				       	uni.hideLoading()
-				       	console.log(res)
-				       	if(res.data.code === 20000){
-				       		if(res.data.data.user_Recruitments.length===0){
-				       			 this.hasMore = false;
-				       			 return;
-				       		}
-				       		   this.list1= this.list1.concat(res.data.data.user_Recruitments)
-				       		 // this.list1 = [...this.list1, ...res.data.data.user_Recruitments];
-				       	}else{
-				       		
-				       	}
-				       }).catch(err => {
-				       	console.log(err)
-				       
-				       })
-				      } else {
-				        uni.showToast({
-				          title: "没有数据了",
-				          icon: "none"
-				        });
-				      }
+			// 测试
+			SelectMore() {
+				this.$refs.jobSelect.show()
+			},
+			// 选择行业回调
+			confiremJob(e) {
+				this.city = '';
+				this.wages = '';
+				this.industry = e;
+				this.work_types = '';
+				this.page = 1;
+				this.getRecruitmentlist()
+			},
+			// 下拉那个菜单
+			itemClick(index) {
+				this.currentIndex = index
+			},
+			// 选下拉回调
+			subItemClick(e) {
+				console.log(e)
+				if (this.currentIndex === 0) {
+					// 根据区域来查询
+					this.city = e.name;
+					this.wages = '';
+					this.industry = '';
+					this.work_types = '';
+					this.page = 1;
+					this.getRecruitmentlist()
+				} else if (this.currentIndex === 1) {
+					this.wages = e.name;
+					this.city = '';
+					this.industry = '';
+					this.work_types = '';
+					this.page = 1;
+					this.getRecruitmentlist()
+				} else if (this.currentIndex === 2) {
+					this.wages = '';
+					this.city = '';
+					this.industry = '';
+					this.work_types = e.name;
+					this.page = 1;
+					this.getRecruitmentlist()
+				}
 			},
 			// 搜索招聘
 			custom(value) {
 				console.log(value)
 				// this.value = '',
 				recruitmentList({
-					"str":this.value
+					"str": this.value
 				}).then(res => {
 					console.log(res)
 					this.list1 = res.data.data.user_Recruitments
 				}).catch(err => {
 					console.log(err)
-				
+
 				})
 			},
 			// 跳转到招聘详情
-			goDetail(recruitment_id,user_id) {
+			goDetail(recruitmentId, id) {
 				uni.navigateTo({
-					url: '/pages/detail/detail?recruitment_id=' + recruitment_id + '&user_id='+ user_id
+					url: '/pages/detail/detail?recruitmentId=' + recruitmentId + '&id=' + id
 				})
 			},
 			// 查询广告
-			getadverDetail(){
+			getadverDetail() {
 				findAdvertisement({
-					"module":'recruitment'
-				}).then(res=>{
+					"module": 'recruitment'
+				}).then(res => {
 					console.log(res)
 					this.list = res.data.data.advertisements
-				}).catch(err=>{
+				}).catch(err => {
 					console.log(err)
 				})
 			},
 			// 点击广告跳转到外部链接
-			click(index){
+			click(index) {
 				let url = encodeURIComponent(this.list[index].advertisementPath)
 				console.log(url)
 				uni.navigateTo({
-					url:'/pages/index/advertisementUrl/advertisementUrl?url='+url
+					url: '/pages/index/advertisementUrl/advertisementUrl?url=' + url
 				})
 			},
 			Clickitem(index) {
 				console.log(index)
+				this.ClickIndex = index;
 				switch (index) {
 					case 0:
 						this.show = true;
@@ -260,46 +389,10 @@
 						break;
 				}
 			},
-			// 根据工作类型查询
-			async worktype(data) {
-				uni.showLoading({
-					title:'搜索中...'
-				})
-				this.work_types = data
-				this.page = 1;
-				this.getRecruitmentlist()
-			},
-			// 根据行业查询
-			async industryselect(data) {
-				uni.showLoading({
-					title:'搜索中...'
-				})
-				this.industry = data
-				this.page = 1;
-				this.getRecruitmentlist()
-			},
-			// 根据工资来查询
-			async wagesChange(data) {
-				uni.showLoading({
-					title:'搜索中...'
-				})
-				this.wages = data
-				this.page = 1;
-				this.getRecruitmentlist()
-			},
-			// 根据城市查询招聘列表
-			async cityChange(data) {
-				uni.showLoading({
-					title:'搜索中...'
-				})
-				this.city = data;
-				this.page = 1;
-				this.getRecruitmentlist()
-			},
 			// 查询招聘列表
-			async getRecruitmentlist() {
+			getRecruitmentlist() {
 				uni.showLoading({
-					title:'正在加载...'
+					title: '正在加载...'
 				})
 				recruitmentList({
 					"str": this.value,
@@ -307,35 +400,30 @@
 					"wages": this.wages,
 					"industry": this.industry,
 					"work_types": this.work_types,
-					"page":this.page,
-					"limit":this.limit,
+					"page": this.page,
+					"limit": this.limit,
 				}).then(res => {
 					uni.hideLoading()
 					console.log(res)
-					if(res.data.code === 20000){
-						if(res.data.data.user_Recruitments.length===0){
-							 this.hasMore = false;
-							 return;
-						}
-						   this.list1= res.data.data.user_Recruitments
-						 // this.list1 = [...this.list1, ...res.data.data.user_Recruitments];
-					}else{
+					if (res.data.code === 20000) {
+						this.list1 = res.data.data.user_Recruitments;
+					} else {
 						this.$refs.uToast.show({
-											title: '加载失败',
-											type: 'error',
-											duration: 2000
-										})
+							title: '加载失败',
+							type: 'error',
+							duration: 2000
+						})
 					}
-					if(res.data.code === 4010002){
+					if (res.data.code === 4010002) {
 						uni.navigateTo({
-							url:'/pages/login/login'
+							url: '/pages/login/login'
 						})
 					}
 				}).catch(err => {
 					console.log(err)
 
 				})
-				
+
 			}
 
 		}
@@ -361,9 +449,17 @@
 		margin-top: 600rpx;
 		text-align: center;
 	}
-    .talent-swiper{
+	.center-bar{
+		position: -webkit-sticky;
+		position: sticky;
+		top: var(--window-top);
+		z-index: 999;
+		border-bottom: 2rpx solid #F1F1F1;
+	}
+	.talent-swiper {
 		margin-top: 15rpx;
 	}
+
 	scroll-view {
 		height: 900rpx;
 	}

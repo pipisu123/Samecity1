@@ -57,7 +57,7 @@ export function getOfficeLeaseList(data){
 // 查看个人办公楼二手发布列表
 export function getOfficeSecondHandList(data){
 	return myRequest ({
-		url:'house/office/getOfficeSecondHandList',
+		url:'house/office/getOfficeSecondHandListByPerson',
 		method:'GET',
 		data:data	
 	})
@@ -67,6 +67,15 @@ export function getOfficeSecondHandList(data){
 export function getOfficeLeaseListByBroker(data){
 	return myRequest ({
 		url:'house/office/getOfficeLeaseListByBroker',
+		method:'GET',
+		data:data	
+	})
+}
+
+// 查询经纪人身份发布的办公楼二手房源列表
+export function getOfficeSecondHandListByBroker(data){
+	return myRequest ({
+		url:'house/office/getOfficeSecondHandListByBroker',
 		method:'GET',
 		data:data	
 	})
